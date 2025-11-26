@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://ck6nj6xklvev3"]
+
+[ext_resource type="Script" uid="uid://b07s3miky3ql6" path="res://game/main/main.gd" id="1_hyk8p"]
+[ext_resource type="Texture2D" uid="uid://dcww1dh6u4wo" path="res://assets/Art Assets/A Elder/A_elder1.png" id="2_psm6y"]
+[ext_resource type="Texture2D" uid="uid://m8hfc6vry8va" path="res://assets/Art Assets/UI/Buttons/feed_on.png" id="3_tkdpa"]
+[ext_resource type="Texture2D" uid="uid://b15ddiotq61n5" path="res://assets/Art Assets/UI/app_icon.png" id="3_yil3p"]
+[ext_resource type="Texture2D" uid="uid://cd8l38110b3r7" path="res://assets/Art Assets/UI/Buttons/feed_off.png" id="4_yymkh"]
+[ext_resource type="Texture2D" uid="uid://tk071nqpoesn" path="res://assets/Art Assets/UI/Buttons/pet_on.png" id="5_kk62w"]
+[ext_resource type="Texture2D" uid="uid://b68ho6sj1wdj0" path="res://assets/Art Assets/UI/Buttons/pet_off.png" id="6_xvake"]
+[ext_resource type="Texture2D" uid="uid://dch8toh2ycaxq" path="res://assets/Art Assets/UI/Buttons/wash_on.png" id="7_7q7ho"]
+[ext_resource type="Texture2D" uid="uid://cje4jxv0c04wi" path="res://assets/Art Assets/UI/Buttons/wash_off.png" id="8_els08"]
+
+[node name="Main" type="Node2D"]
+scale = Vector2(0.1, 0.1)
+script = ExtResource("1_hyk8p")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Controls" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 20.000004
+offset_right = 864.0
+offset_bottom = 392.0
+scale = Vector2(0.2, 0.2)
+
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control/Controls"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("3_tkdpa")
+texture_disabled = ExtResource("4_yymkh")
+stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/Control/Controls"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("5_kk62w")
+texture_disabled = ExtResource("6_xvake")
+
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/Control/Controls"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("7_7q7ho")
+texture_disabled = ExtResource("8_els08")
+
+[node name="AElder1" type="Sprite2D" parent="."]
+position = Vector2(1010, 1450)
+texture = ExtResource("2_psm6y")
+
+[node name="StatusIndicator" type="StatusIndicator" parent="."]
+icon = ExtResource("3_yil3p")
+menu = NodePath("PopupMenu")
+
+[node name="PopupMenu" type="PopupMenu" parent="StatusIndicator"]
+item_count = 1
+item_0/text = "Show Turtles"
+item_0/id = 1
