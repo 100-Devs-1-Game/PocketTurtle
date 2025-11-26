@@ -21,17 +21,13 @@ config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=204
-window/size/viewport_height=204
-window/size/borderless=true
-window/size/transparent=true
-window/size/window_width_override=1152
-window/size/window_height_override=648
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/window_width_override=1080
+window/size/window_height_override=1920
 window/stretch/mode="viewport"
-window/per_pixel_transparency/allowed=true
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-viewport/transparent_background=true

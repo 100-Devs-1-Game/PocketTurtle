@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://ck6nj6xklvev3"]
+[gd_scene load_steps=13 format=3 uid="uid://ck6nj6xklvev3"]
 
 [ext_resource type="Script" uid="uid://b07s3miky3ql6" path="res://game/main/main.gd" id="1_hyk8p"]
-[ext_resource type="Texture2D" uid="uid://dcww1dh6u4wo" path="res://assets/Art Assets/A Elder/A_elder1.png" id="2_psm6y"]
 [ext_resource type="Texture2D" uid="uid://m8hfc6vry8va" path="res://assets/Art Assets/UI/Buttons/feed_on.png" id="3_tkdpa"]
 [ext_resource type="Texture2D" uid="uid://b15ddiotq61n5" path="res://assets/Art Assets/UI/app_icon.png" id="3_yil3p"]
 [ext_resource type="Texture2D" uid="uid://cd8l38110b3r7" path="res://assets/Art Assets/UI/Buttons/feed_off.png" id="4_yymkh"]
@@ -9,14 +8,20 @@
 [ext_resource type="Texture2D" uid="uid://b68ho6sj1wdj0" path="res://assets/Art Assets/UI/Buttons/pet_off.png" id="6_xvake"]
 [ext_resource type="Texture2D" uid="uid://dch8toh2ycaxq" path="res://assets/Art Assets/UI/Buttons/wash_on.png" id="7_7q7ho"]
 [ext_resource type="Texture2D" uid="uid://cje4jxv0c04wi" path="res://assets/Art Assets/UI/Buttons/wash_off.png" id="8_els08"]
+[ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="8_kk62w"]
+[ext_resource type="FontFile" uid="uid://co7bol411m67c" path="res://assets/Font/Chewy-Regular.ttf" id="8_xvake"]
+[ext_resource type="Script" uid="uid://411ais8ab7bg" path="res://game/main/debug_canvas_layer.gd" id="11_7q7ho"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xvake"]
+font = ExtResource("8_xvake")
+font_size = 64
 
 [node name="Main" type="Node2D"]
-scale = Vector2(0.1, 0.1)
 script = ExtResource("1_hyk8p")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Controls" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,14 +29,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Controls" type="HBoxContainer" parent="CanvasLayer/Control"]
+[node name="ButtonControls" type="HBoxContainer" parent="CanvasLayer/Controls"]
 layout_mode = 0
-offset_left = 20.000004
-offset_right = 864.0
-offset_bottom = 392.0
-scale = Vector2(0.2, 0.2)
+offset_left = 136.0
+offset_top = 204.0
+offset_right = 980.0
+offset_bottom = 596.0
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Control/Controls"]
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Controls/ButtonControls"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -39,23 +44,46 @@ texture_normal = ExtResource("3_tkdpa")
 texture_disabled = ExtResource("4_yymkh")
 stretch_mode = 0
 
-[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/Control/Controls"]
+[node name="TextureButton2" type="TextureButton" parent="CanvasLayer/Controls/ButtonControls"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("5_kk62w")
 texture_disabled = ExtResource("6_xvake")
 
-[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/Control/Controls"]
+[node name="TextureButton3" type="TextureButton" parent="CanvasLayer/Controls/ButtonControls"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("7_7q7ho")
 texture_disabled = ExtResource("8_els08")
 
-[node name="AElder1" type="Sprite2D" parent="."]
-position = Vector2(1010, 1450)
-texture = ExtResource("2_psm6y")
+[node name="NameLineEdit" type="LineEdit" parent="CanvasLayer/Controls"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -196.0
+offset_top = -352.0
+offset_right = 196.0
+offset_bottom = -151.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("8_xvake")
+theme_override_font_sizes/font_size = 150
+text = "Tortle"
+alignment = 1
+expand_to_text_length = true
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="TurtleHolder" type="Node2D" parent="World"]
+position = Vector2(512, 928)
+
+[node name="Sprite2D" type="Sprite2D" parent="World/TurtleHolder"]
+texture = ExtResource("8_kk62w")
 
 [node name="StatusIndicator" type="StatusIndicator" parent="."]
 icon = ExtResource("3_yil3p")
@@ -65,3 +93,30 @@ menu = NodePath("PopupMenu")
 item_count = 1
 item_0/text = "Show Turtles"
 item_0/id = 1
+
+[node name="DebugCanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("11_7q7ho")
+
+[node name="PanelContainer" type="PanelContainer" parent="DebugCanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="DebugCanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugCanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Turtle Stats"
+label_settings = SubResource("LabelSettings_xvake")
+
+[node name="GridContainer" type="GridContainer" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
