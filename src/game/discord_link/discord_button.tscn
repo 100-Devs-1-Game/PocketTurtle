@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://c3cx280f4i76s"]
+
+[ext_resource type="Texture2D" path="res://assets/components/discord_link/logo_red_trans.png" id="1_s4hw4"]
+[ext_resource type="Texture2D" path="res://assets/components/discord_link/logo_red_trans_clicked.png" id="2_086x7"]
+[ext_resource type="Script" uid="uid://cay8descr5xog" path="res://game/discord_link/discord_button.gd" id="2_utu6f"]
+[ext_resource type="Texture2D" path="res://assets/components/discord_link/logo_red_trans_hover.png" id="3_086x7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4hw4"]
+font_size = 24
+font_color = Color(0.945098, 0, 0.0588235, 1)
+outline_size = 2
+outline_color = Color(1, 1, 1, 0.431373)
+
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+
+[node name="DiscordButton" type="TextureButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("1_s4hw4")
+texture_pressed = ExtResource("2_086x7")
+texture_hover = ExtResource("3_086x7")
+script = ExtResource("2_utu6f")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Godot Collaborative Game
+ Jam Discord Server"
+label_settings = SubResource("LabelSettings_s4hw4")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="DiscordButton" to="DiscordButton" method="_on_pressed"]
