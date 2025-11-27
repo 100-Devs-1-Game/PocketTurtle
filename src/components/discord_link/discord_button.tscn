@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://c3cx280f4i76s"]
 
-[ext_resource type="Texture2D" path="res://assets/components/discord_link/logo_red_trans.png" id="1_s4hw4"]
-[ext_resource type="Texture2D" path="res://assets/components/discord_link/logo_red_trans_clicked.png" id="2_086x7"]
-[ext_resource type="Script" uid="uid://cay8descr5xog" path="res://game/discord_link/discord_button.gd" id="2_utu6f"]
-[ext_resource type="Texture2D" path="res://assets/components/discord_link/logo_red_trans_hover.png" id="3_086x7"]
+[ext_resource type="Texture2D" uid="uid://cy2ww4pgorbrc" path="res://assets/components/discord_link/logo_red_trans.png" id="1_s4hw4"]
+[ext_resource type="Texture2D" uid="uid://b6xbjyirnr38e" path="res://assets/components/discord_link/logo_red_trans_clicked.png" id="2_086x7"]
+[ext_resource type="Script" uid="uid://cay8descr5xog" path="res://components/discord_link/discord_button.gd" id="2_utu6f"]
+[ext_resource type="Texture2D" uid="uid://dl7ujolgom4u3" path="res://assets/components/discord_link/logo_red_trans_hover.png" id="3_086x7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_s4hw4"]
 font_size = 24

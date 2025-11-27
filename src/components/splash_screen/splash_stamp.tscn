@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmhvblnd0l1wr"]
 
-[ext_resource type="Texture2D" path="res://assets/components/splash_screen/godot_icon.webp" id="1_78a50"]
-[ext_resource type="Script" uid="uid://bqwaym5ajflwp" path="res://game/splash_screen/splash_stamp.gd" id="1_icbsc"]
-[ext_resource type="Texture2D" path="res://assets/components/splash_screen/extended_arm.webp" id="2_pyc02"]
+[ext_resource type="Texture2D" uid="uid://cihljllupvnt4" path="res://assets/components/splash_screen/godot_icon.webp" id="1_78a50"]
+[ext_resource type="Script" uid="uid://bqwaym5ajflwp" path="res://components/splash_screen/splash_stamp.gd" id="1_icbsc"]
+[ext_resource type="Texture2D" uid="uid://du0kss7udomx6" path="res://assets/components/splash_screen/extended_arm.webp" id="2_pyc02"]
 
 [sub_resource type="Animation" id="Animation_hsxvm"]
 length = 0.001
