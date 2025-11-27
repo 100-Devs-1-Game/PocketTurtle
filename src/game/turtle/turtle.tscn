@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://coi2rbne8mcss"]
+[gd_scene load_steps=3 format=3 uid="uid://coi2rbne8mcss"]
 
 [ext_resource type="Script" uid="uid://ref2q2jdaiog" path="res://game/turtle/turtle.gd" id="1_8v7lr"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8v7lr"]
+
 [node name="Turtle" type="Area2D"]
 script = ExtResource("1_8v7lr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8v7lr")

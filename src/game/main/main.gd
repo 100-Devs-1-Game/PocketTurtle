@@ -4,9 +4,13 @@ extends Node
 @onready var popup_menu: PopupMenu = $StatusIndicator/PopupMenu
 @onready var debug_canvas_layer: CanvasLayer = $DebugCanvasLayer
 
+@onready var turtle: Turtle = $World/TurtleHolder/Turtle
 
 var viewport_width: float = ProjectSettings.get_setting("display/window/size/viewport_width")
 var viewport_height: float = ProjectSettings.get_setting("display/window/size/viewport_height")
+
+# The factor of how much in-game time elapses for real-life time.
+var time_scale_factor := 1.0
 
 
 func _ready() -> void:
@@ -29,6 +33,10 @@ func _ready() -> void:
 	pass
 
 
+func _process(delta: float) -> void:
+	turtle.add_lifetime(delta * time_scale_factor)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.physical_keycode == Key.KEY_QUOTELEFT and event.pressed:
@@ -37,7 +45,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _exit_tree() -> void:
 	print("exiting!")
-
 
 
 func make_window_transparent(window: Window) -> void:
