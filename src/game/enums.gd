@@ -9,4 +9,4 @@ enum TurtleStage {
 }
 
 static func turtle_stage_to_string(turtle_stage: TurtleStage) -> String:
-	return str(TurtleStage.values()[turtle_stage])
+	return str(TurtleStage.keys()[turtle_stage])

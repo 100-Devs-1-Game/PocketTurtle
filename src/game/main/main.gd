@@ -1,6 +1,7 @@
 extends Node
 
 
+
 @onready var popup_menu: PopupMenu = $StatusIndicator/PopupMenu
 @onready var debug_canvas_layer: CanvasLayer = $DebugCanvasLayer
 
