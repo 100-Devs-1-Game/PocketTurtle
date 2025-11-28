@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ck6nj6xklvev3"]
+[gd_scene load_steps=12 format=3 uid="uid://ck6nj6xklvev3"]
 
 [ext_resource type="Script" uid="uid://b07s3miky3ql6" path="res://game/main/main.gd" id="1_hyk8p"]
 [ext_resource type="Texture2D" uid="uid://m8hfc6vry8va" path="res://assets/Art Assets/UI/Buttons/feed_on.png" id="3_tkdpa"]
@@ -10,47 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cje4jxv0c04wi" path="res://assets/Art Assets/UI/Buttons/wash_off.png" id="8_els08"]
 [ext_resource type="FontFile" uid="uid://co7bol411m67c" path="res://assets/Font/Chewy-Regular.ttf" id="8_xvake"]
 [ext_resource type="PackedScene" uid="uid://coi2rbne8mcss" path="res://game/turtle/turtle.tscn" id="9_els08"]
-[ext_resource type="Script" uid="uid://411ais8ab7bg" path="res://game/main/debug_canvas_layer.gd" id="11_7q7ho"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_xvake"]
-font = ExtResource("8_xvake")
-font_size = 64
-
-[sub_resource type="Theme" id="Theme_7q7ho"]
-PopupMenu/colors/font_accelerator_color = Color(0, 0, 0, 1)
-PopupMenu/colors/font_color = Color(1, 1, 1, 1)
-PopupMenu/colors/font_disabled_color = Color(0.33022144, 0.33022144, 0.33022144, 1)
-PopupMenu/colors/font_hover_color = Color(0, 0, 0, 1)
-PopupMenu/colors/font_outline_color = Color(0, 0, 0, 1)
-PopupMenu/colors/font_separator_color = Color(0, 0, 0, 1)
-PopupMenu/colors/font_separator_outline_color = Color(0, 0, 0, 1)
-PopupMenu/constants/h_separation = 0
-PopupMenu/constants/icon_max_width = 0
-PopupMenu/constants/indent = 0
-PopupMenu/constants/item_end_padding = 0
-PopupMenu/constants/item_start_padding = 0
-PopupMenu/constants/outline_size = 0
-PopupMenu/constants/separator_outline_size = 0
-PopupMenu/constants/v_separation = 0
-PopupMenu/font_sizes/font_separator_size = 16
-PopupMenu/font_sizes/font_size = 64
-PopupMenu/fonts/font = ExtResource("8_xvake")
-PopupMenu/fonts/font_separator = null
-PopupMenu/icons/checked = null
-PopupMenu/icons/checked_disabled = null
-PopupMenu/icons/radio_checked = null
-PopupMenu/icons/radio_checked_disabled = null
-PopupMenu/icons/radio_unchecked = null
-PopupMenu/icons/radio_unchecked_disabled = null
-PopupMenu/icons/submenu = null
-PopupMenu/icons/submenu_mirrored = null
-PopupMenu/icons/unchecked = null
-PopupMenu/icons/unchecked_disabled = null
-PopupMenu/styles/hover = null
-PopupMenu/styles/labeled_separator_left = null
-PopupMenu/styles/labeled_separator_right = null
-PopupMenu/styles/panel = null
-PopupMenu/styles/separator = null
+[ext_resource type="PackedScene" uid="uid://vtqx0offch3v" path="res://game/main/debug_canvas_layer.tscn" id="11_7q7ho"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_hyk8p")
@@ -129,64 +89,5 @@ item_count = 1
 item_0/text = "Show Turtles"
 item_0/id = 1
 
-[node name="DebugCanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("turtle", "turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button")]
-visible = false
-script = ExtResource("11_7q7ho")
+[node name="DebugCanvasLayer" parent="." node_paths=PackedStringArray("turtle") instance=ExtResource("11_7q7ho")]
 turtle = NodePath("../World/TurtleHolder/Turtle")
-turtle_stage_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer/TurtleStateLabel")
-turtle_stage_timer_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer/TurtleStateLifetimeLabel")
-set_state_option_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/GridContainer/SetStateOptionButton")
-
-[node name="PanelContainer" type="PanelContainer" parent="DebugCanvasLayer"]
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="DebugCanvasLayer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugCanvasLayer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Turtle Stats"
-label_settings = SubResource("LabelSettings_xvake")
-
-[node name="GridContainer" type="GridContainer" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 32
-columns = 2
-
-[node name="Label2" type="Label" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Turtle State:"
-label_settings = SubResource("LabelSettings_xvake")
-
-[node name="TurtleStateLabel" type="Label" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-label_settings = SubResource("LabelSettings_xvake")
-
-[node name="Label3" type="Label" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Time In Current State:"
-label_settings = SubResource("LabelSettings_xvake")
-
-[node name="TurtleStateLifetimeLabel" type="Label" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-label_settings = SubResource("LabelSettings_xvake")
-
-[node name="SetStateLabel" type="Label" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Set State To:"
-label_settings = SubResource("LabelSettings_xvake")
-
-[node name="SetStateOptionButton" type="OptionButton" parent="DebugCanvasLayer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-theme = SubResource("Theme_7q7ho")
-theme_override_fonts/font = ExtResource("8_xvake")
-theme_override_font_sizes/font_size = 64

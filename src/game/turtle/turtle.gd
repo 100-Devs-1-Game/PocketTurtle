@@ -54,3 +54,7 @@ func add_lifetime(lifetime_secs: float) -> void:
 
 func _transition_to_next_life_stage() -> void:
 	set_stage((stage + 1) % Enums.TurtleStage.size() as Enums.TurtleStage)
+
+
+func get_time_to_next_state() -> int:
+	return stage_lifetime_transition_table[stage] - stage_elapsed_seconds
