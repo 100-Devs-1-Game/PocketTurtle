@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8ivo3xb0dm7v"]
+
+[ext_resource type="Script" uid="uid://b6srqfy8hjfjb" path="res://game/fx/thought_bubble/thought_bubble.gd" id="1_e6eem"]
+[ext_resource type="Texture2D" uid="uid://7h26s1eespmk" path="res://assets/Art Assets/Thought Bubbles/thought_bubble_feed.png" id="1_juhnv"]
+[ext_resource type="Texture2D" uid="uid://dgaxi7j271wpi" path="res://assets/Art Assets/Thought Bubbles/thought_bubble_pet.png" id="2_e6eem"]
+[ext_resource type="Texture2D" uid="uid://2pb7c2xq73c7" path="res://assets/Art Assets/Thought Bubbles/thought_bubble_wash.png" id="3_3eqvv"]
+[ext_resource type="AudioStream" uid="uid://dfwspucdgisv6" path="res://assets/SFX/Food Popup.mp3" id="5_3eqvv"]
+
+[node name="ThoughtBubble" type="Node2D" node_paths=PackedStringArray("audio_stream_player", "thought_bubble_feed", "thought_bubble_pet", "thought_bubble_wash")]
+script = ExtResource("1_e6eem")
+audio_stream_player = NodePath("AudioStreamPlayer")
+thought_bubble_feed = NodePath("ThoughtBubbleFeed")
+thought_bubble_pet = NodePath("ThoughtBubblePet")
+thought_bubble_wash = NodePath("ThoughtBubbleWash")
+
+[node name="ThoughtBubbleFeed" type="Sprite2D" parent="."]
+texture = ExtResource("1_juhnv")
+
+[node name="ThoughtBubblePet" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_e6eem")
+
+[node name="ThoughtBubbleWash" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_3eqvv")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_3eqvv")

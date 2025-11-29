@@ -43,12 +43,14 @@ PopupMenu/styles/labeled_separator_right = null
 PopupMenu/styles/panel = null
 PopupMenu/styles/separator = null
 
-[node name="DebugCanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label")]
+[node name="DebugCanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label", "current_want_label", "set_current_want_option_button")]
 script = ExtResource("1_gmrku")
 turtle_stage_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLabel")
 turtle_stage_timer_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLifetimeLabel")
 set_state_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/SetStateOptionButton")
 time_to_next_state_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TimeToNextStateLabel")
+current_want_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/CurrentlyWantsLabel")
+set_current_want_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/ChangeWantsOptionButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 10
@@ -127,3 +129,26 @@ layout_mode = 2
 size_flags_horizontal = 3
 label_settings = SubResource("LabelSettings_xvake")
 autowrap_mode = 3
+
+[node name="Label6" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+layout_mode = 2
+text = "Currently Wants:"
+label_settings = SubResource("LabelSettings_xvake")
+
+[node name="CurrentlyWantsLabel" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_xvake")
+autowrap_mode = 3
+
+[node name="Label7" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+layout_mode = 2
+text = "Change Wants To:"
+label_settings = SubResource("LabelSettings_xvake")
+
+[node name="ChangeWantsOptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_7q7ho")
+theme_override_fonts/font = ExtResource("2_i6ckk")
+theme_override_font_sizes/font_size = 64

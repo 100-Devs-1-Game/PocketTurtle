@@ -1,28 +1,106 @@
-[gd_scene load_steps=8 format=3 uid="uid://coi2rbne8mcss"]
+[gd_scene load_steps=18 format=3 uid="uid://coi2rbne8mcss"]
 
 [ext_resource type="Script" uid="uid://ref2q2jdaiog" path="res://game/turtle/turtle.gd" id="1_8v7lr"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_m4bqv"]
+[ext_resource type="Texture2D" uid="uid://jti67y2ng84k" path="res://assets/Art Assets/Egg Assets_/egg2.png" id="3_ajpy8"]
 [ext_resource type="Texture2D" uid="uid://bagmge8ty5wkt" path="res://assets/Art Assets/Baby Assets/baby1.png" id="3_ufd4k"]
 [ext_resource type="Texture2D" uid="uid://cs1yytmqhg0io" path="res://assets/Art Assets/Turtle C/C_turtle1.png" id="4_g6n37"]
+[ext_resource type="Texture2D" uid="uid://b4befqrp7enec" path="res://assets/Art Assets/Egg Assets_/egg3.png" id="4_wh375"]
+[ext_resource type="Texture2D" uid="uid://cq7yuhb61h2bg" path="res://assets/Art Assets/Egg Assets_/egg4.png" id="5_b0ltl"]
 [ext_resource type="Texture2D" uid="uid://bmkrxa4mt77m3" path="res://assets/Art Assets/C Elder/C_elder1.png" id="5_gicr4"]
 [ext_resource type="Texture2D" uid="uid://deyfkeidesn06" path="res://assets/Art Assets/C Elder/C_elder_passing.png" id="6_dt7nr"]
+[ext_resource type="Texture2D" uid="uid://rsk1lraao26b" path="res://assets/Art Assets/Baby Assets/baby_blink.png" id="7_7mvud"]
+[ext_resource type="Texture2D" uid="uid://cnuv5y7l44t1a" path="res://assets/Art Assets/Baby Assets/baby_blush.png" id="8_wcgco"]
+[ext_resource type="AudioStream" uid="uid://rv2nhoioph2q" path="res://assets/SFX/Egg.mp3" id="10_wh375"]
+[ext_resource type="AudioStream" uid="uid://dt8nwg8eh4stb" path="res://assets/SFX/Evolution.mp3" id="11_b0ltl"]
+[ext_resource type="AudioStream" uid="uid://bppg6ixaibmjj" path="res://assets/SFX/Death.mp3" id="12_wbdr3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v7lr"]
 
-[node name="Turtle" type="Area2D"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_wbdr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m4bqv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m4bqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ajpy8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wh375")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_b0ltl")
+}],
+"loop": true,
+"name": &"egg_crack",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wcgco"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ufd4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7mvud")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ufd4k")
+}],
+"loop": false,
+"name": &"blink",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_wcgco")
+}],
+"loop": false,
+"name": &"blush",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ufd4k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Turtle" type="Area2D" node_paths=PackedStringArray("visual", "egg_crack_audio", "egg_visual", "baby_visual", "evolution_audio", "death_audio")]
 script = ExtResource("1_8v7lr")
+visual = NodePath("Visual")
+egg_crack_audio = NodePath("EggCrackAudioStreamPlayer")
+egg_visual = NodePath("Visual/Egg")
+baby_visual = NodePath("Visual/Baby")
+evolution_audio = NodePath("EvolutionAudioStreamPlayer")
+death_audio = NodePath("DeathAudioStreamPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8v7lr")
 
 [node name="Visual" type="Node2D" parent="."]
 
-[node name="Egg" type="Sprite2D" parent="Visual"]
-texture = ExtResource("2_m4bqv")
+[node name="Egg" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(-46, 149)
+sprite_frames = SubResource("SpriteFrames_wbdr3")
+animation = &"egg_crack"
+offset = Vector2(46, -149)
 
-[node name="Baby" type="Sprite2D" parent="Visual"]
+[node name="Baby" type="AnimatedSprite2D" parent="Visual"]
 visible = false
-texture = ExtResource("3_ufd4k")
+sprite_frames = SubResource("SpriteFrames_wcgco")
 
 [node name="Adult" type="Sprite2D" parent="Visual"]
 visible = false
@@ -35,3 +113,12 @@ texture = ExtResource("5_gicr4")
 [node name="Ascension" type="Sprite2D" parent="Visual"]
 visible = false
 texture = ExtResource("6_dt7nr")
+
+[node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_wh375")
+
+[node name="EvolutionAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_b0ltl")
+
+[node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_wbdr3")

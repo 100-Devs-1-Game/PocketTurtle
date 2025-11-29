@@ -1,5 +1,14 @@
 extends CanvasLayer
 
+const WASH_FX_DURATION_SECONDS = 3.0
+const SPARKLE_FX_DURATION_SECONDS = 3.0
+const PET_FX_DURATION_SECONDS = 3.0
+
+@export var wash_fx: WashFx
+@export var sparkle_fx: SparkleFx
+@export var eat_fx: EatFx
+@export var pet_fx: PetFx
+
 @export var turtle: Turtle: set = set_turtle, get = get_turtle
 func set_turtle(new_turtle: Turtle) -> void:
 	turtle = new_turtle
@@ -25,21 +34,27 @@ func _ready() -> void:
 
 
 func _on_turtle_wants_changed() -> void:
-	eat_button.disabled = turtle.current_want != "eat"
-	pet_button.disabled = turtle.current_want != "pet"
-	wash_button.disabled = turtle.current_want != "wash"
+	eat_button.disabled = turtle.current_want != Enums.TurtleWants.FOOD
+	pet_button.disabled = turtle.current_want != Enums.TurtleWants.PETS
+	wash_button.disabled = turtle.current_want != Enums.TurtleWants.BATH
 
 func _on_eat_button_pressed() -> void:
-	pass
+	eat_button.disabled = true
+	turtle.set_want(Enums.TurtleWants.NONE)
+	eat_fx.play()
 
 
 func _on_pet_button_pressed() -> void:
-	pass
-
+	pet_button.disabled = true
+	turtle.set_want(Enums.TurtleWants.NONE)
+	pet_fx.play(PET_FX_DURATION_SECONDS)
+	
 
 func _on_wash_button_pressed() -> void:
-	pass
-
+	wash_button.disabled = true
+	turtle.set_want(Enums.TurtleWants.NONE)
+	await wash_fx.play(WASH_FX_DURATION_SECONDS)
+	sparkle_fx.play(SPARKLE_FX_DURATION_SECONDS)
 
 func _on_turtle_state_changed() -> void:
 	button_controls.visible = turtle.stage != Enums.TurtleStage.EGG and turtle.stage != Enums.TurtleStage.ASCENSION 
