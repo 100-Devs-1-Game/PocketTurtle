@@ -104,3 +104,4 @@ func _time_to_string(time: int) -> String:
 		ret += ", "
 	ret += "%d %s" % [seconds, "seconds" if seconds != 1 else "second"]
 	return ret
+	
