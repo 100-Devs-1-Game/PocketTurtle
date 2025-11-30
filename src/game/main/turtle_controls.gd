@@ -2,7 +2,7 @@ extends CanvasLayer
 
 const WASH_FX_DURATION_SECONDS = 3.0
 const SPARKLE_FX_DURATION_SECONDS = 3.0
-const PET_FX_DURATION_SECONDS = 3.0
+const PET_FX_DURATION_SECONDS = 1.5
 
 @export var wash_fx: WashFx
 @export var sparkle_fx: SparkleFx

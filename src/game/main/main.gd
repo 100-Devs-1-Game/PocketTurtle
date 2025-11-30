@@ -15,12 +15,12 @@ var time_scale_factor := 1.0
 
 
 func _ready() -> void:
+	pass
 	# TODO: This will be done to set up the fun little desktop pet.
 	# Windows: 
 	# OS.has_feature("win32")
 	# Anchor to the bottom right.
 	#var taskbar_position := (DisplayServer.screen_get_usable_rect().end.y - viewport_height)
-
 	# TODO: MacOS, top right or top left.
 	# OS.has_feature("mac")
 	
@@ -31,7 +31,6 @@ func _ready() -> void:
 	#main_window.min_size = Vector2(200, 300)
 	#main_window.position = Vector2i(floor(DisplayServer.screen_get_size().x - viewport_width), taskbar_position)
 	#make_window_transparent(main_window)
-	pass
 
 
 func _process(delta: float) -> void:
@@ -50,7 +49,7 @@ func _exit_tree() -> void:
 
 func make_window_transparent(window: Window) -> void:
 	ProjectSettings.set("display/window/per_pixel_transparency/allowed", true)
-	window.size = window.min_size
+	#window.size = window.min_size
 	window.unresizable = true
 	window.transparent = true
 	window.transparent_bg = true

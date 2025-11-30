@@ -1,4 +1,6 @@
+class_name ThoughtBubble
 extends Node2D
+
 
 @export var turtle: Turtle: set = set_turtle, get = get_turtle
 @export_category("Nodes")
@@ -12,15 +14,19 @@ func set_turtle(new_turtle: Turtle) -> void:
 func get_turtle() -> Turtle:
 	return turtle
 
+
 @export var thought_bubble_feed: Sprite2D
 @export var thought_bubble_pet: Sprite2D
 @export var thought_bubble_wash: Sprite2D
 
+
 func _ready() -> void:
 	refresh_view()
 
+
 func _on_turtle_wants_changed() -> void:
 	refresh_view()
+
 
 func refresh_view() -> void:
 	var wants := turtle.current_want
