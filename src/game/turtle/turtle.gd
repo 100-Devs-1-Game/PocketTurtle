@@ -50,11 +50,27 @@ var desire_configuration_table: Dictionary[Enums.TurtleStage, Array] = {
 const _wants_evaluation_frequency: float = 15 * 60 * 60 
 var _wants_evaluation_timer := 0.0
 var in_transition = false
+var loading_from_save = false
 
 # The current want of the turtle.
-var current_want: Enums.TurtleWants
+var current_want: Enums.TurtleWants: 
+	set = set_current_want,
+	get = get_current_want
+
+func set_current_want(new_current_want: Enums.TurtleWants) -> void:
+	current_want = new_current_want
+	wants_changed.emit()
+
+func get_current_want() -> Enums.TurtleWants:
+	return current_want
 
 func set_stage(next_stage: Enums.TurtleStage) -> void:
+	if loading_from_save:
+		stage = next_stage
+		_update_visual()
+		state_changed.emit()
+		return
+
 	if stage != next_stage:
 		in_transition = true
 		stage_elapsed_seconds = 0
@@ -62,21 +78,26 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 
 		if stage == Enums.TurtleStage.BABY:
 			# Reroll the turtle variant here.
-			var variants: Array[String] = turtle_variants.get_turtle_variants()
-			var variant_path: String = variants.pick_random()
+			var variant_path: String = turtle_variants.get_random_variant()
 			turtle_variant = load(variant_path)
 
 		await _update_visual()
 
 		_wants_evaluation_timer = 0
 		current_want = Enums.TurtleWants.NONE
-		wants_changed.emit()
 		state_changed.emit()
-		
+
 		in_transition = false
 
 
 func _update_visual() -> void:
+	
+	if loading_from_save:
+		# Simple transition
+		for child: Node2D in visual.get_children():
+			child.visible = child.get_index() == stage
+		return
+
 	match stage:
 		Enums.TurtleStage.EGG:
 			# TODO: glow fx and maybe a fun egg drop into frame?
@@ -127,7 +148,6 @@ func _set_next_want() -> void:
 		return
 	
 	current_want = available_wants.pick_random()
-	wants_changed.emit()
 	
 
 func _transition_to_next_life_stage() -> void:
@@ -142,8 +162,6 @@ func get_time_to_next_state() -> int:
 func set_want(next_want: Enums.TurtleWants) -> void:
 	var last_want := current_want
 	current_want = next_want
-	
-	wants_changed.emit()
 
 	if last_want == Enums.TurtleWants.PETS:
 		match stage:
@@ -237,3 +255,6 @@ func set_visual(new_visual: TurtleVisual) -> void:
 
 func get_visual() -> TurtleVisual:
 	return visual
+	
+func set_variant_from_uid(uid: String) -> void:
+	pass
