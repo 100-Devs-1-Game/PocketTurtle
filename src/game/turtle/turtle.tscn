@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://coi2rbne8mcss"]
 
 [ext_resource type="Script" uid="uid://ref2q2jdaiog" path="res://game/turtle/turtle.gd" id="1_8v7lr"]
-[ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="2_e3p7s"]
+[ext_resource type="Script" path="res://game/turtle/turtle_visual.gd" id="2_e3p7s"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_m4bqv"]
 [ext_resource type="Script" uid="uid://cqfabas0bbibf" path="res://game/data/turtle_variants.gd" id="2_r5ume"]
 [ext_resource type="Texture2D" uid="uid://jti67y2ng84k" path="res://assets/Art Assets/Egg Assets_/egg2.png" id="3_ajpy8"]
@@ -73,7 +73,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"blush",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
