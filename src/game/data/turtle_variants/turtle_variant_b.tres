@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TurtleVariant" load_steps=5 format=3 uid="uid://dhdcjp8qcwwvt"]
+
+[ext_resource type="Script" uid="uid://bprvptklo0i5k" path="res://game/data/turtle_variant.gd" id="1_wdmvf"]
+[ext_resource type="Texture2D" uid="uid://dle8mim5ggiqv" path="res://assets/Art Assets/Turtle B/B_turtle1.png" id="2_wdmvf"]
+[ext_resource type="Texture2D" uid="uid://c6cpphycx5jxl" path="res://assets/Art Assets/B Elder/B_elder_passing.png" id="3_wdmvf"]
+[ext_resource type="Texture2D" uid="uid://b80girb4yppgl" path="res://assets/Art Assets/B Elder/B_elder1.png" id="4_op8ij"]
+
+[resource]
+script = ExtResource("1_wdmvf")
+texture_adult = ExtResource("2_wdmvf")
+texture_elder = ExtResource("4_op8ij")
+texture_ascension = ExtResource("3_wdmvf")
+metadata/_custom_type_script = "uid://bprvptklo0i5k"

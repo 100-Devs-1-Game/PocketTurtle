@@ -1,7 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://coi2rbne8mcss"]
+[gd_scene load_steps=21 format=3 uid="uid://coi2rbne8mcss"]
 
 [ext_resource type="Script" uid="uid://ref2q2jdaiog" path="res://game/turtle/turtle.gd" id="1_8v7lr"]
+[ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="2_e3p7s"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_m4bqv"]
+[ext_resource type="Script" uid="uid://cqfabas0bbibf" path="res://game/data/turtle_variants.gd" id="2_r5ume"]
 [ext_resource type="Texture2D" uid="uid://jti67y2ng84k" path="res://assets/Art Assets/Egg Assets_/egg2.png" id="3_ajpy8"]
 [ext_resource type="Texture2D" uid="uid://bagmge8ty5wkt" path="res://assets/Art Assets/Baby Assets/baby1.png" id="3_ufd4k"]
 [ext_resource type="Texture2D" uid="uid://cs1yytmqhg0io" path="res://assets/Art Assets/Turtle C/C_turtle1.png" id="4_g6n37"]
@@ -14,6 +16,10 @@
 [ext_resource type="AudioStream" uid="uid://rv2nhoioph2q" path="res://assets/SFX/Egg.mp3" id="10_wh375"]
 [ext_resource type="AudioStream" uid="uid://dt8nwg8eh4stb" path="res://assets/SFX/Evolution.mp3" id="11_b0ltl"]
 [ext_resource type="AudioStream" uid="uid://bppg6ixaibmjj" path="res://assets/SFX/Death.mp3" id="12_wbdr3"]
+
+[sub_resource type="Resource" id="Resource_y7hw2"]
+script = ExtResource("2_r5ume")
+metadata/_custom_type_script = "uid://cqfabas0bbibf"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v7lr"]
 
@@ -80,6 +86,7 @@ animations = [{
 
 [node name="Turtle" type="Area2D" node_paths=PackedStringArray("visual", "egg_crack_audio", "egg_visual", "baby_visual", "evolution_audio", "death_audio")]
 script = ExtResource("1_8v7lr")
+turtle_variants = SubResource("Resource_y7hw2")
 visual = NodePath("Visual")
 egg_crack_audio = NodePath("EggCrackAudioStreamPlayer")
 egg_visual = NodePath("Visual/Egg")
@@ -90,7 +97,13 @@ death_audio = NodePath("DeathAudioStreamPlayer")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8v7lr")
 
-[node name="Visual" type="Node2D" parent="."]
+[node name="Visual" type="Node2D" parent="." node_paths=PackedStringArray("egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual")]
+script = ExtResource("2_e3p7s")
+egg_visual = NodePath("Egg")
+baby_visual = NodePath("Baby")
+adult_visual = NodePath("Adult")
+elder_visual = NodePath("Elder")
+ascension_visual = NodePath("Ascension")
 
 [node name="Egg" type="AnimatedSprite2D" parent="Visual"]
 position = Vector2(-46, 149)

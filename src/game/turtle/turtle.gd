@@ -13,15 +13,22 @@ signal wants_changed
 	set = set_stage, 
 	get = get_stage	
 
+@export var turtle_variants: TurtleVariants
+@export var turtle_variant: TurtleVariant:
+	set = set_turtle_variant,
+	get = get_turtle_variant
+
 @export_category("Nodes")
-@export var visual: Node2D
+@export var visual: TurtleVisual:
+	set = set_visual,
+	get = get_visual
+
 @export var egg_crack_audio: AudioStreamPlayer
 @export var egg_visual: AnimatedSprite2D
 @export var baby_visual: AnimatedSprite2D
 @export var evolution_audio: AudioStreamPlayer
 @export var death_audio: AudioStreamPlayer
 const BABY_BLUSH = preload("uid://cnuv5y7l44t1a")
-
 
 var stage_lifetime_transition_table: Dictionary[Enums.TurtleStage, int] = {
 	Enums.TurtleStage.EGG: 24 * 60 * 60,
@@ -42,14 +49,22 @@ var desire_configuration_table: Dictionary[Enums.TurtleStage, Array] = {
 # How often the turtle reevaluates its wants, default is 15 minutes.
 const _wants_evaluation_frequency: float = 15 * 60 * 60 
 var _wants_evaluation_timer := 0.0
+var in_transition = false
 
 # The current want of the turtle.
 var current_want: Enums.TurtleWants
 
 func set_stage(next_stage: Enums.TurtleStage) -> void:
 	if stage != next_stage:
+		in_transition = true
 		stage_elapsed_seconds = 0
 		stage = next_stage
+
+		if stage == Enums.TurtleStage.BABY:
+			# Reroll the turtle variant here.
+			var variants: Array[String] = turtle_variants.get_turtle_variants()
+			var variant_path: String = variants.pick_random()
+			turtle_variant = load(variant_path)
 
 		await _update_visual()
 
@@ -57,6 +72,8 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 		current_want = Enums.TurtleWants.NONE
 		wants_changed.emit()
 		state_changed.emit()
+		
+		in_transition = false
 
 
 func _update_visual() -> void:
@@ -83,6 +100,9 @@ func get_stage() -> Enums.TurtleStage:
 
 # Adds lifetime in seconds.
 func add_lifetime(lifetime_secs: float) -> void:
+	if in_transition:
+		return
+
 	stage_elapsed_seconds += lifetime_secs
 	
 	# Check for handling a transition to another state.
@@ -200,3 +220,20 @@ func play_egg_crack_animation() -> void:
 	await bounce_tween.finished
 
 	
+func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
+	turtle_variant = new_turtle_variant
+	if visual:
+		visual.turtle_variant = turtle_variant
+
+func get_turtle_variant() -> TurtleVariant:
+	return turtle_variant
+
+
+func set_visual(new_visual: TurtleVisual) -> void:
+	visual = new_visual
+	if visual:
+		visual.turtle_variant = turtle_variant
+
+
+func get_visual() -> TurtleVisual:
+	return visual
