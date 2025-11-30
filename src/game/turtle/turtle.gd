@@ -66,7 +66,6 @@ func _update_visual() -> void:
 			evolution_audio.play()
 			for child: Node2D in visual.get_children():
 				child.visible = child.get_index() == stage
-			pass
 		Enums.TurtleStage.BABY:
 			await play_egg_crack_animation()
 		Enums.TurtleStage.ASCENSION:
