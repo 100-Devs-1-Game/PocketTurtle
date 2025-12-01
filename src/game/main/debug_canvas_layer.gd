@@ -37,8 +37,8 @@ func _process(delta: float) -> void:
 func set_turtle(new_turtle: Turtle) -> void:
 	turtle = new_turtle
 	if turtle:
-		turtle.state_changed.connect(_on_turtle_state_changed)
-		turtle.wants_changed.connect(_on_turtle_wants_changed)
+		turtle.stage_changed.connect(func(_prev_stage, _new_stage): _on_turtle_state_changed())
+		turtle.wants_changed.connect(func(_prev_wants, _new_wants): _on_turtle_wants_changed())
 		_on_turtle_state_changed()
 
 

@@ -40,7 +40,8 @@ func _ready() -> void:
 		turtle.stage = save_game_data.turtle_current_stage
 		turtle.stage_elapsed_seconds = save_game_data.turtle_stage_lifetime
 		turtle.current_want = save_game_data.turtle_current_want
-		turtle.set_variant_from_uid(save_game_data.turtle_variant)
+		if not save_game_data.turtle_variant.is_empty():
+			turtle.turtle_variant = load(save_game_data.turtle_variant)
 		turtle.loading_from_save = false
 
 	

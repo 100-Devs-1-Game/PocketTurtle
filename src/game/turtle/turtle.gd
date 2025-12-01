@@ -1,9 +1,8 @@
 class_name Turtle
 extends Area2D
 
-signal state_changed
-
-signal wants_changed
+signal stage_changed(prev_stage: Enums.TurtleStage, new_stage: Enums.TurtleStage)
+signal wants_changed(prev_want: Enums.TurtleWants, new_want: Enums.TurtleWants)
 
 # The amount of time elapsed for this current stage.
 @export var stage_elapsed_seconds: float
@@ -58,17 +57,19 @@ var current_want: Enums.TurtleWants:
 	get = get_current_want
 
 func set_current_want(new_current_want: Enums.TurtleWants) -> void:
+	var previous_want := current_want
 	current_want = new_current_want
-	wants_changed.emit()
+	wants_changed.emit(previous_want, current_want)
 
 func get_current_want() -> Enums.TurtleWants:
 	return current_want
 
 func set_stage(next_stage: Enums.TurtleStage) -> void:
+	var prev_stage := stage
 	if loading_from_save:
 		stage = next_stage
 		_update_visual()
-		state_changed.emit()
+		stage_changed.emit(prev_stage, stage)
 		return
 
 	if stage != next_stage:
@@ -85,8 +86,7 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 
 		_wants_evaluation_timer = 0
 		current_want = Enums.TurtleWants.NONE
-		state_changed.emit()
-
+		stage_changed.emit(prev_stage, stage)
 		in_transition = false
 
 
@@ -155,7 +155,7 @@ func _transition_to_next_life_stage() -> void:
 
 
 func get_time_to_next_state() -> int:
-	return stage_lifetime_transition_table[stage] - stage_elapsed_seconds
+	return stage_lifetime_transition_table[stage] - int(stage_elapsed_seconds)
 
 
 # Exposing a function to set the want from the debug menu.
@@ -255,6 +255,3 @@ func set_visual(new_visual: TurtleVisual) -> void:
 
 func get_visual() -> TurtleVisual:
 	return visual
-	
-func set_variant_from_uid(uid: String) -> void:
-	pass

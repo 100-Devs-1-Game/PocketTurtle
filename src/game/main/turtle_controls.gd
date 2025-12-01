@@ -13,8 +13,8 @@ const PET_FX_DURATION_SECONDS = 1.5
 func set_turtle(new_turtle: Turtle) -> void:
 	turtle = new_turtle
 	if turtle:
-		turtle.state_changed.connect(_on_turtle_state_changed)
-		turtle.wants_changed.connect(_on_turtle_wants_changed)
+		turtle.stage_changed.connect(func(_prev_stage, _new_stage): _on_turtle_state_changed())
+		turtle.wants_changed.connect(func(_prev_want, _new_want): _on_turtle_wants_changed())
 	
 func get_turtle() -> Turtle:
 	return turtle
