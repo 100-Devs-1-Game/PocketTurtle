@@ -9,7 +9,7 @@ extends Node2D
 func set_turtle(new_turtle: Turtle) -> void:
 	turtle = new_turtle
 	if turtle:
-		turtle.wants_changed.connect(_on_turtle_wants_changed)
+		turtle.wants_changed.connect(func(_prev_want, _new_want): _on_turtle_wants_changed())
 
 func get_turtle() -> Turtle:
 	return turtle
