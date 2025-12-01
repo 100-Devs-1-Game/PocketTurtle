@@ -1,0 +1,65 @@
+[gd_scene load_steps=13 format=3 uid="uid://ds2eh58jgfc40"]
+
+[ext_resource type="Script" uid="uid://d0s1ovrnexg26" path="res://game/game_screen/game_screen.gd" id="1_pllgy"]
+[ext_resource type="Script" uid="uid://cqfabas0bbibf" path="res://game/data/turtle_variants.gd" id="2_dj1go"]
+[ext_resource type="PackedScene" uid="uid://coi2rbne8mcss" path="res://game/turtle/turtle.tscn" id="2_frltn"]
+[ext_resource type="PackedScene" uid="uid://bkje2i4gff5m4" path="res://game/fx/wash_fx/wash_fx.tscn" id="3_dj1go"]
+[ext_resource type="PackedScene" uid="uid://b8ivo3xb0dm7v" path="res://game/fx/thought_bubble/thought_bubble.tscn" id="4_fjl1o"]
+[ext_resource type="PackedScene" uid="uid://cqxgx6tt7buc7" path="res://game/fx/sparkle_fx/sparkle_fx.tscn" id="5_afwlj"]
+[ext_resource type="PackedScene" uid="uid://dvikxnsyvfptc" path="res://game/fx/eat_fx/eat_fx.tscn" id="6_glvp7"]
+[ext_resource type="PackedScene" uid="uid://urlliqybonnt" path="res://game/fx/pet_fx/pet_fx.tscn" id="7_brfix"]
+[ext_resource type="Texture2D" uid="uid://b15ddiotq61n5" path="res://assets/Art Assets/UI/app_icon.png" id="8_8cgki"]
+[ext_resource type="PackedScene" uid="uid://by75pcmrf2lpl" path="res://game/main/turtle_controls.tscn" id="9_vy0wy"]
+[ext_resource type="PackedScene" uid="uid://vtqx0offch3v" path="res://game/main/debug_canvas_layer.tscn" id="10_fim30"]
+
+[sub_resource type="Resource" id="Resource_fjl1o"]
+script = ExtResource("2_dj1go")
+variants = Array[String](["uid://cc7l2y4w6jm86", "uid://dhdcjp8qcwwvt", "uid://ixuurw62ae7h"])
+metadata/_custom_type_script = "uid://cqfabas0bbibf"
+
+[node name="GameScreen" type="Node2D"]
+script = ExtResource("1_pllgy")
+turtle_variants = SubResource("Resource_fjl1o")
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="TurtleHolder" type="Node2D" parent="World"]
+position = Vector2(512, 928)
+
+[node name="Turtle" parent="World/TurtleHolder" instance=ExtResource("2_frltn")]
+turtle_variants = null
+
+[node name="WashFx" parent="World/TurtleHolder" instance=ExtResource("3_dj1go")]
+position = Vector2(224, 204)
+
+[node name="ThoughtBubble" parent="World/TurtleHolder" node_paths=PackedStringArray("turtle") instance=ExtResource("4_fjl1o")]
+position = Vector2(-279, 204)
+turtle = NodePath("../Turtle")
+
+[node name="SparkleFx" parent="World/TurtleHolder" instance=ExtResource("5_afwlj")]
+position = Vector2(0, -2)
+
+[node name="EatFx" parent="World/TurtleHolder" instance=ExtResource("6_glvp7")]
+position = Vector2(-373, -626)
+
+[node name="PetFx" parent="World/TurtleHolder" instance=ExtResource("7_brfix")]
+position = Vector2(224, 351)
+
+[node name="StatusIndicator" type="StatusIndicator" parent="."]
+icon = ExtResource("8_8cgki")
+menu = NodePath("PopupMenu")
+
+[node name="PopupMenu" type="PopupMenu" parent="StatusIndicator"]
+item_count = 1
+item_0/text = "Show Turtles"
+item_0/id = 1
+
+[node name="TurtleControls" parent="." node_paths=PackedStringArray("wash_fx", "sparkle_fx", "eat_fx", "pet_fx", "turtle") instance=ExtResource("9_vy0wy")]
+wash_fx = NodePath("../World/TurtleHolder/WashFx")
+sparkle_fx = NodePath("../World/TurtleHolder/SparkleFx")
+eat_fx = NodePath("../World/TurtleHolder/EatFx")
+pet_fx = NodePath("../World/TurtleHolder/PetFx")
+turtle = NodePath("../World/TurtleHolder/Turtle")
+
+[node name="DebugCanvasLayer" parent="." node_paths=PackedStringArray("turtle") instance=ExtResource("10_fim30")]
+turtle = NodePath("../World/TurtleHolder/Turtle")
