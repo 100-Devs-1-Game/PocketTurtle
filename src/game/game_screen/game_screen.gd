@@ -11,7 +11,9 @@ var viewport_height: float = ProjectSettings.get_setting("display/window/size/vi
 # The factor of how much in-game time elapses for real-life time.
 var time_scale_factor := 1.0
 
+const TIME_BETWEEN_SAVES_SECONDS = 1.0
 const SAVE_PATH = "user://save.json"
+var _save_timer := 0.0
 
 @export var turtle_variants: TurtleVariants:
 	set = set_turtle_variants,
@@ -63,15 +65,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	turtle.add_lifetime(delta * time_scale_factor)
+	_save_timer += delta
+	if _save_timer >= TIME_BETWEEN_SAVES_SECONDS:
+		_save_timer -= TIME_BETWEEN_SAVES_SECONDS
+		save_game()
 
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		if event.physical_keycode == Key.KEY_QUOTELEFT and event.pressed:
-			debug_canvas_layer.visible = not debug_canvas_layer.visible
-
-
-func _exit_tree() -> void:
+func save_game() -> void:
 	var save_game_data := SaveGameData.new()
 	save_game_data.turtle_current_stage = turtle.stage
 	save_game_data.turtle_stage_lifetime = turtle.stage_elapsed_seconds
@@ -81,8 +80,20 @@ func _exit_tree() -> void:
 	var dict := save_game_data.to_dict()
 	var json_string := JSON.stringify(dict)
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	f.store_string(json_string)
-	f.close()
+	if f:
+		f.store_string(json_string)
+		f.close()
+	else:
+		print("Failed to open save file for writing: %d " % FileAccess.get_open_error())
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.physical_keycode == Key.KEY_QUOTELEFT and event.pressed:
+			debug_canvas_layer.visible = not debug_canvas_layer.visible
+
+
+func _exit_tree() -> void:
+	save_game()
 
 func make_window_transparent(window: Window) -> void:
 	ProjectSettings.set("display/window/per_pixel_transparency/allowed", true)
