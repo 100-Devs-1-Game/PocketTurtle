@@ -1,0 +1,116 @@
+[gd_scene load_steps=17 format=3 uid="uid://ekn7nk742n1o"]
+
+[ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="1_ei5j1"]
+[ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_h7c80"]
+[ext_resource type="Texture2D" uid="uid://jti67y2ng84k" path="res://assets/Art Assets/Egg Assets_/egg2.png" id="3_3ph2f"]
+[ext_resource type="Texture2D" uid="uid://b4befqrp7enec" path="res://assets/Art Assets/Egg Assets_/egg3.png" id="4_vwwiq"]
+[ext_resource type="Texture2D" uid="uid://cq7yuhb61h2bg" path="res://assets/Art Assets/Egg Assets_/egg4.png" id="5_3s0i2"]
+[ext_resource type="Texture2D" uid="uid://bagmge8ty5wkt" path="res://assets/Art Assets/Baby Assets/baby1.png" id="6_j3lif"]
+[ext_resource type="Texture2D" uid="uid://rsk1lraao26b" path="res://assets/Art Assets/Baby Assets/baby_blink.png" id="7_3nxq6"]
+[ext_resource type="Texture2D" uid="uid://cnuv5y7l44t1a" path="res://assets/Art Assets/Baby Assets/baby_blush.png" id="8_rg2v3"]
+[ext_resource type="Texture2D" uid="uid://cs1yytmqhg0io" path="res://assets/Art Assets/Turtle C/C_turtle1.png" id="9_rq2e2"]
+[ext_resource type="Texture2D" uid="uid://bmkrxa4mt77m3" path="res://assets/Art Assets/C Elder/C_elder1.png" id="10_p8x8p"]
+[ext_resource type="Texture2D" uid="uid://deyfkeidesn06" path="res://assets/Art Assets/C Elder/C_elder_passing.png" id="11_40ebg"]
+[ext_resource type="AudioStream" uid="uid://rv2nhoioph2q" path="res://assets/SFX/Egg.mp3" id="12_vwwiq"]
+[ext_resource type="AudioStream" uid="uid://dt8nwg8eh4stb" path="res://assets/SFX/Evolution.mp3" id="13_3s0i2"]
+[ext_resource type="AudioStream" uid="uid://bppg6ixaibmjj" path="res://assets/SFX/Death.mp3" id="14_j3lif"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wbdr3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h7c80")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_h7c80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3ph2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vwwiq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3s0i2")
+}],
+"loop": true,
+"name": &"egg_crack",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wcgco"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_j3lif")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3nxq6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j3lif")
+}],
+"loop": false,
+"name": &"blink",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_rg2v3")
+}],
+"loop": false,
+"name": &"blush",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_j3lif")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Visual" type="Node2D" node_paths=PackedStringArray("egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual")]
+script = ExtResource("1_ei5j1")
+egg_visual = NodePath("Egg")
+baby_visual = NodePath("Baby")
+adult_visual = NodePath("Adult")
+elder_visual = NodePath("Elder")
+ascension_visual = NodePath("Ascension")
+
+[node name="Egg" type="AnimatedSprite2D" parent="."]
+position = Vector2(-46, 149)
+sprite_frames = SubResource("SpriteFrames_wbdr3")
+animation = &"egg_crack"
+offset = Vector2(46, -149)
+
+[node name="Baby" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_wcgco")
+
+[node name="Adult" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("9_rq2e2")
+
+[node name="Elder" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("10_p8x8p")
+
+[node name="Ascension" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("11_40ebg")
+
+[node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_vwwiq")
+
+[node name="EvolutionAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_3s0i2")
+
+[node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_j3lif")

@@ -1,9 +1,7 @@
 extends Node2D
 
-@onready var popup_menu: PopupMenu = $StatusIndicator/PopupMenu
-@onready var debug_canvas_layer: CanvasLayer = $DebugCanvasLayer
-
-@onready var turtle: Turtle = $World/TurtleHolder/Turtle
+@export var debug_canvas_layer: CanvasLayer
+@export var turtle: Turtle
 
 var viewport_width: float = ProjectSettings.get_setting("display/window/size/viewport_width")
 var viewport_height: float = ProjectSettings.get_setting("display/window/size/viewport_height")
