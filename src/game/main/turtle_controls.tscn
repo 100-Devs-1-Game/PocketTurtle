@@ -32,12 +32,13 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -401.0
-offset_top = -587.0
-offset_right = 443.0
-offset_bottom = -195.0
+offset_left = -398.0
+offset_top = -681.0
+offset_right = 1146.0
+offset_bottom = -169.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(0.5, 0.5)
 alignment = 1
 
 [node name="EatButton" type="TextureButton" parent="Controls/ButtonControls"]
@@ -46,7 +47,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture_normal = ExtResource("2_5ikr5")
 texture_disabled = ExtResource("3_yhjr2")
-stretch_mode = 0
 
 [node name="PetButton" type="TextureButton" parent="Controls/ButtonControls"]
 layout_mode = 2

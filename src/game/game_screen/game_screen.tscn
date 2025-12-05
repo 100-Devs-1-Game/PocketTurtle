@@ -17,33 +17,12 @@ script = ExtResource("2_dj1go")
 variants = Array[String](["uid://cc7l2y4w6jm86", "uid://dhdcjp8qcwwvt", "uid://ixuurw62ae7h"])
 metadata/_custom_type_script = "uid://cqfabas0bbibf"
 
-[node name="GameScreen" type="Node2D"]
+[node name="GameScreen" type="Node2D" node_paths=PackedStringArray("debug_canvas_layer", "turtle")]
+position = Vector2(-1, 0)
 script = ExtResource("1_pllgy")
+debug_canvas_layer = NodePath("DebugCanvasLayer")
+turtle = NodePath("SubViewportContainer/SubViewport/World/TurtleHolder/Turtle")
 turtle_variants = SubResource("Resource_fjl1o")
-
-[node name="World" type="Node2D" parent="."]
-
-[node name="TurtleHolder" type="Node2D" parent="World"]
-position = Vector2(512, 928)
-
-[node name="Turtle" parent="World/TurtleHolder" instance=ExtResource("2_frltn")]
-turtle_variants = null
-
-[node name="WashFx" parent="World/TurtleHolder" instance=ExtResource("3_dj1go")]
-position = Vector2(224, 204)
-
-[node name="ThoughtBubble" parent="World/TurtleHolder" node_paths=PackedStringArray("turtle") instance=ExtResource("4_fjl1o")]
-position = Vector2(-279, 204)
-turtle = NodePath("../Turtle")
-
-[node name="SparkleFx" parent="World/TurtleHolder" instance=ExtResource("5_afwlj")]
-position = Vector2(0, -2)
-
-[node name="EatFx" parent="World/TurtleHolder" instance=ExtResource("6_glvp7")]
-position = Vector2(-373, -626)
-
-[node name="PetFx" parent="World/TurtleHolder" instance=ExtResource("7_brfix")]
-position = Vector2(224, 351)
 
 [node name="StatusIndicator" type="StatusIndicator" parent="."]
 icon = ExtResource("8_8cgki")
@@ -55,11 +34,50 @@ item_0/text = "Show Turtles"
 item_0/id = 1
 
 [node name="TurtleControls" parent="." node_paths=PackedStringArray("wash_fx", "sparkle_fx", "eat_fx", "pet_fx", "turtle") instance=ExtResource("9_vy0wy")]
-wash_fx = NodePath("../World/TurtleHolder/WashFx")
-sparkle_fx = NodePath("../World/TurtleHolder/SparkleFx")
-eat_fx = NodePath("../World/TurtleHolder/EatFx")
-pet_fx = NodePath("../World/TurtleHolder/PetFx")
-turtle = NodePath("../World/TurtleHolder/Turtle")
+wash_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/WashFx")
+sparkle_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/SparkleFx")
+eat_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/EatFx")
+pet_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/PetFx")
+turtle = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/Turtle")
 
 [node name="DebugCanvasLayer" parent="." node_paths=PackedStringArray("turtle") instance=ExtResource("10_fim30")]
-turtle = NodePath("../World/TurtleHolder/Turtle")
+visible = false
+turtle = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/Turtle")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = 505.0
+offset_right = 1039.0
+offset_bottom = 1529.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(256, 256)
+
+[node name="TurtleHolder" type="Node2D" parent="SubViewportContainer/SubViewport/World"]
+
+[node name="Turtle" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("2_frltn")]
+turtle_variants = null
+
+[node name="WashFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("3_dj1go")]
+
+[node name="ThoughtBubble" parent="SubViewportContainer/SubViewport/World/TurtleHolder" node_paths=PackedStringArray("turtle") instance=ExtResource("4_fjl1o")]
+turtle = NodePath("../Turtle")
+
+[node name="SparkleFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("5_afwlj")]
+
+[node name="EatFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("6_glvp7")]
+
+[node name="PetFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("7_brfix")]
