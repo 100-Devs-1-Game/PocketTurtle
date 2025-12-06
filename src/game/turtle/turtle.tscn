@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://coi2rbne8mcss"]
 
 [ext_resource type="Script" uid="uid://ref2q2jdaiog" path="res://game/turtle/turtle.gd" id="1_8v7lr"]
-[ext_resource type="Script" path="res://game/turtle/turtle_visual.gd" id="2_e3p7s"]
+[ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="2_e3p7s"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_m4bqv"]
 [ext_resource type="Script" uid="uid://cqfabas0bbibf" path="res://game/data/turtle_variants.gd" id="2_r5ume"]
 [ext_resource type="Texture2D" uid="uid://jti67y2ng84k" path="res://assets/Art Assets/Egg Assets_/egg2.png" id="3_ajpy8"]
@@ -88,46 +88,51 @@ animations = [{
 script = ExtResource("1_8v7lr")
 turtle_variants = SubResource("Resource_y7hw2")
 visual = NodePath("Visual")
-egg_crack_audio = NodePath("EggCrackAudioStreamPlayer")
-egg_visual = NodePath("Visual/Egg")
-baby_visual = NodePath("Visual/Baby")
+egg_crack_audio = NodePath("")
+egg_visual = NodePath("Visual/Sprites/Egg")
+baby_visual = NodePath("Visual/Sprites/Baby")
 evolution_audio = NodePath("EvolutionAudioStreamPlayer")
 death_audio = NodePath("DeathAudioStreamPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8v7lr")
 
-[node name="Visual" type="Node2D" parent="." node_paths=PackedStringArray("egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual")]
+[node name="Visual" type="Node2D" parent="." node_paths=PackedStringArray("sprites", "egg_visual", "baby_visual", "egg_crack_audio", "evolution_audio", "adult_visual", "elder_visual", "ascension_visual")]
 script = ExtResource("2_e3p7s")
-egg_visual = NodePath("Egg")
-baby_visual = NodePath("Baby")
-adult_visual = NodePath("Adult")
-elder_visual = NodePath("Elder")
-ascension_visual = NodePath("Ascension")
+sprites = NodePath("Sprites")
+egg_visual = NodePath("Sprites/Egg")
+baby_visual = NodePath("Sprites/Baby")
+egg_crack_audio = NodePath("EggCrackAudioStreamPlayer")
+evolution_audio = NodePath("../EvolutionAudioStreamPlayer")
+adult_visual = NodePath("Sprites/Adult")
+elder_visual = NodePath("Sprites/Elder")
+ascension_visual = NodePath("Sprites/Ascension")
 
-[node name="Egg" type="AnimatedSprite2D" parent="Visual"]
-position = Vector2(-46, 149)
+[node name="Sprites" type="Node2D" parent="Visual"]
+
+[node name="Egg" type="AnimatedSprite2D" parent="Visual/Sprites"]
+position = Vector2(0, 93)
 sprite_frames = SubResource("SpriteFrames_wbdr3")
 animation = &"egg_crack"
-offset = Vector2(46, -149)
+offset = Vector2(0, -93)
 
-[node name="Baby" type="AnimatedSprite2D" parent="Visual"]
+[node name="Baby" type="AnimatedSprite2D" parent="Visual/Sprites"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_wcgco")
 
-[node name="Adult" type="Sprite2D" parent="Visual"]
+[node name="Adult" type="Sprite2D" parent="Visual/Sprites"]
 visible = false
 texture = ExtResource("4_g6n37")
 
-[node name="Elder" type="Sprite2D" parent="Visual"]
+[node name="Elder" type="Sprite2D" parent="Visual/Sprites"]
 visible = false
 texture = ExtResource("5_gicr4")
 
-[node name="Ascension" type="Sprite2D" parent="Visual"]
+[node name="Ascension" type="Sprite2D" parent="Visual/Sprites"]
 visible = false
 texture = ExtResource("6_dt7nr")
 
-[node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="Visual"]
 stream = ExtResource("10_wh375")
 
 [node name="EvolutionAudioStreamPlayer" type="AudioStreamPlayer" parent="."]

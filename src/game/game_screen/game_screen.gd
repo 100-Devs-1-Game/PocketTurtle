@@ -1,7 +1,8 @@
 extends Node2D
 
-@export var debug_canvas_layer: CanvasLayer
+@export var debug_canvas_layer: DebugCanvasLayer
 @export var turtle: Turtle
+
 
 var viewport_width: float = ProjectSettings.get_setting("display/window/size/viewport_width")
 var viewport_height: float = ProjectSettings.get_setting("display/window/size/viewport_height")
@@ -28,6 +29,7 @@ func get_turtle_variants() -> TurtleVariants:
 
 func _ready() -> void:
 	turtle.turtle_variants = turtle_variants
+	debug_canvas_layer.time_scale_changed.connect(_on_debug_canvas_layer_time_scale_changed)
 	
 	var save_game_data := SaveGameData.new()
 	# Read in the previous save file if it exists
@@ -35,6 +37,7 @@ func _ready() -> void:
 		var save_file_contents := FileAccess.get_file_as_string(SAVE_PATH)
 		var dict: Dictionary = JSON.parse_string(save_file_contents)
 		save_game_data.read_dict(dict)
+		time_scale_factor = save_game_data.time_scale
 		turtle.loading_from_save = true
 		turtle.stage = save_game_data.turtle_current_stage
 		turtle.stage_elapsed_seconds = save_game_data.turtle_stage_lifetime
@@ -75,6 +78,8 @@ func save_game() -> void:
 	save_game_data.turtle_current_want = turtle.current_want
 	if turtle.turtle_variant:
 		save_game_data.turtle_variant = turtle.turtle_variant.resource_path
+	save_game_data.time_scale = time_scale_factor
+
 	var dict := save_game_data.to_dict()
 	var json_string := JSON.stringify(dict)
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
@@ -100,3 +105,7 @@ func make_window_transparent(window: Window) -> void:
 	window.transparent = true
 	window.transparent_bg = true
 	window.borderless = true
+
+
+func _on_debug_canvas_layer_time_scale_changed(new_time_scale: float) -> void:
+	time_scale_factor = new_time_scale

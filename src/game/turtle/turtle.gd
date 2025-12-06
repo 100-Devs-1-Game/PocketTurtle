@@ -46,7 +46,7 @@ var desire_configuration_table: Dictionary[Enums.TurtleStage, Array] = {
 }
 
 # How often the turtle reevaluates its wants, default is 15 minutes.
-const _wants_evaluation_frequency: float = 15 * 60 * 60 
+const _wants_evaluation_frequency_seconds: float = 15 * 60 
 var _wants_evaluation_timer := 0.0
 var in_transition = false
 var loading_from_save = false
@@ -94,7 +94,7 @@ func _update_visual() -> void:
 	
 	if loading_from_save:
 		# Simple transition
-		for child: Node2D in visual.get_children():
+		for child: Node2D in visual.sprites.get_children():
 			child.visible = child.get_index() == stage
 		return
 
@@ -102,17 +102,17 @@ func _update_visual() -> void:
 		Enums.TurtleStage.EGG:
 			# TODO: glow fx and maybe a fun egg drop into frame?
 			evolution_audio.play()
-			for child: Node2D in visual.get_children():
+			for child: Node2D in visual.sprites.get_children():
 				child.visible = child.get_index() == stage
 		Enums.TurtleStage.BABY:
-			await play_egg_crack_animation()
+			await visual.play_egg_crack_animation()
 		Enums.TurtleStage.ASCENSION:
 			death_audio.play()
-			for child: Node2D in visual.get_children():
+			for child: Node2D in visual.sprites.get_children():
 				child.visible = child.get_index() == stage
 		_:
 			evolution_audio.play()
-			for child: Node2D in visual.get_children():
+			for child: Node2D in visual.sprites.get_children():
 				child.visible = child.get_index() == stage
 
 
@@ -136,9 +136,12 @@ func add_lifetime(lifetime_secs: float) -> void:
 
 
 func _update_wants(lifetime_secs: float) -> void:
+	if current_want != Enums.TurtleWants.NONE:
+		return
+
 	_wants_evaluation_timer += lifetime_secs
-	if _wants_evaluation_timer >= _wants_evaluation_frequency:
-		_wants_evaluation_timer -= _wants_evaluation_frequency
+	if _wants_evaluation_timer >= _wants_evaluation_frequency_seconds:
+		_wants_evaluation_timer -= _wants_evaluation_frequency_seconds
 		_set_next_want()
 
 
@@ -178,65 +181,6 @@ func get_possible_wants() -> Array[Enums.TurtleWants]:
 	var ret: Array[Enums.TurtleWants] = []
 	ret.assign(desire_configuration_table[stage])
 	return ret
-
-
-func play_egg_crack_animation() -> void:
-	# TODO: could this be done in an animation player instead?
-	var frames: Array[float] = [1.5, 2.5, 2.5]
-
-	# Egg Cracking
-	egg_visual.visible = true
-	egg_visual.z_index  = 1
-	egg_visual.animation = &"egg_crack"
-	egg_crack_audio.play()
-	
-	var wiggle_egg = func() -> Signal:
-		var tw := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		tw.tween_property(egg_visual, "rotation_degrees", -15, 0.1)
-		tw.tween_property(egg_visual, "rotation_degrees", 15, 0.2)
-		tw.tween_property(egg_visual, "rotation_degrees", 0, 0.1)
-		return tw.finished
-
-	for i in range(frames.size()):
-		var frame_timing := frames[i]
-		egg_visual.frame = i + 1
-		if i != frames.size() - 1:
-			wiggle_egg.call()
-			var timer := get_tree().create_timer(frame_timing)
-			await timer.timeout
-	
-	# Start baby on the outside, bring into forward frame
-	baby_visual.visible = true
-	baby_visual.z_index = 0
-	evolution_audio.play()
-	
-	# Roll the egg off stage.
-	
-	var egg_roll_tween := get_tree().create_tween()
-	egg_roll_tween.tween_property(egg_visual, "position:x", 1000, 1.0)
-
-	var set_egg_rotation := func(val: float):
-		egg_visual.rotation_degrees = (val * 360.0)
-	var hide_egg_visual := func():
-		egg_visual.z_index = 0
-		egg_visual.visible = 0 
-		egg_visual.rotation_degrees = 0
-		egg_visual.position = Vector2.ZERO
-		egg_visual.visible = false
-		egg_visual.animation = &"default"
-	
-	egg_roll_tween.parallel().tween_method(set_egg_rotation, 0.0, 2.0, 2.0)
-	egg_roll_tween.tween_callback(hide_egg_visual)
-
-	# Bounce baby up, bring into front, bring baby down.
-	baby_visual.z_index = 0
-	var bounce_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT)
-	baby_visual.scale = Vector2.ZERO
-	bounce_tween.parallel().tween_property(baby_visual, "scale", Vector2.ONE, 0.5)
-	bounce_tween.tween_property(baby_visual, "position:y", -200.0, 0.25)
-	bounce_tween.tween_property(baby_visual, "position:y", 0.0, 0.25)
-	await bounce_tween.finished
-
 	
 func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
 	turtle_variant = new_turtle_variant

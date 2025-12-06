@@ -13,6 +13,8 @@ extends Resource
 @export var turtle_current_want: Enums.TurtleWants
 # The turtle variant 
 @export var turtle_variant: String
+# The time scale scale factor
+@export var time_scale: float = 1.0
 
 
 func to_dict() -> Dictionary:
@@ -20,7 +22,8 @@ func to_dict() -> Dictionary:
 		"turtle_stage_lifetime": turtle_stage_lifetime,
 		"turtle_current_stage": turtle_current_stage,
 		"turtle_current_want": turtle_current_want,
-		"turtle_variant": turtle_variant
+		"turtle_variant": turtle_variant,
+		"time_scale": time_scale,
 	}
 
 
@@ -29,3 +32,7 @@ func read_dict(dict: Dictionary) -> void:
 	turtle_current_stage = dict.get("turtle_current_stage")
 	turtle_current_want = dict.get("turtle_current_want")
 	turtle_variant = dict.get("turtle_variant")
+	time_scale = dict.get("time_scale") if dict.has("time_scale") else 1.0
+	if time_scale < 0 or is_zero_approx(time_scale):
+		time_scale = 1.0
+	

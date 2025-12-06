@@ -18,7 +18,6 @@ variants = Array[String](["uid://cc7l2y4w6jm86", "uid://dhdcjp8qcwwvt", "uid://i
 metadata/_custom_type_script = "uid://cqfabas0bbibf"
 
 [node name="GameScreen" type="Node2D" node_paths=PackedStringArray("debug_canvas_layer", "turtle")]
-position = Vector2(-1, 0)
 script = ExtResource("1_pllgy")
 debug_canvas_layer = NodePath("DebugCanvasLayer")
 turtle = NodePath("SubViewportContainer/SubViewport/World/TurtleHolder/Turtle")

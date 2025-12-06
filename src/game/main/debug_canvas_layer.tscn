@@ -43,7 +43,7 @@ PopupMenu/styles/labeled_separator_right = null
 PopupMenu/styles/panel = null
 PopupMenu/styles/separator = null
 
-[node name="DebugCanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label", "current_want_label", "set_current_want_option_button")]
+[node name="DebugCanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label", "current_want_label", "set_current_want_option_button", "set_time_scale_option_button")]
 script = ExtResource("1_gmrku")
 turtle_stage_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLabel")
 turtle_stage_timer_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLifetimeLabel")
@@ -51,6 +51,7 @@ set_state_option_button = NodePath("PanelContainer/MarginContainer/DebugContaine
 time_to_next_state_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TimeToNextStateLabel")
 current_want_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/CurrentlyWantsLabel")
 set_current_want_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/ChangeWantsOptionButton")
+set_time_scale_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer/SetGameSpeedOptionButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 10
@@ -73,6 +74,34 @@ text = "Debug Panel"
 label_settings = SubResource("LabelSettings_xvake")
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/DebugContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/DebugContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer"]
+layout_mode = 2
+text = "Game Debug"
+label_settings = SubResource("LabelSettings_xvake")
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Game Speed: "
+label_settings = SubResource("LabelSettings_xvake")
+
+[node name="SetGameSpeedOptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_7q7ho")
+theme_override_fonts/font = ExtResource("2_i6ckk")
+theme_override_font_sizes/font_size = 64
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/DebugContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
