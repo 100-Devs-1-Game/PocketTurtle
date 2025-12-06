@@ -1,4 +1,8 @@
+class_name DebugCanvasLayer
 extends CanvasLayer
+
+
+signal time_scale_changed(new_time_scale: float)
 
 
 @export var turtle: Turtle: set = set_turtle, get = get_turtle
@@ -9,6 +13,8 @@ extends CanvasLayer
 @export var time_to_next_state_label: Label
 @export var current_want_label: Label
 @export var set_current_want_option_button: OptionButton
+@export var set_time_scale_option_button: OptionButton
+
 
 
 # Time since last update.
@@ -17,12 +23,44 @@ var _update_timer := 0.0
 var _update_delay := 1.0
 
 
+const GAME_SPEEDS = [
+	{
+		"text": "1x",
+		"value": 1.0,
+	},
+	{
+		"text": "2x",
+		"value": 2.0,
+	},
+	{
+		"text": "5x",
+		"value": 5.0,
+	},
+	{
+		"text": "10x",
+		"value": 10.0,
+	},
+	{
+		"text": "100x",
+		"value": 100.0,
+	},
+	{
+		"text": "1000x",
+		"value": 1000.0,
+	},
+]
+
+
 func _ready() -> void:
 	visible = false
 	for k in Enums.TurtleStage.keys():
 		set_state_option_button.add_item(k)
+	for dict in GAME_SPEEDS:
+		set_time_scale_option_button.add_item(dict["text"])
+
 	set_state_option_button.item_selected.connect(_on_set_state_option_button_item_selected)
 	set_current_want_option_button.item_selected.connect(_on_set_current_want_option_button_item_selected)
+	set_time_scale_option_button.item_selected.connect(_on_set_time_scale_option_button_item_selected)
 	_on_turtle_state_changed()
 	_on_turtle_wants_changed()
 
@@ -133,3 +171,8 @@ func _on_set_current_want_option_button_item_selected(idx: int) -> void:
 		turtle.set_want(want)
 		set_current_want_option_button.set_item_disabled(last_want, false)
 		set_current_want_option_button.set_item_disabled(want, true)
+
+func _on_set_time_scale_option_button_item_selected(idx: int) -> void:
+	time_scale_changed.emit(GAME_SPEEDS[idx]["value"])
+
+	
