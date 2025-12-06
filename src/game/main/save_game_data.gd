@@ -15,7 +15,8 @@ extends Resource
 @export var turtle_variant: String
 # The time scale scale factor
 @export var time_scale: float = 1.0
-
+# The name of the turtle
+@export var turtle_name: String
 
 func to_dict() -> Dictionary:
 	return {
@@ -24,6 +25,7 @@ func to_dict() -> Dictionary:
 		"turtle_current_want": turtle_current_want,
 		"turtle_variant": turtle_variant,
 		"time_scale": time_scale,
+		"turtle_name": turtle_name,
 	}
 
 
@@ -35,4 +37,4 @@ func read_dict(dict: Dictionary) -> void:
 	time_scale = dict.get("time_scale") if dict.has("time_scale") else 1.0
 	if time_scale < 0 or is_zero_approx(time_scale):
 		time_scale = 1.0
-	
+	turtle_name = dict.get("turtle_name") if dict.has("turtle_name") else "Tortle"

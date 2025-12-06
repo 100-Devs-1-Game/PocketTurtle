@@ -21,6 +21,8 @@ signal wants_changed(prev_want: Enums.TurtleWants, new_want: Enums.TurtleWants)
 @export var visual: TurtleVisual:
 	set = set_visual,
 	get = get_visual
+	
+@export var turtle_name: String
 
 @export var egg_crack_audio: AudioStreamPlayer
 @export var egg_visual: AnimatedSprite2D

@@ -17,8 +17,9 @@ script = ExtResource("2_dj1go")
 variants = Array[String](["uid://cc7l2y4w6jm86", "uid://dhdcjp8qcwwvt", "uid://ixuurw62ae7h"])
 metadata/_custom_type_script = "uid://cqfabas0bbibf"
 
-[node name="GameScreen" type="Node2D" node_paths=PackedStringArray("debug_canvas_layer", "turtle")]
+[node name="GameScreen" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_canvas_layer", "turtle")]
 script = ExtResource("1_pllgy")
+turtle_controls = NodePath("TurtleControls")
 debug_canvas_layer = NodePath("DebugCanvasLayer")
 turtle = NodePath("SubViewportContainer/SubViewport/World/TurtleHolder/Turtle")
 turtle_variants = SubResource("Resource_fjl1o")

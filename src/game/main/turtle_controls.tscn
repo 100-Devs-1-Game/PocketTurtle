@@ -9,8 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://cje4jxv0c04wi" path="res://assets/Art Assets/UI/Buttons/wash_off.png" id="7_fxci3"]
 [ext_resource type="FontFile" uid="uid://co7bol411m67c" path="res://assets/Font/Chewy-Regular.ttf" id="8_d3b2u"]
 
-[node name="TurtleControls" type="CanvasLayer" node_paths=PackedStringArray("button_controls", "eat_button", "pet_button", "wash_button")]
+[node name="TurtleControls" type="CanvasLayer" node_paths=PackedStringArray("turtle_name_edit", "button_controls", "eat_button", "pet_button", "wash_button")]
 script = ExtResource("1_3gg7p")
+turtle_name_edit = NodePath("Controls/NameLineEdit")
 button_controls = NodePath("Controls/ButtonControls")
 eat_button = NodePath("Controls/ButtonControls/EatButton")
 pet_button = NodePath("Controls/ButtonControls/PetButton")

@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var turtle_controls: TurtleControls
 @export var debug_canvas_layer: DebugCanvasLayer
 @export var turtle: Turtle
 
@@ -29,8 +30,9 @@ func get_turtle_variants() -> TurtleVariants:
 
 func _ready() -> void:
 	turtle.turtle_variants = turtle_variants
+	turtle_controls.turtle_name_changed.connect(_on_turtle_controls_turtle_name_changed)
 	debug_canvas_layer.time_scale_changed.connect(_on_debug_canvas_layer_time_scale_changed)
-	
+
 	var save_game_data := SaveGameData.new()
 	# Read in the previous save file if it exists
 	if FileAccess.file_exists(SAVE_PATH):
@@ -38,6 +40,7 @@ func _ready() -> void:
 		var dict: Dictionary = JSON.parse_string(save_file_contents)
 		save_game_data.read_dict(dict)
 		time_scale_factor = save_game_data.time_scale
+		turtle.turtle_name = save_game_data.turtle_name
 		turtle.loading_from_save = true
 		turtle.stage = save_game_data.turtle_current_stage
 		turtle.stage_elapsed_seconds = save_game_data.turtle_stage_lifetime
@@ -45,6 +48,7 @@ func _ready() -> void:
 		if not save_game_data.turtle_variant.is_empty():
 			turtle.turtle_variant = load(save_game_data.turtle_variant)
 		turtle.loading_from_save = false
+	turtle_controls.set_turtle_name(turtle.turtle_name)
 
 	
 # TODO: This will be done to set up the fun little desktop pet.
@@ -78,6 +82,7 @@ func save_game() -> void:
 	save_game_data.turtle_current_want = turtle.current_want
 	if turtle.turtle_variant:
 		save_game_data.turtle_variant = turtle.turtle_variant.resource_path
+	save_game_data.turtle_name = turtle.turtle_name
 	save_game_data.time_scale = time_scale_factor
 
 	var dict := save_game_data.to_dict()
@@ -109,3 +114,7 @@ func make_window_transparent(window: Window) -> void:
 
 func _on_debug_canvas_layer_time_scale_changed(new_time_scale: float) -> void:
 	time_scale_factor = new_time_scale
+
+
+func _on_turtle_controls_turtle_name_changed(new_turtle_name: String) -> void:
+	turtle.turtle_name = new_turtle_name
