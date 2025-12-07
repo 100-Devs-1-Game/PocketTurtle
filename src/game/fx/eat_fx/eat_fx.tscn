@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvikxnsyvfptc"]
+[gd_scene load_steps=6 format=3 uid="uid://dvikxnsyvfptc"]
 
 [ext_resource type="Script" uid="uid://yl4aqkhdgodj" path="res://game/fx/eat_fx/eat_fx.gd" id="1_tnvs2"]
 [ext_resource type="Texture2D" uid="uid://c2wmdtceqnx3d" path="res://assets/Art Assets/Eat Elements/carrot1.png" id="2_tnvs2"]
 [ext_resource type="Texture2D" uid="uid://dy5xux1mlnuj7" path="res://assets/Art Assets/Eat Elements/carrot2.png" id="3_piim1"]
 [ext_resource type="Texture2D" uid="uid://dn60hses11jpw" path="res://assets/Art Assets/Eat Elements/carrot3.png" id="4_7bc7x"]
-[ext_resource type="AudioStream" uid="uid://bf5eyw5ufuo1j" path="res://assets/SFX/Food Crunch 1.mp3" id="5_piim1"]
-[ext_resource type="AudioStream" uid="uid://cs50t373fj77" path="res://assets/SFX/Food Crunch 2.mp3" id="6_7bc7x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iabok"]
 animations = [{
@@ -24,19 +22,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bm2nf"]
-streams_count = 2
-stream_0/stream = ExtResource("5_piim1")
-stream_1/stream = ExtResource("6_7bc7x")
-
 [node name="EatFx" type="Node2D" node_paths=PackedStringArray("audio_stream_player", "animated_sprite_2d")]
 script = ExtResource("1_tnvs2")
-audio_stream_player = NodePath("AudioStreamPlayer")
+audio_stream_player = NodePath("")
 animated_sprite_2d = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_iabok")
 frame_progress = 0.35046375
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_bm2nf")
