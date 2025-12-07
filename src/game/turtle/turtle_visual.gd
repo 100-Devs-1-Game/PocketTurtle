@@ -4,7 +4,9 @@ extends Node2D
 @export var turtle_variant: TurtleVariant:
 	set = set_turtle_variant,
 	get = get_turtle_variant
-	
+
+@export var turtle_stage: Enums.TurtleStage:
+	set = set_turtle_stage
 
 @export_category("Nodes")
 @export var sprites: Node2D
@@ -25,6 +27,8 @@ extends Node2D
 	set = set_ascension_visual,
 	get = get_ascension_visual
 
+@export var eat_fx: EatFx
+@export var eat_sfx: AudioStreamPlayer
 
 func set_adult_visual(new_adult_visual: Sprite2D) -> void:
 	adult_visual = new_adult_visual
@@ -66,7 +70,9 @@ func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
 
 func get_turtle_variant() -> TurtleVariant:
 	return turtle_variant
-	
+
+
+
 func play_egg_crack_animation() -> void:
 	# TODO: could this be done in an animation player instead?
 	var frames: Array[float] = [1.5, 2.5, 2.5]
@@ -123,3 +129,30 @@ func play_egg_crack_animation() -> void:
 	bounce_tween.tween_property(baby_visual, "position:y", -200.0, 0.25)
 	bounce_tween.tween_property(baby_visual, "position:y", 0.0, 0.25)
 	await bounce_tween.finished
+
+
+func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
+	turtle_stage = new_turtle_stage
+
+
+func play_eating_animation() -> void:
+	match turtle_stage:
+		Enums.TurtleStage.BABY:
+			# Baby's eating Fx is a sprite sheet.
+			baby_visual.play("eat")
+			var sfx_played := false
+			while true:
+				if sfx_played:
+					await baby_visual.animation_finished
+					break
+				else:
+					await baby_visual.frame_changed
+					if baby_visual.frame == 3:
+						# Play the sounds 
+						eat_sfx.play()
+						sfx_played = true
+
+			baby_visual.play("default")
+		_:
+			# Default eating FX.
+			eat_fx.play()

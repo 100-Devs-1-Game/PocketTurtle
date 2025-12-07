@@ -9,7 +9,6 @@ const PET_FX_DURATION_SECONDS = 1.5
 
 @export var wash_fx: WashFx
 @export var sparkle_fx: SparkleFx
-@export var eat_fx: EatFx
 @export var pet_fx: PetFx
 
 @export var turtle: Turtle: set = set_turtle, get = get_turtle
@@ -46,8 +45,7 @@ func _on_turtle_wants_changed() -> void:
 
 func _on_eat_button_pressed() -> void:
 	eat_button.disabled = true
-	turtle.set_want(Enums.TurtleWants.NONE)
-	eat_fx.play()
+	turtle.eat_food()
 
 
 func _on_pet_button_pressed() -> void:

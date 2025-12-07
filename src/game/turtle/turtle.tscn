@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://coi2rbne8mcss"]
+[gd_scene load_steps=26 format=3 uid="uid://coi2rbne8mcss"]
 
 [ext_resource type="Script" uid="uid://ref2q2jdaiog" path="res://game/turtle/turtle.gd" id="1_8v7lr"]
 [ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="2_e3p7s"]
@@ -15,7 +15,12 @@
 [ext_resource type="Texture2D" uid="uid://cnuv5y7l44t1a" path="res://assets/Art Assets/Baby Assets/baby_blush.png" id="8_wcgco"]
 [ext_resource type="AudioStream" uid="uid://rv2nhoioph2q" path="res://assets/SFX/Egg.mp3" id="10_wh375"]
 [ext_resource type="AudioStream" uid="uid://dt8nwg8eh4stb" path="res://assets/SFX/Evolution.mp3" id="11_b0ltl"]
+[ext_resource type="Texture2D" uid="uid://bwd042sakbfh" path="res://assets/Art Assets/Baby Assets/baby_eat1.png" id="11_hyja6"]
+[ext_resource type="Texture2D" uid="uid://bbhk8sos8fyw6" path="res://assets/Art Assets/Baby Assets/baby_eat2.png" id="12_4h2s3"]
 [ext_resource type="AudioStream" uid="uid://bppg6ixaibmjj" path="res://assets/SFX/Death.mp3" id="12_wbdr3"]
+[ext_resource type="Texture2D" uid="uid://ct6u6p7hpinm1" path="res://assets/Art Assets/Baby Assets/baby_eat3.png" id="13_qocpb"]
+[ext_resource type="Texture2D" uid="uid://bnab8ypi17xxx" path="res://assets/Art Assets/Baby Assets/baby_eat4.png" id="14_m3mbe"]
+[ext_resource type="Texture2D" uid="uid://cd5itu3udsu1s" path="res://assets/Art Assets/Baby Assets/baby_eat5.png" id="15_vukty"]
 
 [sub_resource type="Resource" id="Resource_y7hw2"]
 script = ExtResource("2_r5ume")
@@ -82,13 +87,32 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_hyja6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4h2s3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_qocpb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_m3mbe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_vukty")
+}],
+"loop": false,
+"name": &"eat",
+"speed": 1.0
 }]
 
-[node name="Turtle" type="Area2D" node_paths=PackedStringArray("visual", "egg_crack_audio", "egg_visual", "baby_visual", "evolution_audio", "death_audio")]
+[node name="Turtle" type="Area2D" node_paths=PackedStringArray("visual", "egg_visual", "baby_visual", "evolution_audio", "death_audio")]
 script = ExtResource("1_8v7lr")
 turtle_variants = SubResource("Resource_y7hw2")
 visual = NodePath("Visual")
-egg_crack_audio = NodePath("")
 egg_visual = NodePath("Visual/Sprites/Egg")
 baby_visual = NodePath("Visual/Sprites/Baby")
 evolution_audio = NodePath("EvolutionAudioStreamPlayer")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ds2eh58jgfc40"]
+[gd_scene load_steps=16 format=3 uid="uid://ds2eh58jgfc40"]
 
 [ext_resource type="Script" uid="uid://d0s1ovrnexg26" path="res://game/game_screen/game_screen.gd" id="1_pllgy"]
 [ext_resource type="Script" uid="uid://cqfabas0bbibf" path="res://game/data/turtle_variants.gd" id="2_dj1go"]
@@ -11,11 +11,18 @@
 [ext_resource type="Texture2D" uid="uid://b15ddiotq61n5" path="res://assets/Art Assets/UI/app_icon.png" id="8_8cgki"]
 [ext_resource type="PackedScene" uid="uid://by75pcmrf2lpl" path="res://game/main/turtle_controls.tscn" id="9_vy0wy"]
 [ext_resource type="PackedScene" uid="uid://vtqx0offch3v" path="res://game/main/debug_canvas_layer.tscn" id="10_fim30"]
+[ext_resource type="AudioStream" uid="uid://bf5eyw5ufuo1j" path="res://assets/SFX/Food Crunch 1.mp3" id="12_afwlj"]
+[ext_resource type="AudioStream" uid="uid://cs50t373fj77" path="res://assets/SFX/Food Crunch 2.mp3" id="13_glvp7"]
 
 [sub_resource type="Resource" id="Resource_fjl1o"]
 script = ExtResource("2_dj1go")
 variants = Array[String](["uid://cc7l2y4w6jm86", "uid://dhdcjp8qcwwvt", "uid://ixuurw62ae7h"])
 metadata/_custom_type_script = "uid://cqfabas0bbibf"
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_brfix"]
+streams_count = 2
+stream_0/stream = ExtResource("12_afwlj")
+stream_1/stream = ExtResource("13_glvp7")
 
 [node name="GameScreen" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_canvas_layer", "turtle")]
 script = ExtResource("1_pllgy")
@@ -33,10 +40,9 @@ item_count = 1
 item_0/text = "Show Turtles"
 item_0/id = 1
 
-[node name="TurtleControls" parent="." node_paths=PackedStringArray("wash_fx", "sparkle_fx", "eat_fx", "pet_fx", "turtle") instance=ExtResource("9_vy0wy")]
+[node name="TurtleControls" parent="." node_paths=PackedStringArray("wash_fx", "sparkle_fx", "pet_fx", "turtle") instance=ExtResource("9_vy0wy")]
 wash_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/WashFx")
 sparkle_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/SparkleFx")
-eat_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/EatFx")
 pet_fx = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/PetFx")
 turtle = NodePath("../SubViewportContainer/SubViewport/World/TurtleHolder/Turtle")
 
@@ -71,6 +77,10 @@ position = Vector2(256, 256)
 [node name="Turtle" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("2_frltn")]
 turtle_variants = null
 
+[node name="Visual" parent="SubViewportContainer/SubViewport/World/TurtleHolder/Turtle" index="1" node_paths=PackedStringArray("eat_fx", "eat_sfx")]
+eat_fx = NodePath("../../EatFx")
+eat_sfx = NodePath("../../../../../../SFX/EatSfx")
+
 [node name="WashFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("3_dj1go")]
 
 [node name="ThoughtBubble" parent="SubViewportContainer/SubViewport/World/TurtleHolder" node_paths=PackedStringArray("turtle") instance=ExtResource("4_fjl1o")]
@@ -78,6 +88,14 @@ turtle = NodePath("../Turtle")
 
 [node name="SparkleFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("5_afwlj")]
 
-[node name="EatFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("6_glvp7")]
+[node name="EatFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" node_paths=PackedStringArray("audio_stream_player") instance=ExtResource("6_glvp7")]
+audio_stream_player = NodePath("../../../../../SFX/EatSfx")
 
 [node name="PetFx" parent="SubViewportContainer/SubViewport/World/TurtleHolder" instance=ExtResource("7_brfix")]
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="EatSfx" type="AudioStreamPlayer" parent="SFX"]
+stream = SubResource("AudioStreamRandomizer_brfix")
+
+[editable path="SubViewportContainer/SubViewport/World/TurtleHolder/Turtle"]

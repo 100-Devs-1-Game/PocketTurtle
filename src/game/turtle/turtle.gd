@@ -32,11 +32,11 @@ signal wants_changed(prev_want: Enums.TurtleWants, new_want: Enums.TurtleWants)
 const BABY_BLUSH = preload("uid://cnuv5y7l44t1a")
 
 var stage_lifetime_transition_table: Dictionary[Enums.TurtleStage, int] = {
-	Enums.TurtleStage.EGG: 24 * 60 * 60,
-	Enums.TurtleStage.BABY: 48 * 60 * 60,
-	Enums.TurtleStage.ADULT: 96 * 60 * 60,
-	Enums.TurtleStage.ELDERLY: 24 * 60 * 60,
-	Enums.TurtleStage.ASCENSION: 2 * 60 * 60,
+	Enums.TurtleStage.EGG: 24 * 60 * 60, # 1 day.
+	Enums.TurtleStage.BABY: 48 * 60 * 60, # 2 days.
+	Enums.TurtleStage.ADULT: 72 * 60 * 60, # 3 days.
+	Enums.TurtleStage.ELDERLY: 24 * 60 * 60, # 1 day
+	Enums.TurtleStage.ASCENSION: 2 * 60 * 60, # 2 hours.
 }
 
 var desire_configuration_table: Dictionary[Enums.TurtleStage, Array] = {
@@ -93,7 +93,7 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 
 
 func _update_visual() -> void:
-	
+	visual.turtle_stage = stage
 	if loading_from_save:
 		# Simple transition
 		for child: Node2D in visual.sprites.get_children():
@@ -197,7 +197,15 @@ func set_visual(new_visual: TurtleVisual) -> void:
 	visual = new_visual
 	if visual:
 		visual.turtle_variant = turtle_variant
+		visual.turtle_stage = stage
 
 
 func get_visual() -> TurtleVisual:
 	return visual
+	
+
+func eat_food() -> void:
+	if current_want != Enums.TurtleWants.FOOD:
+		return
+	current_want = Enums.TurtleWants.NONE
+	visual.play_eating_animation()
