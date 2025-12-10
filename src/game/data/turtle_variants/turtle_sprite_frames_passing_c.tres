@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://d1rapdqotkqdj"]
+
+[ext_resource type="Texture2D" uid="uid://deyfkeidesn06" path="res://assets/Art Assets/C Elder/C_elder_passing.png" id="1_2232f"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2232f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

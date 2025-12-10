@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://vtqx0offch3v"]
 
-[ext_resource type="Script" uid="uid://411ais8ab7bg" path="res://game/main/debug_canvas_layer.gd" id="1_gmrku"]
+[ext_resource type="Script" uid="uid://411ais8ab7bg" path="res://game/debug_controls/debug_controls.gd" id="1_gmrku"]
 [ext_resource type="FontFile" uid="uid://co7bol411m67c" path="res://assets/Font/Chewy-Regular.ttf" id="2_i6ckk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xvake"]

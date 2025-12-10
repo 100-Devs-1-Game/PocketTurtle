@@ -1,7 +1,7 @@
 extends Node
 
 const TITLE_SCREEN_SCENE = "res://game/title_screen/title_screen.tscn"
-const GAME_SCREEN_SCENE = "res://game/game_screen/game_screen.tscn"
+const GAME_SCREEN_SCENE = "res://game/game/game.tscn"
 const TITLE_SCREEN_DELAY = 2.0
 
 func _ready() -> void:

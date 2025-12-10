@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cpkbphum4uddk"]
+[gd_scene load_steps=9 format=3 uid="uid://by75pcmrf2lpl"]
 
-[ext_resource type="Script" path="res://game/main/turtle_controls.gd" id="1_3gg7p"]
+[ext_resource type="Script" uid="uid://dxlo2e7ryxxd5" path="res://game/turtle/turtle_controls.gd" id="1_3gg7p"]
 [ext_resource type="Texture2D" uid="uid://m8hfc6vry8va" path="res://assets/Art Assets/UI/Buttons/feed_on.png" id="2_5ikr5"]
 [ext_resource type="Texture2D" uid="uid://cd8l38110b3r7" path="res://assets/Art Assets/UI/Buttons/feed_off.png" id="3_yhjr2"]
 [ext_resource type="Texture2D" uid="uid://tk071nqpoesn" path="res://assets/Art Assets/UI/Buttons/pet_on.png" id="4_ntys2"]

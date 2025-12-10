@@ -1,9 +1,8 @@
 class_name TurtleVisual
 extends Node2D
 
-@export var turtle_variant: TurtleVariant:
-	set = set_turtle_variant,
-	get = get_turtle_variant
+var turtle_variant: TurtleVariant:
+	set = set_turtle_variant
 
 @export var turtle_stage: Enums.TurtleStage:
 	set = set_turtle_stage
@@ -12,147 +11,71 @@ extends Node2D
 @export var sprites: Node2D
 @export var egg_visual: AnimatedSprite2D
 @export var baby_visual: AnimatedSprite2D
+@export var adult_visual: AnimatedSprite2D
+@export var elder_visual: AnimatedSprite2D
+@export var ascension_visual: AnimatedSprite2D
 @export var egg_crack_audio: AudioStreamPlayer
 @export var evolution_audio: AudioStreamPlayer
-
-@export var adult_visual: Sprite2D:
-	set = set_adult_visual,
-	get = get_adult_visual
-
-@export var elder_visual: Sprite2D:
-	set = set_elder_visual,
-	get = get_elder_visual
-
-@export var ascension_visual: Sprite2D:
-	set = set_ascension_visual,
-	get = get_ascension_visual
-
-@export var eat_fx: EatFx
-@export var eat_sfx: AudioStreamPlayer
-
-func set_adult_visual(new_adult_visual: Sprite2D) -> void:
-	adult_visual = new_adult_visual
-	if turtle_variant:
-		adult_visual.texture = turtle_variant.texture_adult
+@export var animation_player: AnimationPlayer
+@export var thought_bubble_food: Sprite2D
+@export var thought_bubble_pet: Sprite2D
+@export var thought_bubble_bath: Sprite2D
+@export var thought_bubble_audio: AudioStreamPlayer
+@export var blink_timer: Timer
 
 
-func get_adult_visual() -> Sprite2D:
-	return adult_visual
-
-
-func set_elder_visual(new_elder_visual: Sprite2D) -> void:
-	elder_visual = new_elder_visual
-	if turtle_variant:
-		elder_visual.texture = turtle_variant.texture_elder
-
-
-func get_elder_visual() -> Sprite2D:
-	return elder_visual
-
-
-func set_ascension_visual(new_ascension_visual: Sprite2D) -> void:
-	ascension_visual = new_ascension_visual
-	if turtle_variant:
-		ascension_visual.texture = turtle_variant.texture_ascension
-
-
-func get_ascension_visual() -> Sprite2D:
-	return ascension_visual
+func _ready() -> void:
+	blink_timer.timeout.connect(_on_blink_timer_timeout)
 
 
 func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
 	turtle_variant = new_turtle_variant
-	if adult_visual:
-		adult_visual.texture = turtle_variant.texture_adult if turtle_variant else null
-		elder_visual.texture = turtle_variant.texture_elder if turtle_variant else null
-		ascension_visual.texture = turtle_variant.texture_ascension if turtle_variant else null
-
-
-func get_turtle_variant() -> TurtleVariant:
-	return turtle_variant
-
-
-
-func play_egg_crack_animation() -> void:
-	# TODO: could this be done in an animation player instead?
-	var frames: Array[float] = [1.5, 2.5, 2.5]
-
-	# Egg Cracking
-	egg_visual.visible = true
-	egg_visual.z_index  = 1
-	egg_visual.animation = &"egg_crack"
-	egg_crack_audio.play()
-	
-	var wiggle_egg = func() -> Signal:
-		var tw := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-		tw.tween_property(egg_visual, "rotation_degrees", -15, 0.1)
-		tw.tween_property(egg_visual, "rotation_degrees", 15, 0.2)
-		tw.tween_property(egg_visual, "rotation_degrees", 0, 0.1)
-		return tw.finished
-
-	for i in range(frames.size()):
-		var frame_timing := frames[i]
-		egg_visual.frame = i + 1
-		if i != frames.size() - 1:
-			wiggle_egg.call()
-			var timer := get_tree().create_timer(frame_timing)
-			await timer.timeout
-	
-	# Start baby on the outside, bring into forward frame
-	baby_visual.visible = true
-	baby_visual.z_index = 0
-	evolution_audio.play()
-	
-	# Roll the egg off stage.
-	
-	var egg_roll_tween := get_tree().create_tween()
-	egg_roll_tween.tween_property(egg_visual, "position:x", 1000, 1.0)
-
-	var set_egg_rotation := func(val: float):
-		egg_visual.rotation_degrees = (val * 360.0)
-	var hide_egg_visual := func():
-		egg_visual.z_index = 0
-		egg_visual.visible = 0 
-		egg_visual.rotation_degrees = 0
-		egg_visual.position = Vector2.ZERO
-		egg_visual.visible = false
-		egg_visual.animation = &"default"
-	
-	egg_roll_tween.parallel().tween_method(set_egg_rotation, 0.0, 2.0, 2.0)
-	egg_roll_tween.tween_callback(hide_egg_visual)
-
-	# Bounce baby up, bring into front, bring baby down.
-	baby_visual.z_index = 0
-	var bounce_tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT)
-	baby_visual.scale = Vector2.ZERO
-	bounce_tween.parallel().tween_property(baby_visual, "scale", Vector2.ONE, 0.5)
-	bounce_tween.tween_property(baby_visual, "position:y", -200.0, 0.25)
-	bounce_tween.tween_property(baby_visual, "position:y", 0.0, 0.25)
-	await bounce_tween.finished
+	adult_visual.sprite_frames = turtle_variant.adult_sprite_frames if turtle_variant else null
+	elder_visual.texture = turtle_variant.elder_sprite_frames if turtle_variant else null
+	ascension_visual.texture = turtle_variant.passing_sprite_frames if turtle_variant else null
 
 
 func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 	turtle_stage = new_turtle_stage
+	for c: Node2D in sprites.get_children():
+		c.visible = c.get_index() == turtle_stage
+	if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
+		# These have blink frames, so we enable the blink timer.
+		blink_timer.start()
+
+func set_turtle_wants(new_want: Enums.TurtleWants) -> void:
+	match new_want:
+		Enums.TurtleWants.FOOD:
+			thought_bubble_food.visible = true
+			thought_bubble_pet.visible = false
+			thought_bubble_bath.visible = false
+		Enums.TurtleWants.PETS:
+			thought_bubble_food.visible = false
+			thought_bubble_pet.visible = true
+			thought_bubble_bath.visible = false
+		Enums.TurtleWants.BATH:
+			thought_bubble_food.visible = false
+			thought_bubble_pet.visible = false
+			thought_bubble_bath.visible = true
+		_:
+			thought_bubble_food.visible = false
+			thought_bubble_pet.visible = false
+			thought_bubble_bath.visible = false
+	if new_want != Enums.TurtleWants.NONE:
+		thought_bubble_audio.play()
 
 
-func play_eating_animation() -> void:
+func _on_blink_timer_timeout() -> void:
+	var animation_name: StringName
 	match turtle_stage:
 		Enums.TurtleStage.BABY:
-			# Baby's eating Fx is a sprite sheet.
-			baby_visual.play("eat")
-			var sfx_played := false
-			while true:
-				if sfx_played:
-					await baby_visual.animation_finished
-					break
-				else:
-					await baby_visual.frame_changed
-					if baby_visual.frame == 3:
-						# Play the sounds 
-						eat_sfx.play()
-						sfx_played = true
-
-			baby_visual.play("default")
+			animation_name = "blink_baby"
+		Enums.TurtleStage.ADULT:
+			animation_name = "blink_adult"
+		Enums.TurtleStage.ELDERLY:
+			animation_name = "blink_elderly"
 		_:
-			# Default eating FX.
-			eat_fx.play()
+			print("Blink timer called on a stage that doesn't have a blink animation")
+			return
+
+	animation_player.play(animation_name)

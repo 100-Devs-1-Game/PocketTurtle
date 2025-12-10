@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="TurtleVariant" load_steps=5 format=3 uid="uid://cc7l2y4w6jm86"]
 
+[ext_resource type="SpriteFrames" uid="uid://b42qct2whqkwe" path="res://game/data/turtle_variants/turtle_sprite_frames_adult_a.tres" id="1_4mw6j"]
 [ext_resource type="Script" uid="uid://bprvptklo0i5k" path="res://game/data/turtle_variant.gd" id="1_kwoyn"]
-[ext_resource type="Texture2D" uid="uid://hmi2k87gprcf" path="res://assets/Art Assets/Turtle A/A_turtle1.png" id="2_5na78"]
-[ext_resource type="Texture2D" uid="uid://3kplt5rbig6d" path="res://assets/Art Assets/A Elder/A_elder_passing.png" id="3_4mw6j"]
-[ext_resource type="Texture2D" uid="uid://dcww1dh6u4wo" path="res://assets/Art Assets/A Elder/A_elder1.png" id="4_qi334"]
+[ext_resource type="SpriteFrames" uid="uid://db3t57bnfknsy" path="res://game/data/turtle_variants/turtle_sprite_frames_elder_a.tres" id="2_qi334"]
+[ext_resource type="SpriteFrames" uid="uid://dwbceq0x3mtdp" path="res://game/data/turtle_variants/turtle_sprite_frames_passing_a.tres" id="3_ysknw"]
 
 [resource]
 script = ExtResource("1_kwoyn")
-texture_adult = ExtResource("2_5na78")
-texture_elder = ExtResource("4_qi334")
-texture_ascension = ExtResource("3_4mw6j")
+adult_sprite_frames = ExtResource("1_4mw6j")
+elder_sprite_frames = ExtResource("2_qi334")
+passing_sprite_frames = ExtResource("3_ysknw")
 metadata/_custom_type_script = "uid://bprvptklo0i5k"
