@@ -7,6 +7,10 @@ signal wash_pressed()
 signal turtle_name_changed(new_name: String)
 
 
+var turtle_name: String:
+	set = set_turtle_name
+
+
 @export_category("Nodes")
 @export var turtle_name_edit: LineEdit
 @export var button_controls: Control
@@ -45,3 +49,7 @@ func set_current_want(want: Enums.TurtleWants) -> void:
 	eat_button.disabled = want != Enums.TurtleWants.FOOD
 	pet_button.disabled = want != Enums.TurtleWants.PETS
 	wash_button.disabled = want != Enums.TurtleWants.BATH
+
+
+func set_controls_enabled(enabled: bool) -> void:
+	button_controls.visible = enabled

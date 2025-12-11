@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://by75pcmrf2lpl"]
+[gd_scene load_steps=9 format=3 uid="uid://8t5qxjkxl0h"]
 
 [ext_resource type="Script" uid="uid://dxlo2e7ryxxd5" path="res://game/turtle/turtle_controls.gd" id="1_3gg7p"]
 [ext_resource type="Texture2D" uid="uid://m8hfc6vry8va" path="res://assets/Art Assets/UI/Buttons/feed_on.png" id="2_5ikr5"]
@@ -46,6 +46,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+disabled = true
 texture_normal = ExtResource("2_5ikr5")
 texture_disabled = ExtResource("3_yhjr2")
 
@@ -53,6 +54,7 @@ texture_disabled = ExtResource("3_yhjr2")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+disabled = true
 texture_normal = ExtResource("4_ntys2")
 texture_disabled = ExtResource("5_lwrs1")
 
@@ -60,6 +62,7 @@ texture_disabled = ExtResource("5_lwrs1")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+disabled = true
 texture_normal = ExtResource("6_ml7px")
 texture_disabled = ExtResource("7_fxci3")
 

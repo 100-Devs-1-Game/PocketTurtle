@@ -38,3 +38,19 @@ func read_dict(dict: Dictionary) -> void:
 	if time_scale < 0 or is_zero_approx(time_scale):
 		time_scale = 1.0
 	turtle_name = dict.get("turtle_name") if dict.has("turtle_name") else "Tortle"
+
+
+func save_turtle(turtle: TurtleState) -> void:
+	turtle_stage_lifetime = turtle.stage_lifetime
+	turtle_current_stage = turtle.turtle_stage
+	turtle_current_want = turtle.turtle_wants
+	turtle_variant = turtle.turtle_variant.resource_path if turtle.turtle_variant else ""
+	turtle_name = turtle.turtle_name
+
+func load_turtle(turtle: TurtleState) -> void:
+	turtle.turtle_name = turtle_name
+	turtle.stage_lifetime = turtle_stage_lifetime
+	turtle.turtle_stage = turtle_current_stage
+	turtle.turtle_wants = turtle_current_want
+	if turtle_variant != "":
+		turtle.turtle_variant = load(turtle_variant)

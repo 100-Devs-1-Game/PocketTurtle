@@ -4,7 +4,7 @@ extends Node2D
 var turtle_variant: TurtleVariant:
 	set = set_turtle_variant
 
-@export var turtle_stage: Enums.TurtleStage:
+var turtle_stage: Enums.TurtleStage:
 	set = set_turtle_stage
 
 @export_category("Nodes")
@@ -39,9 +39,11 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 	turtle_stage = new_turtle_stage
 	for c: Node2D in sprites.get_children():
 		c.visible = c.get_index() == turtle_stage
-	if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
+
+	# if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
 		# These have blink frames, so we enable the blink timer.
-		blink_timer.start()
+		# blink_timer.start()
+		
 
 func set_turtle_wants(new_want: Enums.TurtleWants) -> void:
 	match new_want:

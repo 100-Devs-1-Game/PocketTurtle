@@ -2,47 +2,6 @@ class_name DebugControls
 extends CanvasLayer
 
 
-signal debug_time_scale_changed(new_time_scale: float)
-signal debug_turtle_name_changed(new_name: String)
-signal debug_turtle_stage_changed(new_stage: Enums.TurtleStage)
-signal debug_turtle_want_changed(new_want: Enums.TurtleWants)
-
-@export_category("Nodes")
-@export var turtle_stage_label: Label
-@export var turtle_stage_timer_label: Label
-@export var set_state_option_button: OptionButton
-@export var time_to_next_state_label: Label
-@export var current_want_label: Label
-@export var set_current_want_option_button: OptionButton
-@export var set_time_scale_option_button: OptionButton
-
-
-var stage_elapsed_seconds: float:
-	set = set_stage_elapsed_seconds
-
-func set_stage_elapsed_seconds(new_seconds: float) -> void:
-	stage_elapsed_seconds = new_seconds
-
-var time_to_next_stage: int:
-	set = set_time_to_next_stage
-
-func set_time_to_next_stage(new_time: int) -> void:
-	time_to_next_stage = new_time
-	
-var current_stage: Enums.TurtleStage:
-	set = set_current_stage
-
-func set_current_stage(new_stage: Enums.TurtleStage) -> void:
-	current_stage = new_stage
-	_on_turtle_state_changed()
-
-
-# Time since last update.
-var _update_timer := 0.0
-# Update every second
-var _update_delay := 1.0
-
-
 const GAME_SPEEDS = [
 	{
 		"text": "1x",
@@ -71,6 +30,51 @@ const GAME_SPEEDS = [
 ]
 
 
+signal debug_time_scale_changed(new_time_scale: float)
+signal debug_turtle_stage_changed(new_stage: Enums.TurtleStage)
+signal debug_turtle_want_changed(new_want: Enums.TurtleWants)
+
+@export_category("Nodes")
+@export var turtle_stage_label: Label
+@export var turtle_stage_timer_label: Label
+@export var set_state_option_button: OptionButton
+@export var time_to_next_state_label: Label
+@export var current_want_label: Label
+@export var set_current_want_option_button: OptionButton
+@export var set_time_scale_option_button: OptionButton
+
+
+var turtle: TurtleState:
+	set = set_turtle
+
+func set_turtle(new_turtle: TurtleState) -> void:
+	turtle = new_turtle
+	turtle.stage_changed.connect(_on_turtle_state_changed)
+	_on_turtle_state_changed(turtle.turtle_stage)
+	turtle.wants_changed.connect(_on_turtle_wants_changed)
+	_on_turtle_wants_changed(turtle.turtle_wants)
+
+var time_scale_factor: float = 1.0:
+	set = set_time_scale_factor
+
+func set_time_scale_factor(new_time_scale: float) -> void:
+	time_scale_factor = new_time_scale
+	var selected_index := 0
+	for i in range(set_time_scale_option_button.item_count):
+		var dict: Dictionary = GAME_SPEEDS[i]
+		var is_same_value := is_equal_approx(dict["value"], time_scale_factor)
+		set_time_scale_option_button.set_item_disabled(i, is_same_value)
+		if is_same_value:
+			selected_index = i
+	
+	print("Setting time scale to %f, selected %d" % [time_scale_factor, selected_index])
+	set_time_scale_option_button.selected = selected_index
+
+# Time since last update.
+var _update_timer := 0.0
+# Update every second
+var _update_delay := 1.0
+
 func _ready() -> void:
 	visible = false
 	for k in Enums.TurtleStage.keys():
@@ -81,8 +85,6 @@ func _ready() -> void:
 	set_state_option_button.item_selected.connect(_on_set_state_option_button_item_selected)
 	set_current_want_option_button.item_selected.connect(_on_set_current_want_option_button_item_selected)
 	set_time_scale_option_button.item_selected.connect(_on_set_time_scale_option_button_item_selected)
-	_on_turtle_state_changed()
-	_on_turtle_wants_changed()
 
 
 func _process(delta: float) -> void:
@@ -92,17 +94,17 @@ func _process(delta: float) -> void:
 		_refresh_view()
 
 func _refresh_view() -> void:
-	turtle_stage_timer_label.text = "%0.2f" % stage_elapsed_seconds
-	time_to_next_state_label.text = _time_to_string(time_to_next_stage)
+	turtle_stage_timer_label.text = "%0.2f" % turtle.stage_lifetime
+	time_to_next_state_label.text = _time_to_string(turtle.get_time_to_next_state())
 
-func _on_turtle_state_changed() -> void:
+func _on_turtle_state_changed(new_stage: Enums.TurtleStage) -> void:
 	if !is_inside_tree():
 		return
 
-	turtle_stage_label.text = Enums.turtle_stage_to_string(current_stage)
-	set_state_option_button.selected = current_stage
+	turtle_stage_label.text = Enums.turtle_stage_to_string(new_stage)
+	set_state_option_button.selected = new_stage
 	for i in range(set_state_option_button.item_count):
-		set_state_option_button.set_item_disabled(i, i == current_stage)
+		set_state_option_button.set_item_disabled(i, i == new_stage)
 	_refresh_view()
 
 
@@ -110,9 +112,11 @@ func _on_set_state_option_button_item_selected(index: int) -> void:
 	debug_turtle_stage_changed.emit(index as Enums.TurtleStage)
 	
 
-func _on_turtle_wants_changed() -> void:
-	current_want_label.text = Enums.turtle_wants_to_string(current_want)
+func _on_turtle_wants_changed(new_wants: Enums.TurtleWants) -> void:
+	current_want_label.text = Enums.turtle_wants_to_string(new_wants)
 	set_current_want_option_button.clear()
+
+	var possible_wants := turtle.get_possible_wants()
 	if not possible_wants.is_empty():
 		possible_wants.push_front(Enums.TurtleWants.NONE)
 
@@ -121,8 +125,8 @@ func _on_turtle_wants_changed() -> void:
 			Enums.turtle_wants_to_string(want),
 			want
 		)
-		set_current_want_option_button.set_item_disabled(want, want == turtle.current_want)
-	set_current_want_option_button.selected = turtle.current_want
+		set_current_want_option_button.set_item_disabled(want, want == new_wants)
+	set_current_want_option_button.selected = new_wants
 	
 func _time_to_string(time: int) -> String:
 	var ret := ""
@@ -172,9 +176,9 @@ func _time_to_string(time: int) -> String:
 
 func _on_set_current_want_option_button_item_selected(idx: int) -> void:
 	var want := idx as Enums.TurtleWants
-	debug_turtle_stage_changed.emit(want)
+	debug_turtle_want_changed.emit(want)
+
 
 func _on_set_time_scale_option_button_item_selected(idx: int) -> void:
-	debug_time_scale_changed.emit(GAME_SPEEDS[idx]["value"])
-
-	
+	time_scale_factor = GAME_SPEEDS[idx]["value"]
+	debug_time_scale_changed.emit(time_scale_factor)

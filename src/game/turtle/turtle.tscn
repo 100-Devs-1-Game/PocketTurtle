@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://civjaca35oq3a"]
+
+[ext_resource type="PackedScene" uid="uid://ekn7nk742n1o" path="res://game/turtle/turtle_visual.tscn" id="3_ufd4k"]
+
+[sub_resource type="GDScript" id="GDScript_8v7lr"]
+script/source = "class_name Turtle
+extends Area2D
+
+signal stage_changed(prev_stage: Enums.TurtleStage, new_stage: Enums.TurtleStage)
+signal wants_changed(prev_want: Enums.TurtleWants, new_want: Enums.TurtleWants)
+signal variant_changed(new_variant: TurtleVariant)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8v7lr"]
+
+[node name="Turtle" type="Area2D"]
+script = SubResource("GDScript_8v7lr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8v7lr")
+
+[node name="Visual" parent="." instance=ExtResource("3_ufd4k")]
