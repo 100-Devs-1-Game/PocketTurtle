@@ -1,6 +1,5 @@
 extends Node2D
 
-const DEFAULT_TURTLE_VARIANTS = preload("res://game/data/turtle_variants/default_turtle_variants.tres")
 const TIME_BETWEEN_SAVES_SECONDS = 1.0
 const SAVE_PATH = "user://save.json"
 # How often the turtle reevaluates its wants, default is 15 minutes.
@@ -24,9 +23,12 @@ func _ready() -> void:
 	if FileAccess.file_exists(SAVE_PATH):
 		var save_file_contents := FileAccess.get_file_as_string(SAVE_PATH)
 		var dict: Dictionary = JSON.parse_string(save_file_contents)
-		save_game_data.read_dict(dict)
-		time_scale_factor = save_game_data.time_scale
-		save_game_data.load_turtle(turtle)
+		if save_game_data.read_dict(dict) == OK:
+			time_scale_factor = save_game_data.time_scale
+			save_game_data.load_turtle(turtle)
+		else:
+			# Missing or corrupt save file, use default.
+			turtle = TurtleState.new_default()
 	else:
 		# No save file, initialize with defaults.
 		turtle = TurtleState.new_default()
@@ -40,6 +42,7 @@ func _ready() -> void:
 
 	print("Turtle name on load: %s" % turtle.turtle_name)
 	turtle_controls.set_controls_enabled(turtle.turtle_stage != Enums.TurtleStage.EGG and turtle.turtle_stage != Enums.TurtleStage.PASSING)
+	turtle_controls.set_current_want(turtle.turtle_wants)
 	turtle_controls.turtle_name = turtle.turtle_name
 	turtle_controls.turtle_name_changed.connect(_on_turtle_controls_turtle_name_changed)
 	turtle_controls.feed_pressed.connect(_on_turtle_controls_feed_pressed)
@@ -47,6 +50,8 @@ func _ready() -> void:
 	turtle_controls.wash_pressed.connect(_on_turtle_controls_wash_pressed)
 
 	visual.set_turtle_stage(turtle.turtle_stage)
+	visual.set_turtle_wants(turtle.turtle_wants)
+	visual.set_turtle_variant(turtle.turtle_variant)
 
 
 func _process(delta: float) -> void:
@@ -92,8 +97,11 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 	turtle.turtle_stage = next_stage
 	turtle.stage_lifetime = 0.0
 	visual.set_turtle_stage(next_stage)
+	visual.play_evolution_effects()
 	match next_stage:
 		Enums.TurtleStage.EGG:
+			turtle.turtle_variant = load(TurtleState.DEFAULT_TURTLE_VARIANTS.get_random_variant())
+			visual.set_turtle_variant(turtle.turtle_variant)
 			set_current_want(Enums.TurtleWants.NONE)
 			turtle_controls.set_controls_enabled(false)
 		Enums.TurtleStage.PASSING:
@@ -159,16 +167,19 @@ func _on_turtle_controls_feed_pressed() -> void:
 	if turtle.turtle_wants != Enums.TurtleWants.FOOD:
 		return
 	set_current_want(Enums.TurtleWants.NONE)
+	visual.feed_turtle()
 
 func _on_turtle_controls_pet_pressed() -> void:
 	if turtle.turtle_wants != Enums.TurtleWants.PETS:
 		return
 	set_current_want(Enums.TurtleWants.NONE)
+	visual.pet_turtle()
 
 func _on_turtle_controls_wash_pressed() -> void:
 	if turtle.turtle_wants != Enums.TurtleWants.BATH:
 		return
 	set_current_want(Enums.TurtleWants.NONE)
+	visual.wash_turtle()
 
 #endregion
 

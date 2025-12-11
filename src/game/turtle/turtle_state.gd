@@ -6,6 +6,7 @@ signal name_changed(new_name: String)
 signal stage_changed(new_stage: Enums.TurtleStage)
 signal wants_changed(new_wants: Enums.TurtleWants)
 
+const DEFAULT_TURTLE_VARIANTS = preload("res://game/data/turtle_variants/default_turtle_variants.tres")
 
 @export var turtle_name: String:
 	set = set_turtle_name
@@ -76,4 +77,5 @@ static func new_default() -> TurtleState:
 	turtle.turtle_stage = Enums.TurtleStage.EGG
 	turtle.stage_lifetime = 0.0
 	turtle.turtle_wants = Enums.TurtleWants.NONE
+	turtle.turtle_variant = load(DEFAULT_TURTLE_VARIANTS.get_random_variant())
 	return turtle

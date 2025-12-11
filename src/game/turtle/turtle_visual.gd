@@ -23,6 +23,8 @@ var turtle_stage: Enums.TurtleStage:
 @export var thought_bubble_bath: Sprite2D
 @export var thought_bubble_audio: AudioStreamPlayer
 @export var blink_timer: Timer
+@export var washing_fx: Node2D
+@export var pet_fx: Node2D
 
 
 func _ready() -> void:
@@ -32,8 +34,8 @@ func _ready() -> void:
 func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
 	turtle_variant = new_turtle_variant
 	adult_visual.sprite_frames = turtle_variant.adult_sprite_frames if turtle_variant else null
-	elder_visual.texture = turtle_variant.elder_sprite_frames if turtle_variant else null
-	ascension_visual.texture = turtle_variant.passing_sprite_frames if turtle_variant else null
+	elder_visual.sprite_frames = turtle_variant.elder_sprite_frames if turtle_variant else null
+	ascension_visual.sprite_frames = turtle_variant.passing_sprite_frames if turtle_variant else null
 
 
 func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
@@ -44,13 +46,21 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 	match turtle_stage:
 		Enums.TurtleStage.BABY:
 			thought_bubble.position = Vector2(-20, 90)
+			washing_fx.position = Vector2(0, 60)
+			pet_fx.position = Vector2(0, 60)
 		_:
 			thought_bubble.position = Vector2.ZERO
+			washing_fx.position = Vector2.ZERO
+			pet_fx.position = Vector2.ZERO
 
 	# if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
 		# These have blink frames, so we enable the blink timer.
 		# blink_timer.start()
-		
+
+
+func play_evolution_effects() -> void:
+	evolution_audio.play()
+
 
 func set_turtle_wants(new_want: Enums.TurtleWants) -> void:
 	match new_want:
@@ -88,3 +98,13 @@ func _on_blink_timer_timeout() -> void:
 			return
 
 	animation_player.play(animation_name)
+
+
+func wash_turtle() -> void:
+	animation_player.play("wash")
+
+func pet_turtle() -> void:
+	animation_player.play("pet")
+
+func feed_turtle() -> void:
+	animation_player.play("feed")

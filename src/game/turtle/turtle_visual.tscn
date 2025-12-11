@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://ekn7nk742n1o"]
+[gd_scene load_steps=56 format=3 uid="uid://ekn7nk742n1o"]
 
 [ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="1_ei5j1"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_h7c80"]
@@ -139,6 +139,54 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(0, 93)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("FX/Washing:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("FX/Sparkles:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("FX/Carrot:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("FX/Pets:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_motv2"]
 resource_name = "baby_blink"
@@ -207,84 +255,185 @@ tracks/4/keys = {
 "update": 1,
 "values": [0, 1, 2, 3]
 }
-tracks/5/type = "audio"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Audio/EggCrackAudioStreamPlayer")
+tracks/5/path = NodePath("Sprites/Egg:z_index")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("12_vwwiq")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/5/use_blend = true
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Sprites/Egg:z_index")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(),
 "transitions": PackedFloat32Array(),
 "update": 1,
 "values": []
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Sprites/Baby:position")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprites/Baby:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0, 6.5, 6.7, 6.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -174), Vector2(0, 0)]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Sprites/Egg:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprites/Egg:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0, 6.5, 7.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 93), Vector2(0, 93), Vector2(584, 93)]
 }
-tracks/9/type = "audio"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Audio/EvolutionAudioStreamPlayer")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+
+[sub_resource type="Animation" id="Animation_jqt5f"]
+resource_name = "sparkle"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FX/Sparkles:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_uxv32"]
+resource_name = "wash"
+length = 5.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FX/Washing:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.85),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio/ScrubbingStreamAudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("13_3s0i2")
+"stream": ExtResource("36_ma0ro")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("27_motv2")
 }],
-"times": PackedFloat32Array(6.4)
+"times": PackedFloat32Array(0, 1.8)
 }
-tracks/9/use_blend = true
-tracks/10/type = "method"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath(".")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = {
-"times": PackedFloat32Array(7.7),
+tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FX/Sparkles:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_f7364"]
+resource_name = "pet"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FX/Pets:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio/PetsAudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("28_ma0ro")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jqt5f"]
+streams_count = 2
+stream_0/stream = ExtResource("29_jqt5f")
+stream_1/stream = ExtResource("30_uxv32")
+
+[sub_resource type="Animation" id="Animation_vw66y"]
+resource_name = "feed"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FX/Carrot:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Audio/EatAudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": SubResource("AudioStreamRandomizer_jqt5f")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("FX/Carrot")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [],
-"method": &"notify_evolution_complete"
+"args": [&"default", 1.0, false],
+"method": &"play"
 }]
 }
 
@@ -292,7 +441,11 @@ tracks/10/keys = {
 _data = {
 &"RESET": SubResource("Animation_p8x8p"),
 &"baby_blink": SubResource("Animation_motv2"),
-&"egg_crack": SubResource("Animation_rq2e2")
+&"egg_crack": SubResource("Animation_rq2e2"),
+&"feed": SubResource("Animation_vw66y"),
+&"pet": SubResource("Animation_f7364"),
+&"sparkle": SubResource("Animation_jqt5f"),
+&"wash": SubResource("Animation_uxv32")
 }
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wbdr3"]
@@ -370,7 +523,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("20_3qghg")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
@@ -423,12 +576,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y60nh"]
-streams_count = 2
-stream_0/stream = ExtResource("29_jqt5f")
-stream_1/stream = ExtResource("30_uxv32")
-
-[node name="Visual" type="Node2D" node_paths=PackedStringArray("sprites", "egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual", "egg_crack_audio", "evolution_audio", "animation_player", "thought_bubble", "thought_bubble_food", "thought_bubble_pet", "thought_bubble_bath", "thought_bubble_audio", "blink_timer")]
+[node name="Visual" type="Node2D" node_paths=PackedStringArray("sprites", "egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual", "egg_crack_audio", "evolution_audio", "animation_player", "thought_bubble", "thought_bubble_food", "thought_bubble_pet", "thought_bubble_bath", "thought_bubble_audio", "blink_timer", "washing_fx", "pet_fx")]
 script = ExtResource("1_ei5j1")
 sprites = NodePath("Sprites")
 egg_visual = NodePath("Sprites/Egg")
@@ -439,12 +587,14 @@ ascension_visual = NodePath("Sprites/Ascension")
 egg_crack_audio = NodePath("Audio/EggCrackAudioStreamPlayer")
 evolution_audio = NodePath("Audio/EvolutionAudioStreamPlayer")
 animation_player = NodePath("AnimationPlayer")
-thought_bubble = NodePath("FX/ThoughtBubble")
-thought_bubble_food = NodePath("FX/ThoughtBubble/ThoughtBubbleFeed")
-thought_bubble_pet = NodePath("FX/ThoughtBubble/ThoughtBubblePet")
-thought_bubble_bath = NodePath("FX/ThoughtBubble/ThoughtBubbleWash")
+thought_bubble = NodePath("ThoughtBubble")
+thought_bubble_food = NodePath("ThoughtBubble/ThoughtBubbleFeed")
+thought_bubble_pet = NodePath("ThoughtBubble/ThoughtBubblePet")
+thought_bubble_bath = NodePath("ThoughtBubble/ThoughtBubbleWash")
 thought_bubble_audio = NodePath("Audio/ThoughtPopupAudioStreamPlayer")
 blink_timer = NodePath("BlinkTimer")
+washing_fx = NodePath("FX/Washing")
+pet_fx = NodePath("FX/Pets")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -452,6 +602,20 @@ libraries = {
 }
 
 [node name="BlinkTimer" type="Timer" parent="."]
+
+[node name="ThoughtBubble" type="Node2D" parent="."]
+
+[node name="ThoughtBubbleFeed" type="Sprite2D" parent="ThoughtBubble"]
+visible = false
+texture = ExtResource("18_038u5")
+
+[node name="ThoughtBubblePet" type="Sprite2D" parent="ThoughtBubble"]
+visible = false
+texture = ExtResource("19_v7eva")
+
+[node name="ThoughtBubbleWash" type="Sprite2D" parent="ThoughtBubble"]
+visible = false
+texture = ExtResource("20_dvho3")
 
 [node name="Sprites" type="Node2D" parent="."]
 
@@ -482,53 +646,44 @@ sprite_frames = ExtResource("19_f7364")
 
 [node name="FX" type="Node2D" parent="."]
 
-[node name="ThoughtBubble" type="Node2D" parent="FX"]
-
-[node name="ThoughtBubbleFeed" type="Sprite2D" parent="FX/ThoughtBubble"]
-texture = ExtResource("18_038u5")
-
-[node name="ThoughtBubblePet" type="Sprite2D" parent="FX/ThoughtBubble"]
-visible = false
-texture = ExtResource("19_v7eva")
-
-[node name="ThoughtBubbleWash" type="Sprite2D" parent="FX/ThoughtBubble"]
-visible = false
-texture = ExtResource("20_dvho3")
-
 [node name="Carrot" type="AnimatedSprite2D" parent="FX"]
 visible = false
+position = Vector2(0, -150)
 sprite_frames = SubResource("SpriteFrames_f7364")
 
 [node name="Sparkles" type="AnimatedSprite2D" parent="FX"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_vw66y")
+autoplay = "default"
 
 [node name="Pets" type="AnimatedSprite2D" parent="FX"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_0se3m")
+autoplay = "default"
 
 [node name="Washing" type="AnimatedSprite2D" parent="FX"]
 visible = false
 sprite_frames = SubResource("SpriteFrames_xxig1")
+autoplay = "default"
 frame_progress = 0.3292671
 
 [node name="Audio" type="Node" parent="."]
 
 [node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("12_vwwiq")
 
 [node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("14_j3lif")
 
 [node name="EvolutionAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("13_3s0i2")
 
 [node name="SparkleAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("27_motv2")
 
 [node name="PetsAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("28_ma0ro")
 
 [node name="EatAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-stream = SubResource("AudioStreamRandomizer_y60nh")
 
 [node name="AllCleanAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("27_motv2")
@@ -537,4 +692,3 @@ stream = ExtResource("27_motv2")
 stream = ExtResource("34_pfxnx")
 
 [node name="ScrubbingStreamAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("36_ma0ro")
