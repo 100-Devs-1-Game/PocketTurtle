@@ -17,6 +17,7 @@ var turtle_stage: Enums.TurtleStage:
 @export var egg_crack_audio: AudioStreamPlayer
 @export var evolution_audio: AudioStreamPlayer
 @export var animation_player: AnimationPlayer
+@export var thought_bubble: Node2D
 @export var thought_bubble_food: Sprite2D
 @export var thought_bubble_pet: Sprite2D
 @export var thought_bubble_bath: Sprite2D
@@ -39,6 +40,12 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 	turtle_stage = new_turtle_stage
 	for c: Node2D in sprites.get_children():
 		c.visible = c.get_index() == turtle_stage
+
+	match turtle_stage:
+		Enums.TurtleStage.BABY:
+			thought_bubble.position = Vector2(-20, 90)
+		_:
+			thought_bubble.position = Vector2.ZERO
 
 	# if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
 		# These have blink frames, so we enable the blink timer.

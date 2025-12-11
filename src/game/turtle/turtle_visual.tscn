@@ -428,7 +428,7 @@ streams_count = 2
 stream_0/stream = ExtResource("29_jqt5f")
 stream_1/stream = ExtResource("30_uxv32")
 
-[node name="Visual" type="Node2D" node_paths=PackedStringArray("sprites", "egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual", "egg_crack_audio", "evolution_audio", "animation_player", "thought_bubble_food", "thought_bubble_pet", "thought_bubble_bath", "thought_bubble_audio", "blink_timer")]
+[node name="Visual" type="Node2D" node_paths=PackedStringArray("sprites", "egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual", "egg_crack_audio", "evolution_audio", "animation_player", "thought_bubble", "thought_bubble_food", "thought_bubble_pet", "thought_bubble_bath", "thought_bubble_audio", "blink_timer")]
 script = ExtResource("1_ei5j1")
 sprites = NodePath("Sprites")
 egg_visual = NodePath("Sprites/Egg")
@@ -439,6 +439,7 @@ ascension_visual = NodePath("Sprites/Ascension")
 egg_crack_audio = NodePath("Audio/EggCrackAudioStreamPlayer")
 evolution_audio = NodePath("Audio/EvolutionAudioStreamPlayer")
 animation_player = NodePath("AnimationPlayer")
+thought_bubble = NodePath("FX/ThoughtBubble")
 thought_bubble_food = NodePath("FX/ThoughtBubble/ThoughtBubbleFeed")
 thought_bubble_pet = NodePath("FX/ThoughtBubble/ThoughtBubblePet")
 thought_bubble_bath = NodePath("FX/ThoughtBubble/ThoughtBubbleWash")
@@ -484,7 +485,6 @@ sprite_frames = ExtResource("19_f7364")
 [node name="ThoughtBubble" type="Node2D" parent="FX"]
 
 [node name="ThoughtBubbleFeed" type="Sprite2D" parent="FX/ThoughtBubble"]
-visible = false
 texture = ExtResource("18_038u5")
 
 [node name="ThoughtBubblePet" type="Sprite2D" parent="FX/ThoughtBubble"]

@@ -105,6 +105,19 @@ func _on_turtle_state_changed(new_stage: Enums.TurtleStage) -> void:
 	set_state_option_button.selected = new_stage
 	for i in range(set_state_option_button.item_count):
 		set_state_option_button.set_item_disabled(i, i == new_stage)
+
+	set_current_want_option_button.clear()
+	var possible_wants := turtle.get_possible_wants()
+	if not possible_wants.is_empty():
+		possible_wants.push_front(Enums.TurtleWants.NONE)
+	for want in possible_wants:
+		set_current_want_option_button.add_item(
+			Enums.turtle_wants_to_string(want),
+			want
+		)
+		set_current_want_option_button.set_item_disabled(want, want == turtle.turtle_wants)
+	set_current_want_option_button.selected = turtle.turtle_wants
+	
 	_refresh_view()
 
 
