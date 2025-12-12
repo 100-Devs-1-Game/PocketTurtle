@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://njfb353cohpb"]
+
+[ext_resource type="Texture2D" uid="uid://cs1yytmqhg0io" path="res://assets/Art Assets/Turtle C/C_turtle1.png" id="1_n2bxh"]
+[ext_resource type="Texture2D" uid="uid://bxxbwu0up7ce8" path="res://assets/Art Assets/Turtle C/C_turtle_blink.png" id="2_kkvrj"]
+[ext_resource type="Texture2D" uid="uid://dol1ox0emkt8s" path="res://assets/Art Assets/Turtle C/C_turtle_blush.png" id="3_a6jnl"]
+[ext_resource type="Texture2D" uid="uid://sn761t5m4wai" path="res://assets/Art Assets/Turtle C/C_turtle_eat.png" id="4_fdvrc"]
+[ext_resource type="Texture2D" uid="uid://x2137yvroi01" path="res://assets/Art Assets/Turtle C/C_turtle_idle.png" id="5_06s11"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n2bxh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_kkvrj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a6jnl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fdvrc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_06s11")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

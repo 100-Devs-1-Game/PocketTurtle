@@ -5,7 +5,7 @@ enum TurtleStage {
 	BABY,
 	ADULT,
 	ELDERLY,
-	ASCENSION
+	PASSING
 }
 
 static func turtle_stage_to_string(turtle_stage: TurtleStage) -> String:

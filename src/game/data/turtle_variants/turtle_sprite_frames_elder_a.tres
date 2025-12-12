@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=6 format=3 uid="uid://db3t57bnfknsy"]
+
+[ext_resource type="Texture2D" uid="uid://dcww1dh6u4wo" path="res://assets/Art Assets/A Elder/A_elder1.png" id="1_p40u5"]
+[ext_resource type="Texture2D" uid="uid://dnvt382hbxqli" path="res://assets/Art Assets/A Elder/A_elder_blink.png" id="2_cmcdk"]
+[ext_resource type="Texture2D" uid="uid://dotjyfjk08uh" path="res://assets/Art Assets/A Elder/A_elder_blush.png" id="3_s01qj"]
+[ext_resource type="Texture2D" uid="uid://ujt31oo2ku63" path="res://assets/Art Assets/A Elder/A_elder_eat.png" id="4_7mdfc"]
+[ext_resource type="Texture2D" uid="uid://dvknd00s0v2h0" path="res://assets/Art Assets/A Elder/A_elder_idle.png" id="5_kqxpr"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p40u5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_cmcdk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_s01qj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7mdfc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kqxpr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://ds2eh58jgfc40"]
+
+[ext_resource type="Script" uid="uid://d0s1ovrnexg26" path="res://game/game/game.gd" id="1_gcjq5"]
+[ext_resource type="Texture2D" uid="uid://b15ddiotq61n5" path="res://assets/Art Assets/UI/app_icon.png" id="3_kkdll"]
+[ext_resource type="PackedScene" uid="uid://8t5qxjkxl0h" path="res://game/turtle/turtle_controls.tscn" id="3_m7sxm"]
+[ext_resource type="PackedScene" uid="uid://vtqx0offch3v" path="res://game/debug_controls/debug_controls.tscn" id="5_suqcb"]
+[ext_resource type="PackedScene" uid="uid://ekn7nk742n1o" path="res://game/turtle/turtle_visual.tscn" id="6_efj5v"]
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_controls", "visual")]
+script = ExtResource("1_gcjq5")
+turtle_controls = NodePath("TurtleControls")
+debug_controls = NodePath("DebugControls")
+visual = NodePath("SubViewportContainer/SubViewport/World/Visual")
+
+[node name="StatusIndicator" type="StatusIndicator" parent="."]
+icon = ExtResource("3_kkdll")
+menu = NodePath("PopupMenu")
+
+[node name="PopupMenu" type="PopupMenu" parent="StatusIndicator"]
+item_count = 1
+item_0/text = "Show Turtles"
+item_0/id = 1
+
+[node name="TurtleControls" parent="." instance=ExtResource("3_m7sxm")]
+
+[node name="DebugControls" parent="." instance=ExtResource("5_suqcb")]
+visible = false
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = 505.0
+offset_right = 1039.0
+offset_bottom = 1529.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="World" type="Node2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(256, 256)
+
+[node name="Visual" parent="SubViewportContainer/SubViewport/World" instance=ExtResource("6_efj5v")]

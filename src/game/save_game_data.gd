@@ -3,7 +3,7 @@ extends Resource
 
 
 ## Properties that are stored as JSON into a save game
-
+const VERSION = 1
 
 # Lifetime of the turtle's stage
 @export var turtle_stage_lifetime: float
@@ -20,6 +20,7 @@ extends Resource
 
 func to_dict() -> Dictionary:
 	return {
+		"version": VERSION,
 		"turtle_stage_lifetime": turtle_stage_lifetime,
 		"turtle_current_stage": turtle_current_stage,
 		"turtle_current_want": turtle_current_want,
@@ -29,7 +30,10 @@ func to_dict() -> Dictionary:
 	}
 
 
-func read_dict(dict: Dictionary) -> void:
+func read_dict(dict: Dictionary) -> Error:
+	if !dict.has("version") or VERSION != dict["version"]:
+		return FAILED
+	
 	turtle_stage_lifetime = dict.get("turtle_stage_lifetime")
 	turtle_current_stage = dict.get("turtle_current_stage")
 	turtle_current_want = dict.get("turtle_current_want")
@@ -38,3 +42,19 @@ func read_dict(dict: Dictionary) -> void:
 	if time_scale < 0 or is_zero_approx(time_scale):
 		time_scale = 1.0
 	turtle_name = dict.get("turtle_name") if dict.has("turtle_name") else "Tortle"
+	return OK
+
+func save_turtle(turtle: TurtleState) -> void:
+	turtle_stage_lifetime = turtle.stage_lifetime
+	turtle_current_stage = turtle.turtle_stage
+	turtle_current_want = turtle.turtle_wants
+	turtle_variant = turtle.turtle_variant.resource_path if turtle.turtle_variant else ""
+	turtle_name = turtle.turtle_name
+
+func load_turtle(turtle: TurtleState) -> void:
+	turtle.turtle_name = turtle_name
+	turtle.stage_lifetime = turtle_stage_lifetime
+	turtle.turtle_stage = turtle_current_stage
+	turtle.turtle_wants = turtle_current_want
+	if turtle_variant != "":
+		turtle.turtle_variant = load(turtle_variant)

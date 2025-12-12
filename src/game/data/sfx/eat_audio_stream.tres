@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=3 format=3 uid="uid://dryoxed5vhf8i"]
+
+[ext_resource type="AudioStream" uid="uid://bf5eyw5ufuo1j" path="res://assets/SFX/Food Crunch 1.mp3" id="1_d1b7q"]
+[ext_resource type="AudioStream" uid="uid://cs50t373fj77" path="res://assets/SFX/Food Crunch 2.mp3" id="2_ycwqp"]
+
+[resource]
+streams_count = 2
+stream_0/stream = ExtResource("1_d1b7q")
+stream_1/stream = ExtResource("2_ycwqp")
