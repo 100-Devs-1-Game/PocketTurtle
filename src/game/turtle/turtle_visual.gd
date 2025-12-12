@@ -22,13 +22,14 @@ var turtle_stage: Enums.TurtleStage:
 @export var thought_bubble_pet: Sprite2D
 @export var thought_bubble_bath: Sprite2D
 @export var thought_bubble_audio: AudioStreamPlayer
-@export var blink_timer: Timer
+@export var fidget_timer: Timer
 @export var washing_fx: Node2D
 @export var pet_fx: Node2D
 
 
+
 func _ready() -> void:
-	blink_timer.timeout.connect(_on_blink_timer_timeout)
+	fidget_timer.timeout.connect(_on_fidget_timer_timeout)
 
 
 func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
@@ -43,6 +44,7 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 	for c: Node2D in sprites.get_children():
 		c.visible = c.get_index() == turtle_stage
 
+	# Update FX positions
 	match turtle_stage:
 		Enums.TurtleStage.BABY:
 			thought_bubble.position = Vector2(-20, 90)
@@ -53,9 +55,11 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 			washing_fx.position = Vector2.ZERO
 			pet_fx.position = Vector2.ZERO
 
-	# if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
+	if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
 		# These have blink frames, so we enable the blink timer.
-		# blink_timer.start()
+		fidget_timer.start()
+	else:
+		fidget_timer.stop()
 
 
 func play_evolution_effects() -> void:
@@ -84,27 +88,61 @@ func set_turtle_wants(new_want: Enums.TurtleWants) -> void:
 		thought_bubble_audio.play()
 
 
-func _on_blink_timer_timeout() -> void:
-	var animation_name: StringName
-	match turtle_stage:
-		Enums.TurtleStage.BABY:
-			animation_name = "blink_baby"
-		Enums.TurtleStage.ADULT:
-			animation_name = "blink_adult"
-		Enums.TurtleStage.ELDERLY:
-			animation_name = "blink_elderly"
-		_:
-			print("Blink timer called on a stage that doesn't have a blink animation")
-			return
-
-	animation_player.play(animation_name)
-
-
 func wash_turtle() -> void:
+	animation_player.stop()
+	fidget_timer.paused = true
 	animation_player.play("wash")
+	await animation_player.animation_finished
+	fidget_timer.paused = false
+
 
 func pet_turtle() -> void:
+	animation_player.stop()
+	fidget_timer.paused = true
 	animation_player.play("pet")
+	await animation_player.animation_finished
+	fidget_timer.paused = false
+
 
 func feed_turtle() -> void:
-	animation_player.play("feed")
+	animation_player.stop()
+	fidget_timer.paused = true
+	if turtle_stage == Enums.TurtleStage.BABY:
+		animation_player.play("feed_baby")
+	else:
+		animation_player.play("feed")
+	await animation_player.animation_finished
+	fidget_timer.paused = false
+
+
+func _on_fidget_timer_timeout() -> void:
+	var animation_name: StringName
+	
+	var blink = randi() % 2 == 0 
+	
+	if blink:
+		match turtle_stage:
+			Enums.TurtleStage.BABY:
+				animation_name = "baby_blink"
+			Enums.TurtleStage.ADULT:
+				animation_name = "adult_blink"
+			Enums.TurtleStage.ELDERLY:
+				animation_name = "elder_blink"
+			_:
+				print("Blink timer called on a stage that doesn't have a blink animation")
+				return
+	else:
+		match turtle_stage:
+			Enums.TurtleStage.BABY:
+				animation_name = "baby_idle"
+			Enums.TurtleStage.ADULT:
+				animation_name = "adult_idle"
+			Enums.TurtleStage.ELDERLY:
+				animation_name = "elder_idle"
+			_:
+				print("Idle timer called on a stage that doesn't have a blink animation")
+				return
+
+	print(animation_name)
+	animation_player.play(animation_name)
+	fidget_timer.start()
