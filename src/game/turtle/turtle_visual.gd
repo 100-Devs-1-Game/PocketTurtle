@@ -17,6 +17,7 @@ var turtle_stage: Enums.TurtleStage:
 @export var egg_crack_audio: AudioStreamPlayer
 @export var evolution_audio: AudioStreamPlayer
 @export var animation_player: AnimationPlayer
+@export var fx_animation_player: AnimationPlayer
 @export var thought_bubble: Node2D
 @export var thought_bubble_food: Sprite2D
 @export var thought_bubble_pet: Sprite2D
@@ -24,6 +25,7 @@ var turtle_stage: Enums.TurtleStage:
 @export var thought_bubble_audio: AudioStreamPlayer
 @export var fidget_timer: Timer
 @export var washing_fx: Node2D
+@export var sparkle_fx: Node2D
 @export var pet_fx: Node2D
 
 
@@ -48,11 +50,13 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 	match turtle_stage:
 		Enums.TurtleStage.BABY:
 			thought_bubble.position = Vector2(-20, 90)
-			washing_fx.position = Vector2(0, 60)
-			pet_fx.position = Vector2(0, 60)
+			washing_fx.position = Vector2(0, 80)
+			sparkle_fx.position = Vector2(0, 80)
+			pet_fx.position = Vector2(0, 80)
 		_:
 			thought_bubble.position = Vector2.ZERO
 			washing_fx.position = Vector2.ZERO
+			sparkle_fx.position = Vector2.ZERO
 			pet_fx.position = Vector2.ZERO
 
 	if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
@@ -66,7 +70,7 @@ func play_evolution_effects() -> void:
 	evolution_audio.play()
 
 
-func set_turtle_wants(new_want: Enums.TurtleWants) -> void:
+func set_turtle_wants(new_want: Enums.TurtleWants, from_load: bool) -> void:
 	match new_want:
 		Enums.TurtleWants.FOOD:
 			thought_bubble_food.visible = true
@@ -84,23 +88,36 @@ func set_turtle_wants(new_want: Enums.TurtleWants) -> void:
 			thought_bubble_food.visible = false
 			thought_bubble_pet.visible = false
 			thought_bubble_bath.visible = false
-	if new_want != Enums.TurtleWants.NONE:
-		thought_bubble_audio.play()
+
+	if not from_load:
+		if new_want != Enums.TurtleWants.NONE:
+			thought_bubble_audio.play()
 
 
 func wash_turtle() -> void:
 	animation_player.stop()
 	fidget_timer.paused = true
-	animation_player.play("wash")
-	await animation_player.animation_finished
+	fx_animation_player.play("wash")
+	await fx_animation_player.animation_finished
 	fidget_timer.paused = false
 
 
 func pet_turtle() -> void:
 	animation_player.stop()
 	fidget_timer.paused = true
-	animation_player.play("pet")
-	await animation_player.animation_finished
+	
+	var animation_name: String
+	match turtle_stage:
+		Enums.TurtleStage.BABY:
+			animation_name = "baby_blush"
+		Enums.TurtleStage.ADULT:
+			animation_name = "adult_blush"
+		Enums.TurtleStage.ELDERLY:
+			animation_name = "elder_blush"
+	animation_player.play(animation_name)
+	fx_animation_player.play("pet")
+	
+	await fx_animation_player.animation_finished
 	fidget_timer.paused = false
 
 
@@ -109,9 +126,10 @@ func feed_turtle() -> void:
 	fidget_timer.paused = true
 	if turtle_stage == Enums.TurtleStage.BABY:
 		animation_player.play("feed_baby")
+		await animation_player.animation_finished
 	else:
-		animation_player.play("feed")
-	await animation_player.animation_finished
+		fx_animation_player.play("carrot")
+		await fx_animation_player.animation_finished
 	fidget_timer.paused = false
 
 

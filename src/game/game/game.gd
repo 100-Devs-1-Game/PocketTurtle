@@ -50,7 +50,7 @@ func _ready() -> void:
 	turtle_controls.wash_pressed.connect(_on_turtle_controls_wash_pressed)
 
 	visual.set_turtle_stage(turtle.turtle_stage)
-	visual.set_turtle_wants(turtle.turtle_wants)
+	visual.set_turtle_wants(turtle.turtle_wants, true)
 	visual.set_turtle_variant(turtle.turtle_variant)
 
 
@@ -90,7 +90,7 @@ func _exit_tree() -> void:
 func set_current_want(new_current_want: Enums.TurtleWants) -> void:
 	turtle.turtle_wants = new_current_want
 	turtle_controls.set_current_want(new_current_want)
-	visual.set_turtle_wants(new_current_want)
+	visual.set_turtle_wants(new_current_want, false)
 
 
 func set_stage(next_stage: Enums.TurtleStage) -> void:
