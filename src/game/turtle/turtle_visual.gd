@@ -27,6 +27,7 @@ var turtle_stage: Enums.TurtleStage:
 @export var washing_fx: Node2D
 @export var sparkle_fx: Node2D
 @export var pet_fx: Node2D
+@export var death_audio: AudioStreamPlayer
 
 
 
@@ -67,7 +68,11 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 
 
 func play_evolution_effects() -> void:
-	evolution_audio.play()
+	match turtle_stage:
+		Enums.TurtleStage.PASSING:
+			death_audio.play()
+		_:
+			evolution_audio.play()
 
 
 func set_turtle_wants(new_want: Enums.TurtleWants, from_load: bool) -> void:
