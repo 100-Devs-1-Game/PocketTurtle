@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://ekn7nk742n1o"]
+[gd_scene load_steps=61 format=3 uid="uid://ekn7nk742n1o"]
 
 [ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="1_ei5j1"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_h7c80"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b4befqrp7enec" path="res://assets/Art Assets/Egg Assets_/egg3.png" id="4_vwwiq"]
 [ext_resource type="Texture2D" uid="uid://cq7yuhb61h2bg" path="res://assets/Art Assets/Egg Assets_/egg4.png" id="5_3s0i2"]
 [ext_resource type="AudioStream" uid="uid://rv2nhoioph2q" path="res://assets/SFX/Egg.mp3" id="12_vwwiq"]
+[ext_resource type="Texture2D" uid="uid://dmsnfsb2kj776" path="res://assets/Art Assets/Egg Assets_/egg_idle.png" id="13_3qghg"]
 [ext_resource type="AudioStream" uid="uid://dt8nwg8eh4stb" path="res://assets/SFX/Evolution.mp3" id="13_3s0i2"]
 [ext_resource type="SpriteFrames" uid="uid://ck4opp113ajop" path="res://game/turtle/baby_sprite_framesl.tres" id="13_7ayib"]
 [ext_resource type="AudioStream" uid="uid://bppg6ixaibmjj" path="res://assets/SFX/Death.mp3" id="14_j3lif"]
@@ -417,6 +418,22 @@ tracks/8/keys = {
 }
 tracks/8/use_blend = true
 
+[sub_resource type="Animation" id="Animation_7ayib"]
+resource_name = "egg_idle"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/Egg:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 4, 0]
+}
+
 [sub_resource type="Animation" id="Animation_rxu3m"]
 resource_name = "elder_blink"
 length = 0.2
@@ -648,6 +665,7 @@ _data = {
 &"baby_blush": SubResource("Animation_g3via"),
 &"baby_idle": SubResource("Animation_0se3m"),
 &"egg_crack": SubResource("Animation_rq2e2"),
+&"egg_idle": SubResource("Animation_7ayib"),
 &"elder_blink": SubResource("Animation_rxu3m"),
 &"elder_blush": SubResource("Animation_r3vkh"),
 &"elder_idle": SubResource("Animation_lcgnb"),
@@ -815,6 +833,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_3s0i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_3qghg")
 }],
 "loop": true,
 "name": &"egg_crack",
