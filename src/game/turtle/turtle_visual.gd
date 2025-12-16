@@ -30,7 +30,6 @@ var turtle_stage: Enums.TurtleStage:
 @export var death_audio: AudioStreamPlayer
 
 
-
 func _ready() -> void:
 	fidget_timer.timeout.connect(_on_fidget_timer_timeout)
 
@@ -60,7 +59,7 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 			sparkle_fx.position = Vector2.ZERO
 			pet_fx.position = Vector2.ZERO
 
-	if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
+	if turtle_stage != Enums.TurtleStage.PASSING:
 		# These have blink frames, so we enable the blink timer.
 		fidget_timer.start()
 	else:
@@ -141,30 +140,34 @@ func feed_turtle() -> void:
 func _on_fidget_timer_timeout() -> void:
 	var animation_name: StringName
 	
-	var blink = randi() % 2 == 0 
-	
-	if blink:
-		match turtle_stage:
-			Enums.TurtleStage.BABY:
-				animation_name = "baby_blink"
-			Enums.TurtleStage.ADULT:
-				animation_name = "adult_blink"
-			Enums.TurtleStage.ELDERLY:
-				animation_name = "elder_blink"
-			_:
-				print("Blink timer called on a stage that doesn't have a blink animation")
-				return
-	else:
-		match turtle_stage:
-			Enums.TurtleStage.BABY:
-				animation_name = "baby_idle"
-			Enums.TurtleStage.ADULT:
-				animation_name = "adult_idle"
-			Enums.TurtleStage.ELDERLY:
-				animation_name = "elder_idle"
-			_:
-				print("Idle timer called on a stage that doesn't have a blink animation")
-				return
+	match turtle_stage:
+		Enums.TurtleStage.EGG:
+			animation_name = "egg_idle"
+		_:
+			var blink = randi() % 2 == 0 
+			
+			if blink:
+				match turtle_stage:
+					Enums.TurtleStage.BABY:
+						animation_name = "baby_blink"
+					Enums.TurtleStage.ADULT:
+						animation_name = "adult_blink"
+					Enums.TurtleStage.ELDERLY:
+						animation_name = "elder_blink"
+					_:
+						print("Blink timer called on a stage that doesn't have a blink animation")
+						return
+			else:
+				match turtle_stage:
+					Enums.TurtleStage.BABY:
+						animation_name = "baby_idle"
+					Enums.TurtleStage.ADULT:
+						animation_name = "adult_idle"
+					Enums.TurtleStage.ELDERLY:
+						animation_name = "elder_idle"
+					_:
+						print("Idle timer called on a stage that doesn't have a blink animation")
+						return
 
 	print(animation_name)
 	animation_player.play(animation_name)
