@@ -304,7 +304,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_rq2e2"]
 resource_name = "egg_crack"
-length = 7.5
+length = 4.1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -320,7 +320,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprites/Baby:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -332,7 +332,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath("Sprites/Egg:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -361,7 +361,7 @@ tracks/4/path = NodePath("Sprites/Egg:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.5, 4, 6.5),
+"times": PackedFloat32Array(0, 0.20000005, 1.7, 3.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -380,7 +380,7 @@ tracks/5/keys = {
 }
 tracks/6/type = "value"
 tracks/6/imported = false
-tracks/6/enabled = true
+tracks/6/enabled = false
 tracks/6/path = NodePath("Sprites/Baby:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
@@ -392,7 +392,7 @@ tracks/6/keys = {
 }
 tracks/7/type = "value"
 tracks/7/imported = false
-tracks/7/enabled = true
+tracks/7/enabled = false
 tracks/7/path = NodePath("Sprites/Egg:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
@@ -402,6 +402,21 @@ tracks/7/keys = {
 "update": 0,
 "values": [Vector2(0, 93), Vector2(0, 93), Vector2(584, 93)]
 }
+tracks/8/type = "audio"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Audio/EggCrackAudioStreamPlayer")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("12_vwwiq")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/8/use_blend = true
 
 [sub_resource type="Animation" id="Animation_7ayib"]
 resource_name = "egg_idle"
@@ -996,7 +1011,6 @@ frame_progress = 0.3292671
 [node name="Audio" type="Node" parent="."]
 
 [node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("12_vwwiq")
 
 [node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("14_j3lif")
