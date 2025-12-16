@@ -96,8 +96,9 @@ func set_current_want(new_current_want: Enums.TurtleWants) -> void:
 func set_stage(next_stage: Enums.TurtleStage) -> void:
 	turtle.turtle_stage = next_stage
 	turtle.stage_lifetime = 0.0
+	turtle_controls.set_controls_enabled(false)
+	await visual.play_evolution_effects(next_stage)
 	visual.set_turtle_stage(next_stage)
-	visual.play_evolution_effects()
 	match next_stage:
 		Enums.TurtleStage.EGG:
 			turtle.turtle_variant = load(TurtleState.DEFAULT_TURTLE_VARIANTS.get_random_variant())

@@ -44,8 +44,9 @@ func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
 
 func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 	turtle_stage = new_turtle_stage
-	for c: Node2D in sprites.get_children():
+	for c: AnimatedSprite2D in sprites.get_children():
 		c.visible = c.get_index() == turtle_stage
+		c.frame = 0
 
 	# Update FX positions
 	match turtle_stage:
@@ -60,17 +61,26 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 			sparkle_fx.position = Vector2.ZERO
 			pet_fx.position = Vector2.ZERO
 
-	if turtle_stage == Enums.TurtleStage.BABY or turtle_stage == Enums.TurtleStage.ADULT or turtle_stage == Enums.TurtleStage.ELDERLY:
+	if turtle_stage != Enums.TurtleStage.PASSING:
 		# These have blink frames, so we enable the blink timer.
 		fidget_timer.start()
 	else:
 		fidget_timer.stop()
 
 
-func play_evolution_effects() -> void:
-	match turtle_stage:
+func play_evolution_effects(p_next_stage: Enums.TurtleStage) -> void:
+	if not fidget_timer.is_stopped():
+		fidget_timer.stop()
+	match p_next_stage:
 		Enums.TurtleStage.PASSING:
 			death_audio.play()
+		Enums.TurtleStage.BABY:
+			animation_player.stop()
+			for c: Node2D in sprites.get_children():
+				c.visible = c.get_index() == Enums.TurtleStage.EGG
+			animation_player.play("egg_crack")
+			await animation_player.animation_finished
+			evolution_audio.play()
 		_:
 			evolution_audio.play()
 
