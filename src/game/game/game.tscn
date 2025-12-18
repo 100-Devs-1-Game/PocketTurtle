@@ -12,8 +12,8 @@ script = ExtResource("1_gcjq5")
 turtle_controls = NodePath("TurtleControls")
 debug_controls = NodePath("DebugControls")
 visual = NodePath("SubViewportContainer/SubViewport/World/Visual")
-turtle_texture_button = NodePath("CanvasLayer/TextureRect")
-settings_menu = NodePath("CanvasLayer2/SettingsMenu")
+turtle_texture_button = NodePath("TurtleClickRegionCanvasLayer/TurtleClickRegionTextureButton")
+settings_menu = NodePath("SettingsMenuCanvasLayer/SettingsMenu")
 
 [node name="StatusIndicator" type="StatusIndicator" parent="."]
 icon = ExtResource("3_kkdll")
@@ -27,6 +27,7 @@ item_0/id = 1
 [node name="TurtleControls" parent="." instance=ExtResource("3_m7sxm")]
 
 [node name="DebugControls" parent="." instance=ExtResource("5_suqcb")]
+layer = 2
 visible = false
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -53,15 +54,15 @@ position = Vector2(256, 256)
 
 [node name="Visual" parent="SubViewportContainer/SubViewport/World" instance=ExtResource("6_efj5v")]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="TurtleClickRegionCanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureRect" type="TextureButton" parent="CanvasLayer"]
+[node name="TurtleClickRegionTextureButton" type="TextureButton" parent="TurtleClickRegionCanvasLayer"]
 offset_left = 202.0
 offset_top = 680.0
 offset_right = 830.0
 offset_bottom = 1234.0
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="SettingsMenuCanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="SettingsMenu" parent="CanvasLayer2" instance=ExtResource("6_gsnfh")]
+[node name="SettingsMenu" parent="SettingsMenuCanvasLayer" instance=ExtResource("6_gsnfh")]
 visible = false
