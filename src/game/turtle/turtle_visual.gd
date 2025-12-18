@@ -28,6 +28,7 @@ var turtle_stage: Enums.TurtleStage:
 @export var sparkle_fx: Node2D
 @export var pet_fx: Node2D
 @export var death_audio: AudioStreamPlayer
+@export var passing_fx: AnimatedSprite2D
 
 
 func _ready() -> void:
@@ -61,10 +62,15 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 			pet_fx.position = Vector2.ZERO
 
 	if turtle_stage != Enums.TurtleStage.PASSING:
+		passing_fx.stop()
+		passing_fx.visible = false
 		# These have blink frames, so we enable the blink timer.
 		fidget_timer.start()
 	else:
 		fidget_timer.stop()
+		passing_fx.visible = true
+		# Play the animations for passing
+		passing_fx.play()
 
 
 func play_evolution_effects(p_next_stage: Enums.TurtleStage) -> void:

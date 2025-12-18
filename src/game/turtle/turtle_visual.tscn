@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://ekn7nk742n1o"]
+[gd_scene load_steps=66 format=3 uid="uid://ekn7nk742n1o"]
 
 [ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="1_ei5j1"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_h7c80"]
@@ -30,6 +30,8 @@
 [ext_resource type="AudioStream" uid="uid://cdpsa6c2kpwbw" path="res://assets/SFX/Petting.mp3" id="28_ma0ro"]
 [ext_resource type="Texture2D" uid="uid://rpdcwd2dvdw4" path="res://assets/Art Assets/Wash Elements/wash2.png" id="28_pfxnx"]
 [ext_resource type="Texture2D" uid="uid://dge1jnhq8e5og" path="res://assets/Art Assets/Wash Elements/wash3.png" id="29_motv2"]
+[ext_resource type="Texture2D" uid="uid://5loxa7hm3icl" path="res://assets/Art Assets/Passing Assets/passing_idle2.png" id="30_038u5"]
+[ext_resource type="Texture2D" uid="uid://bgnj2ljqow3xd" path="res://assets/Art Assets/Passing Assets/passing_idle.png" id="31_v7eva"]
 [ext_resource type="AudioStream" uid="uid://dfwspucdgisv6" path="res://assets/SFX/Food Popup.mp3" id="34_pfxnx"]
 [ext_resource type="AudioStream" uid="uid://b8ehwwexvwmke" path="res://assets/SFX/Scrubbing.mp3" id="36_ma0ro"]
 
@@ -939,14 +941,28 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Visual" type="Node2D" node_paths=PackedStringArray("sprites", "egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual", "egg_crack_audio", "evolution_audio", "animation_player", "fx_animation_player", "thought_bubble", "thought_bubble_food", "thought_bubble_pet", "thought_bubble_bath", "thought_bubble_audio", "fidget_timer", "washing_fx", "sparkle_fx", "pet_fx", "death_audio")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_dvho3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_v7eva")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_038u5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.5
+}]
+
+[node name="Visual" type="Node2D" node_paths=PackedStringArray("sprites", "egg_visual", "baby_visual", "adult_visual", "elder_visual", "ascension_visual", "egg_crack_audio", "evolution_audio", "animation_player", "fx_animation_player", "thought_bubble", "thought_bubble_food", "thought_bubble_pet", "thought_bubble_bath", "thought_bubble_audio", "fidget_timer", "washing_fx", "sparkle_fx", "pet_fx", "death_audio", "passing_fx")]
 script = ExtResource("1_ei5j1")
 sprites = NodePath("Sprites")
 egg_visual = NodePath("Sprites/Egg")
 baby_visual = NodePath("Sprites/Baby")
 adult_visual = NodePath("Sprites/Adult")
 elder_visual = NodePath("Sprites/Elder")
-ascension_visual = NodePath("Sprites/Ascension")
+ascension_visual = NodePath("Sprites/Passing")
 egg_crack_audio = NodePath("Audio/EggCrackAudioStreamPlayer")
 evolution_audio = NodePath("Audio/EvolutionAudioStreamPlayer")
 animation_player = NodePath("AnimationPlayer")
@@ -961,6 +977,7 @@ washing_fx = NodePath("FX/Washing")
 sparkle_fx = NodePath("FX/Sparkles")
 pet_fx = NodePath("FX/Pets")
 death_audio = NodePath("Audio/DeathAudioStreamPlayer")
+passing_fx = NodePath("FX/Passing")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1012,7 +1029,7 @@ sprite_frames = ExtResource("17_jqt5f")
 visible = false
 sprite_frames = ExtResource("18_uxv32")
 
-[node name="Ascension" type="AnimatedSprite2D" parent="Sprites"]
+[node name="Passing" type="AnimatedSprite2D" parent="Sprites"]
 visible = false
 sprite_frames = ExtResource("19_f7364")
 
@@ -1039,36 +1056,32 @@ sprite_frames = SubResource("SpriteFrames_xxig1")
 autoplay = "default"
 frame_progress = 0.3292671
 
+[node name="Passing" type="AnimatedSprite2D" parent="FX"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_dvho3")
+frame_progress = 0.12499174
+
 [node name="Audio" type="Node" parent="."]
 
 [node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-bus = &"SFX"
 
 [node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("14_j3lif")
-bus = &"SFX"
 
 [node name="EvolutionAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("13_3s0i2")
-bus = &"SFX"
 
 [node name="SparkleAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("27_motv2")
-bus = &"SFX"
 
 [node name="PetsAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-bus = &"SFX"
 
 [node name="EatAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-bus = &"SFX"
 
 [node name="AllCleanAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("27_motv2")
-bus = &"SFX"
 
 [node name="ThoughtPopupAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("34_pfxnx")
-bus = &"SFX"
 
 [node name="ScrubbingStreamAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-bus = &"SFX"
