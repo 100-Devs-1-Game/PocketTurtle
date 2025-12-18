@@ -53,7 +53,7 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 			thought_bubble.position = Vector2(-20, 90)
 			washing_fx.position = Vector2(0, 80)
 			sparkle_fx.position = Vector2(0, 80)
-			pet_fx.position = Vector2(0, 80)
+			pet_fx.position = Vector2(0, 100)
 		_:
 			thought_bubble.position = Vector2.ZERO
 			washing_fx.position = Vector2.ZERO

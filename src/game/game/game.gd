@@ -136,6 +136,8 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 			set_current_want(Enums.TurtleWants.NONE)
 			turtle_controls.set_controls_enabled(false)
 		_:
+			game_state = GameState.PLAYING
+			turtle_controls.set_naming_controls_enabled(false)
 			turtle_controls.set_controls_enabled(true)
 
 # Adds lifetime in seconds.

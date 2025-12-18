@@ -15,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_r7u86")
 close_button = NodePath("TextureButton")
-sfx_check_button = NodePath("GridContainer/CheckButton")
+sfx_check_button = NodePath("VBoxContainer/GridContainer/CheckButton")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 0
@@ -37,28 +37,36 @@ offset_top = 423.0
 offset_right = 992.0
 offset_bottom = 530.0
 
-[node name="GridContainer" type="GridContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -258.0
-offset_top = -148.0
-offset_right = 258.0
-offset_bottom = -65.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 265.0
+offset_top = 794.0
+offset_right = 781.0
+offset_bottom = 877.0
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="GridContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_8m0rt")
 theme_override_font_sizes/font_size = 64
 text = "SOUND EFFECTS"
 
-[node name="CheckButton" type="CheckButton" parent="GridContainer"]
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_icons/checked = ExtResource("4_g2x4v")
 theme_override_icons/unchecked = ExtResource("5_pnu0s")
+
+[node name="Instructions" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_8m0rt")
+theme_override_font_sizes/font_size = 64
+text = "INSTRUCTIONS"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_8m0rt")
+theme_override_font_sizes/font_size = 64
+text = "CREDITS"
