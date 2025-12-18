@@ -17,6 +17,8 @@ const VERSION = 1
 @export var time_scale: float = 1.0
 # The name of the turtle
 @export var turtle_name: String
+# Are sound effects enabled?
+@export var sfx_enabled: bool = true
 
 func to_dict() -> Dictionary:
 	return {
@@ -27,6 +29,7 @@ func to_dict() -> Dictionary:
 		"turtle_variant": turtle_variant,
 		"time_scale": time_scale,
 		"turtle_name": turtle_name,
+		"sfx_enabled": sfx_enabled,
 	}
 
 
@@ -42,6 +45,7 @@ func read_dict(dict: Dictionary) -> Error:
 	if time_scale < 0 or is_zero_approx(time_scale):
 		time_scale = 1.0
 	turtle_name = dict.get("turtle_name") if dict.has("turtle_name") else "Tortle"
+	sfx_enabled = dict.get("sfx_enabled") if dict.has("sfx_enabled") else true
 	return OK
 
 func save_turtle(turtle: TurtleState) -> void:
