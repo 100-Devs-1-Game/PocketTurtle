@@ -1,1 +1,8 @@
-UwUMacaroniTime
+- Lead/Art
+Amatrine
+- SFX
+battlemage.audio
+- Programming
+yukitateyama
+- QA
+duncaii
