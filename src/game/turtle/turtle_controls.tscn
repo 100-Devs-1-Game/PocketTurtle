@@ -88,6 +88,7 @@ layout_mode = 2
 
 [node name="NameItPrompt" type="Label" parent="Controls/NamingControls/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
 theme_override_font_sizes/font_size = 150
 text = "Enter a Name 
@@ -100,6 +101,7 @@ theme_override_constants/separation = 32
 [node name="NameLineEdit" type="LineEdit" parent="Controls/NamingControls/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
 theme_override_font_sizes/font_size = 150
 text = "Tortle"
@@ -107,6 +109,10 @@ alignment = 3
 
 [node name="Button" type="Button" parent="Controls/NamingControls/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
+theme_override_colors/font_focus_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
+theme_override_colors/font_pressed_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
+theme_override_colors/font_hover_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
 theme_override_font_sizes/font_size = 150
 disabled = true
@@ -123,6 +129,7 @@ offset_top = 420.0
 offset_right = 156.5
 offset_bottom = 613.0
 grow_horizontal = 2
+theme_override_colors/font_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
 theme_override_font_sizes/font_size = 150
 text = "Tortle"
