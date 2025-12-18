@@ -28,9 +28,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="ButtonControls" type="HBoxContainer" parent="Controls"]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -71,7 +71,6 @@ texture_normal = ExtResource("6_ml7px")
 texture_disabled = ExtResource("7_fxci3")
 
 [node name="NamingControls" type="MarginContainer" parent="Controls"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,6 +84,8 @@ theme_override_constants/margin_bottom = 16
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Controls/NamingControls"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="NameItPrompt" type="Label" parent="Controls/NamingControls/VBoxContainer"]
 layout_mode = 2

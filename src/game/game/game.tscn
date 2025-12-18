@@ -14,7 +14,6 @@ visual = NodePath("SubViewportContainer/SubViewport/World/Visual")
 turtle_texture_button = NodePath("TurtleClickRegionCanvasLayer/TurtleClickRegionTextureButton")
 settings_menu = NodePath("SettingsMenuCanvasLayer/SettingsMenu")
 
-[node name="TurtleControls" parent="." instance=ExtResource("3_m7sxm")]
 
 [node name="DebugControls" parent="." instance=ExtResource("5_suqcb")]
 layer = 2
@@ -51,6 +50,8 @@ offset_left = 202.0
 offset_top = 680.0
 offset_right = 830.0
 offset_bottom = 1234.0
+
+[node name="TurtleControls" parent="." instance=ExtResource("3_m7sxm")]
 
 [node name="SettingsMenuCanvasLayer" type="CanvasLayer" parent="."]
 
