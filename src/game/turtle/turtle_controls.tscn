@@ -9,13 +9,16 @@
 [ext_resource type="Texture2D" uid="uid://cje4jxv0c04wi" path="res://assets/Art Assets/UI/Buttons/wash_off.png" id="7_fxci3"]
 [ext_resource type="FontFile" uid="uid://co7bol411m67c" path="res://assets/Font/Chewy-Regular.ttf" id="8_d3b2u"]
 
-[node name="TurtleControls" type="CanvasLayer" node_paths=PackedStringArray("turtle_name_edit", "button_controls", "eat_button", "pet_button", "wash_button")]
+[node name="TurtleControls" type="CanvasLayer" node_paths=PackedStringArray("turtle_name_edit", "button_controls", "eat_button", "pet_button", "wash_button", "naming_controls", "submit_name_button", "name_label")]
 script = ExtResource("1_3gg7p")
-turtle_name_edit = NodePath("Controls/NameLineEdit")
+turtle_name_edit = NodePath("Controls/NamingControls/VBoxContainer/HBoxContainer/NameLineEdit")
 button_controls = NodePath("Controls/ButtonControls")
 eat_button = NodePath("Controls/ButtonControls/EatButton")
 pet_button = NodePath("Controls/ButtonControls/PetButton")
 wash_button = NodePath("Controls/ButtonControls/WashButton")
+naming_controls = NodePath("Controls/NamingControls")
+submit_name_button = NodePath("Controls/NamingControls/VBoxContainer/HBoxContainer/Button")
+name_label = NodePath("Controls/NameLabel")
 
 [node name="Controls" type="Control" parent="."]
 layout_mode = 3
@@ -27,6 +30,7 @@ grow_vertical = 2
 size_flags_vertical = 8
 
 [node name="ButtonControls" type="HBoxContainer" parent="Controls"]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -66,18 +70,59 @@ disabled = true
 texture_normal = ExtResource("6_ml7px")
 texture_disabled = ExtResource("7_fxci3")
 
-[node name="NameLineEdit" type="LineEdit" parent="Controls"]
+[node name="NamingControls" type="MarginContainer" parent="Controls"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Controls/NamingControls"]
+layout_mode = 2
+
+[node name="NameItPrompt" type="Label" parent="Controls/NamingControls/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_d3b2u")
+theme_override_font_sizes/font_size = 150
+text = "Enter a Name 
+to Get Started!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Controls/NamingControls/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="NameLineEdit" type="LineEdit" parent="Controls/NamingControls/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("8_d3b2u")
+theme_override_font_sizes/font_size = 150
+text = "Tortle"
+alignment = 3
+
+[node name="Button" type="Button" parent="Controls/NamingControls/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("8_d3b2u")
+theme_override_font_sizes/font_size = 150
+disabled = true
+text = "OKAY!"
+
+[node name="NameLabel" type="Label" parent="Controls"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -196.0
-offset_top = 101.0
-offset_right = 196.0
-offset_bottom = 302.0
+offset_left = -188.5
+offset_top = 420.0
+offset_right = 156.5
+offset_bottom = 613.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("8_d3b2u")
 theme_override_font_sizes/font_size = 150
 text = "Tortle"
-alignment = 1
-expand_to_text_length = true

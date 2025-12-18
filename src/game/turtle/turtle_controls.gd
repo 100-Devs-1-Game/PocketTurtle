@@ -17,12 +17,17 @@ var turtle_name: String:
 @export var eat_button: BaseButton
 @export var pet_button: BaseButton
 @export var wash_button: BaseButton
+@export var naming_controls: Control
+@export var submit_name_button: BaseButton
+@export var name_label: Label
 
 func _ready() -> void:
 	eat_button.pressed.connect(_on_eat_button_pressed)
 	pet_button.pressed.connect(_on_pet_button_pressed)
 	wash_button.pressed.connect(_on_wash_button_pressed)
-	turtle_name_edit.text_changed.connect(_on_turtle_name_changed)
+	turtle_name_edit.text_changed.connect(_on_turtle_name_edit_text_changed)
+	submit_name_button.pressed.connect(_on_submit_name_button_pressed)
+	submit_name_button.disabled = turtle_name_edit.text == ""
 
 
 func _on_eat_button_pressed() -> void:
@@ -37,12 +42,17 @@ func _on_wash_button_pressed() -> void:
 	wash_pressed.emit()
 
 
-func _on_turtle_name_changed(new_text: String) -> void:
-	turtle_name_changed.emit(new_text)
+func _on_turtle_name_edit_text_changed(p_new_text: String) -> void:
+	submit_name_button.disabled = p_new_text == ""
+
+
+func _on_submit_name_button_pressed() -> void:
+	name_label.text = turtle_name_edit.text
+	turtle_name_changed.emit(turtle_name_edit.text)
 
 
 func set_turtle_name(new_turtle_name: String) -> void:
-	turtle_name_edit.text = new_turtle_name
+	name_label.text = new_turtle_name
 
 
 func set_current_want(want: Enums.TurtleWants) -> void:
@@ -53,3 +63,8 @@ func set_current_want(want: Enums.TurtleWants) -> void:
 
 func set_controls_enabled(enabled: bool) -> void:
 	button_controls.visible = enabled
+
+
+func set_naming_controls_enabled(p_show: bool) -> void:
+	naming_controls.visible = p_show
+	name_label.visible = not p_show

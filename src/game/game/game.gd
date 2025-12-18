@@ -16,6 +16,13 @@ var time_scale_factor := 1.0
 var _wants_evaluation_timer := 0.0
 var _save_timer := 0.0
 
+enum GameState {
+	NAMING,
+	PLAYING
+}
+
+var game_state: GameState = GameState.NAMING
+
 func _ready() -> void:
 	turtle = TurtleState.new()
 	var save_game_data := SaveGameData.new()
@@ -33,6 +40,10 @@ func _ready() -> void:
 		# No save file, initialize with defaults.
 		turtle = TurtleState.new_default()
 
+	if turtle.turtle_stage != Enums.TurtleStage.EGG or turtle.turtle_name != "":
+		game_state = GameState.PLAYING
+	
+
 	debug_controls.visible = false
 	debug_controls.turtle = turtle
 	debug_controls.time_scale_factor = time_scale_factor
@@ -41,6 +52,7 @@ func _ready() -> void:
 	debug_controls.debug_turtle_want_changed.connect(_on_debug_controls_turtle_want_changed)
 
 	print("Turtle name on load: %s" % turtle.turtle_name)
+	turtle_controls.set_naming_controls_enabled(game_state == GameState.NAMING)
 	turtle_controls.set_controls_enabled(turtle.turtle_stage != Enums.TurtleStage.EGG and turtle.turtle_stage != Enums.TurtleStage.PASSING)
 	turtle_controls.set_current_want(turtle.turtle_wants)
 	turtle_controls.turtle_name = turtle.turtle_name
@@ -55,11 +67,12 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	add_lifetime(delta * time_scale_factor)
-	_save_timer += delta
-	if _save_timer >= TIME_BETWEEN_SAVES_SECONDS:
-		_save_timer -= TIME_BETWEEN_SAVES_SECONDS
-		save_game()
+	if game_state == GameState.PLAYING:
+		add_lifetime(delta * time_scale_factor)
+		_save_timer += delta
+		if _save_timer >= TIME_BETWEEN_SAVES_SECONDS:
+			_save_timer -= TIME_BETWEEN_SAVES_SECONDS
+			save_game()
 
 
 func save_game() -> void:
@@ -101,6 +114,8 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 	visual.set_turtle_stage(next_stage)
 	match next_stage:
 		Enums.TurtleStage.EGG:
+			game_state = GameState.NAMING
+			turtle_controls.set_naming_controls_enabled(true)
 			turtle.turtle_variant = load(TurtleState.DEFAULT_TURTLE_VARIANTS.get_random_variant())
 			visual.set_turtle_variant(turtle.turtle_variant)
 			set_current_want(Enums.TurtleWants.NONE)
@@ -163,6 +178,10 @@ func _on_debug_controls_turtle_want_changed(new_want: Enums.TurtleWants) -> void
 
 func _on_turtle_controls_turtle_name_changed(new_turtle_name: String) -> void:
 	turtle.turtle_name = new_turtle_name
+	if game_state == GameState.NAMING:
+		game_state = GameState.PLAYING
+		turtle_controls.set_naming_controls_enabled(false)
+		save_game()
 
 func _on_turtle_controls_feed_pressed() -> void:
 	if turtle.turtle_wants != Enums.TurtleWants.FOOD:
