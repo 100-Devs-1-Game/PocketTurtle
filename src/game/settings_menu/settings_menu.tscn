@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1nw200qkejj4"]
+
+[ext_resource type="Texture2D" uid="uid://3ncmywe0t4qu" path="res://assets/Art Assets/UI/settings_background.png" id="1_h77k3"]
+[ext_resource type="Script" uid="uid://b448m43s886lk" path="res://game/settings_menu/settings_menu.gd" id="1_r7u86"]
+[ext_resource type="FontFile" uid="uid://co7bol411m67c" path="res://assets/Font/Chewy-Regular.ttf" id="3_8m0rt"]
+[ext_resource type="Texture2D" uid="uid://carig35q065ri" path="res://game/data/ui/checkbutton_checked.tres" id="4_g2x4v"]
+[ext_resource type="Texture2D" uid="uid://dkkoke5ghs0rf" path="res://game/data/ui/checkbutton_unchecked.tres" id="5_pnu0s"]
+
+[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("close_button", "sfx_check_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r7u86")
+close_button = NodePath("TextureButton")
+sfx_check_button = NodePath("GridContainer/CheckButton")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09803922, 0.09803922, 0.09803922, 0.43137255)
+
+[node name="SettingsBackground" type="Sprite2D" parent="."]
+position = Vector2(538.5, 903)
+scale = Vector2(2.1152344, 2.0722656)
+texture = ExtResource("1_h77k3")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 856.0
+offset_top = 423.0
+offset_right = 992.0
+offset_bottom = 530.0
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -258.0
+offset_top = -148.0
+offset_right = 258.0
+offset_bottom = -65.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Label" type="Label" parent="GridContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_8m0rt")
+theme_override_font_sizes/font_size = 64
+text = "SOUND EFFECTS"
+
+[node name="CheckButton" type="CheckButton" parent="GridContainer"]
+layout_mode = 2
+theme_override_icons/checked = ExtResource("4_g2x4v")
+theme_override_icons/unchecked = ExtResource("5_pnu0s")

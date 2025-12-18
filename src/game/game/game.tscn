@@ -1,16 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds2eh58jgfc40"]
+[gd_scene load_steps=7 format=3 uid="uid://ds2eh58jgfc40"]
 
 [ext_resource type="Script" uid="uid://d0s1ovrnexg26" path="res://game/game/game.gd" id="1_gcjq5"]
 [ext_resource type="Texture2D" uid="uid://b15ddiotq61n5" path="res://assets/Art Assets/UI/app_icon.png" id="3_kkdll"]
 [ext_resource type="PackedScene" uid="uid://8t5qxjkxl0h" path="res://game/turtle/turtle_controls.tscn" id="3_m7sxm"]
 [ext_resource type="PackedScene" uid="uid://vtqx0offch3v" path="res://game/debug_controls/debug_controls.tscn" id="5_suqcb"]
 [ext_resource type="PackedScene" uid="uid://ekn7nk742n1o" path="res://game/turtle/turtle_visual.tscn" id="6_efj5v"]
+[ext_resource type="PackedScene" uid="uid://d1nw200qkejj4" path="res://game/settings_menu/settings_menu.tscn" id="6_gsnfh"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_controls", "visual")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_controls", "visual", "turtle_texture_button", "settings_menu")]
 script = ExtResource("1_gcjq5")
 turtle_controls = NodePath("TurtleControls")
 debug_controls = NodePath("DebugControls")
 visual = NodePath("SubViewportContainer/SubViewport/World/Visual")
+turtle_texture_button = NodePath("CanvasLayer/TextureRect")
+settings_menu = NodePath("CanvasLayer2/SettingsMenu")
 
 [node name="StatusIndicator" type="StatusIndicator" parent="."]
 icon = ExtResource("3_kkdll")
@@ -49,3 +52,16 @@ render_target_update_mode = 4
 position = Vector2(256, 256)
 
 [node name="Visual" parent="SubViewportContainer/SubViewport/World" instance=ExtResource("6_efj5v")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureButton" parent="CanvasLayer"]
+offset_left = 202.0
+offset_top = 680.0
+offset_right = 830.0
+offset_bottom = 1234.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="SettingsMenu" parent="CanvasLayer2" instance=ExtResource("6_gsnfh")]
+visible = false

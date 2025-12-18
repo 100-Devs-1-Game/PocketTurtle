@@ -8,6 +8,8 @@ const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 @export var turtle_controls: TurtleControls
 @export var debug_controls: DebugControls
 @export var visual: TurtleVisual
+@export var turtle_texture_button: BaseButton
+@export var settings_menu: SettingsMenu
 
 var turtle: TurtleState
 
@@ -22,6 +24,7 @@ enum GameState {
 }
 
 var game_state: GameState = GameState.NAMING
+var sfx_enabled: bool = true
 
 func _ready() -> void:
 	turtle = TurtleState.new()
@@ -33,6 +36,7 @@ func _ready() -> void:
 		if save_game_data.read_dict(dict) == OK:
 			time_scale_factor = save_game_data.time_scale
 			save_game_data.load_turtle(turtle)
+			sfx_enabled = save_game_data.sfx_enabled
 		else:
 			# Missing or corrupt save file, use default.
 			turtle = TurtleState.new_default()
@@ -44,6 +48,13 @@ func _ready() -> void:
 		game_state = GameState.PLAYING
 	
 
+	turtle_texture_button.pressed.connect(_on_turtle_texture_button_pressed)
+	settings_menu.visible = false
+	settings_menu.close_requested.connect(_on_settings_menu_close_requested)
+	settings_menu.sfx_changed.connect(_on_settings_menu_sfx_changed)
+	set_sfx_enabled(sfx_enabled)
+	settings_menu.set_sfx_eanbled(sfx_enabled)
+	
 	debug_controls.visible = false
 	debug_controls.turtle = turtle
 	debug_controls.time_scale_factor = time_scale_factor
@@ -79,6 +90,7 @@ func save_game() -> void:
 	var save_game_data := SaveGameData.new()
 	save_game_data.save_turtle(turtle)
 	save_game_data.time_scale = time_scale_factor
+	save_game_data.sfx_enabled = sfx_enabled
 
 	var dict := save_game_data.to_dict()
 	var json_string := JSON.stringify(dict)
@@ -214,3 +226,17 @@ func make_window_transparent(window: Window) -> void:
 	window.borderless = true
 
 #endregion
+
+func _on_turtle_texture_button_pressed() -> void:
+	settings_menu.visible = true
+
+func _on_settings_menu_close_requested() -> void:
+	settings_menu.visible = false
+
+func _on_settings_menu_sfx_changed(p_sfx_enabled: bool) -> void:
+	set_sfx_enabled(p_sfx_enabled)
+
+func set_sfx_enabled(p_sfx_enabled: bool) -> void:
+	sfx_enabled = p_sfx_enabled
+	var sfx_bus_index := AudioServer.get_bus_index("SFX")
+	AudioServer.set_bus_mute(sfx_bus_index, not sfx_enabled)
