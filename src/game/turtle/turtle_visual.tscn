@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://ekn7nk742n1o"]
+[gd_scene load_steps=62 format=3 uid="uid://ekn7nk742n1o"]
 
 [ext_resource type="Script" uid="uid://vnkqup71oako" path="res://game/turtle/turtle_visual.gd" id="1_ei5j1"]
 [ext_resource type="Texture2D" uid="uid://dj4p0wfiymup0" path="res://assets/Art Assets/Egg Assets_/egg1.png" id="2_h7c80"]
@@ -236,6 +236,22 @@ tracks/0/keys = {
 "values": [2, 0]
 }
 
+[sub_resource type="Animation" id="Animation_3qghg"]
+resource_name = "adult_eat"
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/Adult:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.99),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 3, 0]
+}
+
 [sub_resource type="Animation" id="Animation_y60nh"]
 resource_name = "adult_idle"
 step = 0.1
@@ -418,19 +434,19 @@ tracks/8/keys = {
 tracks/8/use_blend = true
 
 [sub_resource type="Animation" id="Animation_7ayib"]
-resource_name = "egg_idle"
+resource_name = "elder_eat"
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprites/Egg:frame")
+tracks/0/path = NodePath("Sprites/Elder:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.01, 0.99),
+"times": PackedFloat32Array(0, 0.025, 0.99),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [0, 4, 0]
+"values": [0, 3, 0]
 }
 
 [sub_resource type="Animation" id="Animation_rxu3m"]
@@ -658,6 +674,7 @@ _data = {
 &"RESET": SubResource("Animation_p8x8p"),
 &"adult_blink": SubResource("Animation_4xu55"),
 &"adult_blush": SubResource("Animation_0jj1h"),
+&"adult_eat": SubResource("Animation_3qghg"),
 &"adult_idle": SubResource("Animation_y60nh"),
 &"baby_blink": SubResource("Animation_motv2"),
 &"baby_blush": SubResource("Animation_g3via"),
@@ -666,6 +683,7 @@ _data = {
 &"egg_idle": SubResource("Animation_7ayib"),
 &"elder_blink": SubResource("Animation_rxu3m"),
 &"elder_blush": SubResource("Animation_r3vkh"),
+&"elder_eat": SubResource("Animation_7ayib"),
 &"elder_idle": SubResource("Animation_lcgnb"),
 &"feed": SubResource("Animation_vw66y"),
 &"feed_baby": SubResource("Animation_ma0ro"),
@@ -977,7 +995,6 @@ sprite_frames = ExtResource("17_jqt5f")
 [node name="Elder" type="AnimatedSprite2D" parent="Sprites"]
 visible = false
 sprite_frames = ExtResource("18_uxv32")
-frame = 4
 
 [node name="Ascension" type="AnimatedSprite2D" parent="Sprites"]
 visible = false

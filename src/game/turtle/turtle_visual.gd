@@ -143,6 +143,11 @@ func feed_turtle() -> void:
 		await animation_player.animation_finished
 	else:
 		fx_animation_player.play("carrot")
+		match turtle_stage:
+			Enums.TurtleStage.ADULT:
+				animation_player.play("adult_eat")
+			Enums.TurtleStage.ELDERLY:
+				animation_player.play("elder_eat")
 		await fx_animation_player.animation_finished
 	fidget_timer.paused = false
 
