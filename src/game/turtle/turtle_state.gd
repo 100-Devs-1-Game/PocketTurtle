@@ -73,7 +73,7 @@ func get_possible_wants() -> Array[Enums.TurtleWants]:
 
 static func new_default() -> TurtleState:
 	var turtle := TurtleState.new()
-	turtle.turtle_name = "Tortle"
+	turtle.turtle_name = ""
 	turtle.turtle_stage = Enums.TurtleStage.EGG
 	turtle.stage_lifetime = 0.0
 	turtle.turtle_wants = Enums.TurtleWants.NONE
