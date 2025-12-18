@@ -69,7 +69,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-0.2617994]
+"values": [0.0]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -993,7 +993,6 @@ texture = ExtResource("20_dvho3")
 
 [node name="Egg" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(0, 93)
-rotation = -0.2617994
 sprite_frames = SubResource("SpriteFrames_wbdr3")
 animation = &"egg_crack"
 speed_scale = 0.0
