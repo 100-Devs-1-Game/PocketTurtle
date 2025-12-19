@@ -78,7 +78,7 @@ func _ready() -> void:
 	visual.set_turtle_variant(turtle.turtle_variant)
 	
 	# Show the grabber control for a bit after the game starts.
-	var is_web := OS.get_name() == "web"
+	var is_web := OS.get_name() == "Web"
 	grabber_control.visible = not is_web
 	if not is_web:
 		get_window().position = save_game_data.window_position
