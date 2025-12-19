@@ -1060,6 +1060,8 @@ frame_progress = 0.3292671
 
 [node name="Passing" type="AnimatedSprite2D" parent="FX"]
 visible = false
+z_index = 2
+z_as_relative = false
 sprite_frames = SubResource("SpriteFrames_dvho3")
 frame_progress = 0.12499174
 
