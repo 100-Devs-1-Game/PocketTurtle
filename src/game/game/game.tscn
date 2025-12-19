@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds2eh58jgfc40"]
+[gd_scene load_steps=8 format=3 uid="uid://ds2eh58jgfc40"]
 
 [ext_resource type="Script" uid="uid://d0s1ovrnexg26" path="res://game/game/game.gd" id="1_gcjq5"]
+[ext_resource type="Resource" uid="uid://dwhne0u7coton" path="res://game/data/turtle_variants/default_turtle_variants.tres" id="2_gsnfh"]
 [ext_resource type="PackedScene" uid="uid://8t5qxjkxl0h" path="res://game/turtle/turtle_controls.tscn" id="3_m7sxm"]
 [ext_resource type="PackedScene" uid="uid://vtqx0offch3v" path="res://game/debug_controls/debug_controls.tscn" id="5_suqcb"]
 [ext_resource type="PackedScene" uid="uid://ekn7nk742n1o" path="res://game/turtle/turtle_visual.tscn" id="6_efj5v"]
@@ -15,6 +16,7 @@ visual = NodePath("SubViewportContainer/SubViewport/World/Visual")
 turtle_texture_button = NodePath("TurtleClickRegionCanvasLayer/TurtleClickRegionTextureButton")
 settings_menu = NodePath("SettingsMenuCanvasLayer/SettingsMenu")
 grabber_control = NodePath("GrabberControlCanvasLayer/Grabber")
+turtle_variants = ExtResource("2_gsnfh")
 
 [node name="DebugControls" parent="." instance=ExtResource("5_suqcb")]
 layer = 2
