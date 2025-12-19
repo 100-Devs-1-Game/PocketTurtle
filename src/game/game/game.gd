@@ -10,6 +10,7 @@ const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 @export var visual: TurtleVisual
 @export var turtle_texture_button: BaseButton
 @export var settings_menu: SettingsMenu
+@export var grabber_control: GrabberControl
 
 var turtle: TurtleState
 
@@ -75,6 +76,13 @@ func _ready() -> void:
 	visual.set_turtle_stage(turtle.turtle_stage)
 	visual.set_turtle_wants(turtle.turtle_wants, true)
 	visual.set_turtle_variant(turtle.turtle_variant)
+	
+	# Show the grabber control for a bit after the game starts.
+	var is_web := OS.get_name() == "web"
+	grabber_control.visible = not is_web
+	if not is_web:
+		get_window().position = save_game_data.window_position
+		grabber_control.moved.connect(_on_grabber_control_moved)
 
 
 func _process(delta: float) -> void:
@@ -91,6 +99,7 @@ func save_game() -> void:
 	save_game_data.save_turtle(turtle)
 	save_game_data.time_scale = time_scale_factor
 	save_game_data.sfx_enabled = sfx_enabled
+	save_game_data.window_position = get_window().position
 
 	var dict := save_game_data.to_dict()
 	var json_string := JSON.stringify(dict)
@@ -242,3 +251,7 @@ func set_sfx_enabled(p_sfx_enabled: bool) -> void:
 	sfx_enabled = p_sfx_enabled
 	var sfx_bus_index := AudioServer.get_bus_index("SFX")
 	AudioServer.set_bus_mute(sfx_bus_index, not sfx_enabled)
+
+
+func _on_grabber_control_moved(p_delta: Vector2i) -> void:
+	get_window().position += p_delta
