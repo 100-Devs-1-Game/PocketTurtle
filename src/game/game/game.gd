@@ -226,18 +226,6 @@ func _on_turtle_controls_wash_pressed() -> void:
 
 #endregion
 
-#region Unused
-
-func make_window_transparent(window: Window) -> void:
-	ProjectSettings.set("display/window/per_pixel_transparency/allowed", true)
-	#window.size = window.min_size
-	window.unresizable = true
-	window.transparent = true
-	window.transparent_bg = true
-	window.borderless = true
-
-#endregion
-
 func _on_turtle_texture_button_pressed() -> void:
 	settings_menu.visible = true
 
