@@ -242,4 +242,10 @@ func set_sfx_enabled(p_sfx_enabled: bool) -> void:
 
 
 func _on_grabber_control_moved(p_delta: Vector2i) -> void:
-	get_window().position += p_delta
+	var window_position = get_window().position + p_delta
+	var window_size := DisplayServer.window_get_size()
+	var safe_area := DisplayServer.get_display_safe_area()
+	var end_point := safe_area.end - window_size
+	window_position.x = clamp(window_position.x, safe_area.position.x, end_point.x)
+	window_position.y =  clamp(window_position.y, safe_area.position.y, end_point.y)
+	get_window().position = window_position
