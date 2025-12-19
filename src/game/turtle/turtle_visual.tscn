@@ -1066,24 +1066,33 @@ frame_progress = 0.12499174
 [node name="Audio" type="Node" parent="."]
 
 [node name="EggCrackAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
+bus = &"SFX"
 
 [node name="DeathAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("14_j3lif")
+bus = &"SFX"
 
 [node name="EvolutionAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("13_3s0i2")
+bus = &"SFX"
 
 [node name="SparkleAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("27_motv2")
+bus = &"SFX"
 
 [node name="PetsAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
+bus = &"SFX"
 
 [node name="EatAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
+bus = &"SFX"
 
 [node name="AllCleanAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("27_motv2")
+bus = &"SFX"
 
 [node name="ThoughtPopupAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("34_pfxnx")
+bus = &"SFX"
 
 [node name="ScrubbingStreamAudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
+bus = &"SFX"
