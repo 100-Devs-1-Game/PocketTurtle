@@ -19,6 +19,8 @@ const VERSION = 1
 @export var turtle_name: String
 # Are sound effects enabled?
 @export var sfx_enabled: bool = true
+# What the window position was last recorded as
+@export var window_position: Vector2i
 
 func to_dict() -> Dictionary:
 	return {
@@ -30,6 +32,10 @@ func to_dict() -> Dictionary:
 		"time_scale": time_scale,
 		"turtle_name": turtle_name,
 		"sfx_enabled": sfx_enabled,
+		"window_position": {
+			"x": window_position.x,
+			"y": window_position.y
+		}
 	}
 
 
@@ -46,6 +52,18 @@ func read_dict(dict: Dictionary) -> Error:
 		time_scale = 1.0
 	turtle_name = dict.get("turtle_name") if dict.has("turtle_name") else "Tortle"
 	sfx_enabled = dict.get("sfx_enabled") if dict.has("sfx_enabled") else true
+	if OS.get_name() != "web":
+		
+		var window_position_json = dict.get("window_position")
+		if window_position_json is Dictionary:
+			if window_position_json.has("x") and window_position_json.has("y"):
+				window_position.x = window_position_json.get("x")
+				window_position.y = window_position_json.get("y")
+			else:
+				window_position = get_default_window_position()
+		else:
+			window_position = get_default_window_position()
+
 	return OK
 
 func save_turtle(turtle: TurtleState) -> void:
@@ -62,3 +80,9 @@ func load_turtle(turtle: TurtleState) -> void:
 	turtle.turtle_wants = turtle_current_want
 	if turtle_variant != "":
 		turtle.turtle_variant = load(turtle_variant)
+
+
+func get_default_window_position() -> Vector2i:
+	var rect := DisplayServer.get_display_safe_area()
+	var dims := DisplayServer.window_get_size()
+	return rect.get_center() - (dims / 2)

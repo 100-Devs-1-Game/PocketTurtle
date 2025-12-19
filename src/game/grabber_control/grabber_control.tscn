@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ucjb2prqft1y"]
+
+[ext_resource type="Texture2D" uid="uid://wcnig5g53w6k" path="res://assets/Art Assets/UI/grabber.svg" id="1_1e7r8"]
+[ext_resource type="Script" uid="uid://d2liwk8nlc5ar" path="res://game/grabber_control/grabber_control.gd" id="2_mjgmm"]
+
+[node name="Grabber" type="TextureRect"]
+modulate = Color(0.8509804, 0.7647059, 0.6745098, 1)
+offset_right = 256.0
+offset_bottom = 256.0
+texture = ExtResource("1_1e7r8")
+script = ExtResource("2_mjgmm")
