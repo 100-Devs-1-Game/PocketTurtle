@@ -11,6 +11,7 @@ const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 @export var turtle_texture_button: BaseButton
 @export var settings_menu: SettingsMenu
 @export var grabber_control: GrabberControl
+@export var turtle_variants: TurtleVariants
 
 var turtle: TurtleState
 
@@ -41,9 +42,11 @@ func _ready() -> void:
 		else:
 			# Missing or corrupt save file, use default.
 			turtle = TurtleState.new_default()
+			turtle.turtle_variant = load(turtle_variants.get_random_variant())
 	else:
 		# No save file, initialize with defaults.
 		turtle = TurtleState.new_default()
+		turtle.turtle_variant = load(turtle_variants.get_random_variant())
 
 	if turtle.turtle_stage != Enums.TurtleStage.EGG or turtle.turtle_name != "":
 		game_state = GameState.PLAYING
@@ -137,7 +140,7 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 		Enums.TurtleStage.EGG:
 			game_state = GameState.NAMING
 			turtle_controls.set_naming_controls_enabled(true)
-			turtle.turtle_variant = load(TurtleState.DEFAULT_TURTLE_VARIANTS.get_random_variant())
+			turtle.turtle_variant = load(turtle_variants.get_random_variant())
 			visual.set_turtle_variant(turtle.turtle_variant)
 			set_current_want(Enums.TurtleWants.NONE)
 			turtle_controls.set_controls_enabled(false)
