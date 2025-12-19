@@ -1,7 +1,7 @@
 extends Node
 
-const TITLE_SCREEN_SCENE = "res://game/title_screen/title_screen.tscn"
-const GAME_SCREEN_SCENE = "res://game/game/game.tscn"
+@export var title_screen_scene: PackedScene
+@export var game_screen_scene: PackedScene
 const TITLE_SCREEN_DELAY = 2.0
 
 func _ready() -> void:
@@ -10,11 +10,10 @@ func _ready() -> void:
 		# Set up the Window to be transparent.
 		make_window_transparent(get_window())
 	
-	var title_screen_scene = preload(TITLE_SCREEN_SCENE).instantiate()
-	var game_screen_scene = preload(GAME_SCREEN_SCENE)
-	add_child(title_screen_scene)
+	var title_screen = title_screen_scene.instantiate()
+	add_child(title_screen)
 	await get_tree().create_timer(TITLE_SCREEN_DELAY).timeout
-	title_screen_scene.queue_free()
+	title_screen.queue_free()
 	add_child(game_screen_scene.instantiate())
 
 func make_window_transparent(window: Window) -> void:
