@@ -74,8 +74,7 @@ func set_turtle_stage(new_turtle_stage: Enums.TurtleStage):
 
 
 func play_evolution_effects(p_next_stage: Enums.TurtleStage) -> void:
-	if not fidget_timer.is_stopped():
-		fidget_timer.stop()
+	fidget_timer.stop()
 	match p_next_stage:
 		Enums.TurtleStage.PASSING:
 			death_audio.play()
@@ -85,6 +84,8 @@ func play_evolution_effects(p_next_stage: Enums.TurtleStage) -> void:
 				c.visible = c.get_index() == Enums.TurtleStage.EGG
 			animation_player.play("egg_crack")
 			await animation_player.animation_finished
+			for c: Node2D in sprites.get_children():
+				c.visible = c.get_index() == Enums.TurtleStage.EGG
 			evolution_audio.play()
 		_:
 			evolution_audio.play()
@@ -116,15 +117,15 @@ func set_turtle_wants(new_want: Enums.TurtleWants, from_load: bool) -> void:
 
 func wash_turtle() -> void:
 	animation_player.stop()
-	fidget_timer.paused = true
+	fidget_timer.stop()
 	fx_animation_player.play("wash")
 	await fx_animation_player.animation_finished
-	fidget_timer.paused = false
+	fidget_timer.start()
 
 
 func pet_turtle() -> void:
 	animation_player.stop()
-	fidget_timer.paused = true
+	fidget_timer.stop()
 	
 	var animation_name: String
 	match turtle_stage:
@@ -138,12 +139,12 @@ func pet_turtle() -> void:
 	fx_animation_player.play("pet")
 	
 	await fx_animation_player.animation_finished
-	fidget_timer.paused = false
+	fidget_timer.start()
 
 
 func feed_turtle() -> void:
 	animation_player.stop()
-	fidget_timer.paused = true
+	fidget_timer.stop()
 	if turtle_stage == Enums.TurtleStage.BABY:
 		animation_player.play("feed_baby")
 		await animation_player.animation_finished
@@ -155,7 +156,7 @@ func feed_turtle() -> void:
 			Enums.TurtleStage.ELDERLY:
 				animation_player.play("elder_eat")
 		await fx_animation_player.animation_finished
-	fidget_timer.paused = false
+	fidget_timer.start()
 
 
 func _on_fidget_timer_timeout() -> void:
