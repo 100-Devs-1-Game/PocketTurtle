@@ -12,8 +12,8 @@ config_version=5
 
 config/name="Pocket Turtle"
 run/main_scene="uid://ck6nj6xklvev3"
-config/features=PackedStringArray("4.5", "GL Compatibility")
-boot_splash/bg_color=Color(0.14117648, 0.14117648, 0.14117648, 0)
+config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 0)
 boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false

@@ -116,7 +116,6 @@ func set_turtle_wants(new_want: Enums.TurtleWants, from_load: bool) -> void:
 
 
 func wash_turtle() -> void:
-	animation_player.stop()
 	fidget_timer.stop()
 	fx_animation_player.play("wash")
 	await fx_animation_player.animation_finished
@@ -124,7 +123,6 @@ func wash_turtle() -> void:
 
 
 func pet_turtle() -> void:
-	animation_player.stop()
 	fidget_timer.stop()
 	
 	var animation_name: String
@@ -137,7 +135,7 @@ func pet_turtle() -> void:
 			animation_name = "elder_blush"
 	animation_player.play(animation_name)
 	fx_animation_player.play("pet")
-	
+
 	await fx_animation_player.animation_finished
 	fidget_timer.start()
 

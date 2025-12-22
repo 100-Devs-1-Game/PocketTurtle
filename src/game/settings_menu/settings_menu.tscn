@@ -3,15 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://3ncmywe0t4qu" path="res://assets/Art Assets/UI/settings_background.png" id="1_h77k3"]
 [ext_resource type="Script" uid="uid://b448m43s886lk" path="res://game/settings_menu/settings_menu.gd" id="1_r7u86"]
 [ext_resource type="FontFile" uid="uid://co7bol411m67c" path="res://assets/Font/Chewy-Regular.ttf" id="3_8m0rt"]
-[ext_resource type="Texture2D" uid="uid://carig35q065ri" path="res://game/data/ui/checkbutton_checked.tres" id="4_g2x4v"]
-[ext_resource type="Texture2D" uid="uid://dkkoke5ghs0rf" path="res://game/data/ui/checkbutton_unchecked.tres" id="5_pnu0s"]
+[ext_resource type="Texture2D" uid="uid://dxqp42v6dfdri" path="res://assets/svg/toggle_on.svg" id="4_pnu0s"]
+[ext_resource type="Texture2D" uid="uid://2a82tadah1r0" path="res://assets/svg/toggle_off.svg" id="5_00sfl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnu0s"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
-bg_color = Color(0.4045111, 0.40451115, 0.4045111, 0.6)
+bg_color = Color(0.404511, 0.404511, 0.404511, 0.6)
 corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
@@ -38,11 +38,11 @@ offset_right = 1080.0
 offset_bottom = 1920.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.09803922, 0.09803922, 0.09803922, 0.43137255)
+color = Color(0.0980392, 0.0980392, 0.0980392, 0.431373)
 
 [node name="SettingsBackground" type="Sprite2D" parent="."]
 position = Vector2(538.5, 903)
-scale = Vector2(2.1152344, 2.0722656)
+scale = Vector2(2.11523, 2.07227)
 texture = ExtResource("1_h77k3")
 
 [node name="TextureButton" type="TextureButton" parent="."]
@@ -71,8 +71,8 @@ text = "SOUND EFFECTS"
 
 [node name="CheckButton" type="CheckButton" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_icons/checked = ExtResource("4_g2x4v")
-theme_override_icons/unchecked = ExtResource("5_pnu0s")
+theme_override_icons/checked = ExtResource("4_pnu0s")
+theme_override_icons/unchecked = ExtResource("5_00sfl")
 
 [node name="CreditsShowButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -96,7 +96,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.043039158, 0.04303915, 0.04303915, 0.43137255)
+color = Color(0.0430392, 0.0430392, 0.0430392, 0.431373)
 
 [node name="PanelContainer" type="PanelContainer" parent="CreditsContainer"]
 layout_mode = 1
@@ -106,9 +106,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -507.0
-offset_top = -526.2532
+offset_top = -526.253
 offset_right = 507.0
-offset_bottom = 526.2532
+offset_bottom = 526.253
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -125,7 +125,7 @@ layout_mode = 2
 [node name="RichTextLabel" type="RichTextLabel" parent="CreditsContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/default_color = Color(0.8509804, 0.7647059, 0.6745098, 1)
+theme_override_colors/default_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_fonts/normal_font = ExtResource("3_8m0rt")
 theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 64
