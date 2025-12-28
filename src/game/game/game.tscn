@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds2eh58jgfc40"]
+[gd_scene load_steps=9 format=3 uid="uid://ds2eh58jgfc40"]
 
 [ext_resource type="Script" uid="uid://d0s1ovrnexg26" path="res://game/game/game.gd" id="1_gcjq5"]
 [ext_resource type="Resource" uid="uid://dwhne0u7coton" path="res://game/data/turtle_variants/default_turtle_variants.tres" id="2_gsnfh"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://ekn7nk742n1o" path="res://game/turtle/turtle_visual.tscn" id="6_efj5v"]
 [ext_resource type="PackedScene" uid="uid://d1nw200qkejj4" path="res://game/settings_menu/settings_menu.tscn" id="6_gsnfh"]
 [ext_resource type="PackedScene" uid="uid://ucjb2prqft1y" path="res://game/grabber_control/grabber_control.tscn" id="6_wmtbk"]
+[ext_resource type="PackedScene" uid="uid://fho2pr5njhtx" path="res://game/resizer_control/resizer_control.tscn" id="8_wmtbk"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_controls", "visual", "turtle_texture_button", "settings_menu", "grabber_control")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_controls", "visual", "turtle_texture_button", "settings_menu", "grabber_control", "resizer_control")]
 script = ExtResource("1_gcjq5")
 turtle_controls = NodePath("TurtleControls")
 debug_controls = NodePath("DebugControls")
@@ -16,6 +17,7 @@ visual = NodePath("SubViewportContainer/SubViewport/World/Visual")
 turtle_texture_button = NodePath("TurtleClickRegionCanvasLayer/TurtleClickRegionTextureButton")
 settings_menu = NodePath("SettingsMenuCanvasLayer/SettingsMenu")
 grabber_control = NodePath("GrabberControlCanvasLayer/Grabber")
+resizer_control = NodePath("ResizerControlCanvasLayer/Resizer")
 turtle_variants = ExtResource("2_gsnfh")
 
 [node name="DebugControls" parent="." instance=ExtResource("5_suqcb")]
@@ -65,3 +67,18 @@ visible = false
 [node name="GrabberControlCanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Grabber" parent="GrabberControlCanvasLayer" instance=ExtResource("6_wmtbk")]
+
+[node name="ResizerControlCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Resizer" parent="ResizerControlCanvasLayer" instance=ExtResource("8_wmtbk")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
