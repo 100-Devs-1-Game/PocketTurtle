@@ -21,6 +21,8 @@ const VERSION = 1
 @export var sfx_enabled: bool = true
 # What the window position was last recorded as
 @export var window_position: Vector2i
+# What the last saved window size was.
+@export var window_size: Vector2i
 
 func to_dict() -> Dictionary:
 	return {
@@ -35,6 +37,10 @@ func to_dict() -> Dictionary:
 		"window_position": {
 			"x": window_position.x,
 			"y": window_position.y
+		},
+		"window_size" : {
+			"x": window_size.x,
+			"y": window_size.y,
 		}
 	}
 
@@ -61,8 +67,14 @@ func read_dict(dict: Dictionary) -> Error:
 				window_position.y = window_position_json.get("y")
 			else:
 				window_position = get_default_window_position()
-		else:
-			window_position = get_default_window_position()
+		
+		var window_size_json = dict.get("window_size")
+		if window_size_json is Dictionary:
+			if window_size_json.has("x") and window_size_json.has("y"):
+				window_size.x = window_size_json.get("x")
+				window_size.y = window_size_json.get("y")
+			else:
+				window_size = Vector2(540, 960)
 
 	return OK
 

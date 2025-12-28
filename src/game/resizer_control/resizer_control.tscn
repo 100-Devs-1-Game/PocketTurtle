@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://fho2pr5njhtx"]
+
+[ext_resource type="Texture2D" uid="uid://dkshmachypefo" path="res://assets/svg/resizer.svg" id="1_6ofye"]
+[ext_resource type="Script" uid="uid://br76wmq527av7" path="res://game/resizer_control/resizer_control.gd" id="2_kgl7y"]
+
+[node name="Resizer" type="TextureRect"]
+modulate = Color(0.85098, 0.764706, 0.67451, 1)
+offset_right = 256.0
+offset_bottom = 256.0
+texture = ExtResource("1_6ofye")
+script = ExtResource("2_kgl7y")

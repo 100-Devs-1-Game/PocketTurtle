@@ -11,6 +11,7 @@ const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 @export var turtle_texture_button: BaseButton
 @export var settings_menu: SettingsMenu
 @export var grabber_control: GrabberControl
+@export var resizer_control: ResizerControl
 @export var turtle_variants: TurtleVariants
 
 var turtle: TurtleState
@@ -80,12 +81,17 @@ func _ready() -> void:
 	visual.set_turtle_wants(turtle.turtle_wants, true)
 	visual.set_turtle_variant(turtle.turtle_variant)
 	
+	print(get_window().size)
+	
 	# Show the grabber control for a bit after the game starts.
 	var is_web := OS.get_name() == "Web"
 	grabber_control.visible = not is_web
+	resizer_control.visible = not is_web
 	if not is_web:
 		get_window().position = save_game_data.window_position
+		get_window().size = save_game_data.window_size
 		grabber_control.moved.connect(_on_grabber_control_moved)
+		resizer_control.moved.connect(_on_resizer_control_moved)
 
 
 func _process(delta: float) -> void:
@@ -103,6 +109,7 @@ func save_game() -> void:
 	save_game_data.time_scale = time_scale_factor
 	save_game_data.sfx_enabled = sfx_enabled
 	save_game_data.window_position = get_window().position
+	save_game_data.window_size = get_window().size
 
 	var dict := save_game_data.to_dict()
 	var json_string := JSON.stringify(dict)
@@ -252,3 +259,7 @@ func _on_grabber_control_moved(p_delta: Vector2i) -> void:
 	window_position.x = clamp(window_position.x, safe_area.position.x, end_point.x)
 	window_position.y =  clamp(window_position.y, safe_area.position.y, end_point.y)
 	get_window().position = window_position
+
+
+func _on_resizer_control_moved(p_delta: Vector2i) -> void:
+	get_window().size += p_delta
