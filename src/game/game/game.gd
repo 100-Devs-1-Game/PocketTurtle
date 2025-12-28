@@ -13,6 +13,7 @@ const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 @export var grabber_control: GrabberControl
 @export var resizer_control: ResizerControl
 @export var turtle_variants: TurtleVariants
+@export var min_window_size: Vector2i = Vector2i(270, 480)
 
 var turtle: TurtleState
 
@@ -92,7 +93,7 @@ func _ready() -> void:
 		get_window().size = save_game_data.window_size
 		grabber_control.moved.connect(_on_grabber_control_moved)
 		resizer_control.moved.connect(_on_resizer_control_moved)
-
+		clamp_window_size()
 
 func _process(delta: float) -> void:
 	if game_state == GameState.PLAYING:
@@ -194,6 +195,9 @@ func set_turtle_variant(new_turtle_variant: TurtleVariant) -> void:
 	turtle.turtle_variant = new_turtle_variant
 	visual.set_turtle_variant(new_turtle_variant)
 
+func clamp_window_size():
+	get_window().size= Vector2(max(get_window().size.x, min_window_size.x), max(get_window().size.y, min_window_size.y))
+
 #region Debug Controls Callbacks
 
 func _on_debug_controls_time_scale_changed(new_time_scale: float) -> void:
@@ -262,4 +266,8 @@ func _on_grabber_control_moved(p_delta: Vector2i) -> void:
 
 
 func _on_resizer_control_moved(p_delta: Vector2i) -> void:
+	p_delta.x= min(p_delta.x, p_delta.y)
+	p_delta.y= p_delta.x
+	
 	get_window().size += p_delta
+	clamp_window_size()
