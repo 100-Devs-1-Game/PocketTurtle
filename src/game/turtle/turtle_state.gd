@@ -19,6 +19,8 @@ signal wants_changed(new_wants: Enums.TurtleWants)
 
 @export var turtle_variant: TurtleVariant:
 	set = set_turtle_variant
+	
+var turtle_variant_index: int
 
 func set_turtle_name(new_name: String) -> void:
 	if turtle_name != new_name:

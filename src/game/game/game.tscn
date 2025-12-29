@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds2eh58jgfc40"]
+[gd_scene load_steps=12 format=3 uid="uid://ds2eh58jgfc40"]
 
 [ext_resource type="Script" uid="uid://d0s1ovrnexg26" path="res://game/game/game.gd" id="1_gcjq5"]
-[ext_resource type="Resource" uid="uid://dwhne0u7coton" path="res://game/data/turtle_variants/default_turtle_variants.tres" id="2_gsnfh"]
+[ext_resource type="Script" uid="uid://bprvptklo0i5k" path="res://game/data/turtle_variant.gd" id="2_16swb"]
+[ext_resource type="Resource" uid="uid://cc7l2y4w6jm86" path="res://game/data/turtle_variants/turtle_variant_a.tres" id="3_c3e8q"]
 [ext_resource type="PackedScene" uid="uid://8t5qxjkxl0h" path="res://game/turtle/turtle_controls.tscn" id="3_m7sxm"]
+[ext_resource type="Resource" uid="uid://dhdcjp8qcwwvt" path="res://game/data/turtle_variants/turtle_variant_b.tres" id="4_fneed"]
+[ext_resource type="Resource" uid="uid://ixuurw62ae7h" path="res://game/data/turtle_variants/turtle_variant_c.tres" id="5_b2gfv"]
 [ext_resource type="PackedScene" uid="uid://vtqx0offch3v" path="res://game/debug_controls/debug_controls.tscn" id="5_suqcb"]
 [ext_resource type="PackedScene" uid="uid://ekn7nk742n1o" path="res://game/turtle/turtle_visual.tscn" id="6_efj5v"]
 [ext_resource type="PackedScene" uid="uid://d1nw200qkejj4" path="res://game/settings_menu/settings_menu.tscn" id="6_gsnfh"]
@@ -18,7 +21,7 @@ turtle_texture_button = NodePath("TurtleClickRegionCanvasLayer/TurtleClickRegion
 settings_menu = NodePath("SettingsMenuCanvasLayer/SettingsMenu")
 grabber_control = NodePath("GrabberControlCanvasLayer/Grabber")
 resizer_control = NodePath("ResizerControlCanvasLayer/Resizer")
-turtle_variants = ExtResource("2_gsnfh")
+turtle_variants = Array[ExtResource("2_16swb")]([ExtResource("3_c3e8q"), ExtResource("4_fneed"), ExtResource("5_b2gfv")])
 
 [node name="DebugControls" parent="." instance=ExtResource("5_suqcb")]
 layer = 2
