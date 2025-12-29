@@ -12,10 +12,11 @@ const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 @export var settings_menu: SettingsMenu
 @export var grabber_control: GrabberControl
 @export var resizer_control: ResizerControl
-@export var turtle_variants: TurtleVariants
+@export var turtle_variants: Array[TurtleVariant]
 @export var min_window_size: Vector2i = Vector2i(270, 480)
 
 var turtle: TurtleState
+
 
 # The factor of how much in-game time elapses for real-life time.
 var time_scale_factor := 1.0
@@ -40,15 +41,20 @@ func _ready() -> void:
 		if save_game_data.read_dict(dict) == OK:
 			time_scale_factor = save_game_data.time_scale
 			save_game_data.load_turtle(turtle)
+			
+			if turtle.turtle_variant_index < 0 or turtle.turtle_variant_index > turtle_variants.size():
+				turtle.turtle_variant_index = 0
+
+			turtle.turtle_variant = turtle_variants[turtle.turtle_variant_index]
 			sfx_enabled = save_game_data.sfx_enabled
 		else:
 			# Missing or corrupt save file, use default.
 			turtle = TurtleState.new_default()
-			turtle.turtle_variant = load(turtle_variants.get_random_variant())
+			turtle.turtle_variant = turtle_variants.pick_random()
 	else:
 		# No save file, initialize with defaults.
 		turtle = TurtleState.new_default()
-		turtle.turtle_variant = load(turtle_variants.get_random_variant())
+		turtle.turtle_variant = turtle_variants.pick_random()
 
 	if turtle.turtle_stage != Enums.TurtleStage.EGG or turtle.turtle_name != "":
 		game_state = GameState.PLAYING
@@ -148,7 +154,8 @@ func set_stage(next_stage: Enums.TurtleStage) -> void:
 		Enums.TurtleStage.EGG:
 			game_state = GameState.NAMING
 			turtle_controls.set_naming_controls_enabled(true)
-			turtle.turtle_variant = load(turtle_variants.get_random_variant())
+			turtle.turtle_variant_index = randi_range(0, turtle_variants.size() - 1)
+			turtle.turtle_variant = turtle_variants[turtle.turtle_variant_index]
 			visual.set_turtle_variant(turtle.turtle_variant)
 			set_current_want(Enums.TurtleWants.NONE)
 			turtle_controls.set_controls_enabled(false)

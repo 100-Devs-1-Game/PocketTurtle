@@ -3,7 +3,7 @@ extends Resource
 
 
 ## Properties that are stored as JSON into a save game
-const VERSION = 1
+const VERSION = 2
 
 # Lifetime of the turtle's stage
 @export var turtle_stage_lifetime: float
@@ -11,8 +11,8 @@ const VERSION = 1
 @export var turtle_current_stage: Enums.TurtleStage
 # The current want the turtle has
 @export var turtle_current_want: Enums.TurtleWants
-# The turtle variant 
-@export var turtle_variant: String
+# The turtle variant index into the variants array
+@export var turtle_variant_index: int = -1
 # The time scale scale factor
 @export var time_scale: float = 1.0
 # The name of the turtle
@@ -30,7 +30,7 @@ func to_dict() -> Dictionary:
 		"turtle_stage_lifetime": turtle_stage_lifetime,
 		"turtle_current_stage": turtle_current_stage,
 		"turtle_current_want": turtle_current_want,
-		"turtle_variant": turtle_variant,
+		"turtle_variant_index": turtle_variant_index,
 		"time_scale": time_scale,
 		"turtle_name": turtle_name,
 		"sfx_enabled": sfx_enabled,
@@ -52,7 +52,7 @@ func read_dict(dict: Dictionary) -> Error:
 	turtle_stage_lifetime = dict.get("turtle_stage_lifetime")
 	turtle_current_stage = dict.get("turtle_current_stage")
 	turtle_current_want = dict.get("turtle_current_want")
-	turtle_variant = dict.get("turtle_variant")
+	turtle_variant_index = dict.get("turtle_variant_index") if dict.has("turtle_variant_index") else -1
 	time_scale = dict.get("time_scale") if dict.has("time_scale") else 1.0
 	if time_scale < 0 or is_zero_approx(time_scale):
 		time_scale = 1.0
@@ -82,16 +82,15 @@ func save_turtle(turtle: TurtleState) -> void:
 	turtle_stage_lifetime = turtle.stage_lifetime
 	turtle_current_stage = turtle.turtle_stage
 	turtle_current_want = turtle.turtle_wants
-	turtle_variant = turtle.turtle_variant.resource_path if turtle.turtle_variant else ""
 	turtle_name = turtle.turtle_name
+	turtle_variant_index = turtle.turtle_variant_index
 
 func load_turtle(turtle: TurtleState) -> void:
 	turtle.turtle_name = turtle_name
 	turtle.stage_lifetime = turtle_stage_lifetime
 	turtle.turtle_stage = turtle_current_stage
 	turtle.turtle_wants = turtle_current_want
-	if turtle_variant != "":
-		turtle.turtle_variant = load(turtle_variant)
+	turtle.turtle_variant_index = turtle_variant_index
 
 
 func get_default_window_position() -> Vector2i:
