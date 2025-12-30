@@ -65,7 +65,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Grabber" parent="UI" instance=ExtResource("6_wmtbk")]
 texture_filter = 4
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
@@ -75,7 +75,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Resizer" parent="UI" instance=ExtResource("8_wmtbk")]
 texture_filter = 4
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
