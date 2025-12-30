@@ -1,5 +1,5 @@
 class_name DebugControls
-extends CanvasLayer
+extends PanelContainer
 
 
 const GAME_SPEEDS = [

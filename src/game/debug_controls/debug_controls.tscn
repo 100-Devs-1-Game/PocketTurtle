@@ -10,7 +10,7 @@ font_size = 64
 [sub_resource type="Theme" id="Theme_7q7ho"]
 PopupMenu/colors/font_accelerator_color = Color(0, 0, 0, 1)
 PopupMenu/colors/font_color = Color(1, 1, 1, 1)
-PopupMenu/colors/font_disabled_color = Color(0.33022144, 0.33022144, 0.33022144, 1)
+PopupMenu/colors/font_disabled_color = Color(0.330221, 0.330221, 0.330221, 1)
 PopupMenu/colors/font_hover_color = Color(0, 0, 0, 1)
 PopupMenu/colors/font_outline_color = Color(0, 0, 0, 1)
 PopupMenu/colors/font_separator_color = Color(0, 0, 0, 1)
@@ -43,140 +43,135 @@ PopupMenu/styles/labeled_separator_right = null
 PopupMenu/styles/panel = null
 PopupMenu/styles/separator = null
 
-[node name="DebugCanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label", "current_want_label", "set_current_want_option_button", "set_time_scale_option_button")]
+[node name="DebugCanvasLayer" type="PanelContainer" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label", "current_want_label", "set_current_want_option_button", "set_time_scale_option_button")]
 script = ExtResource("1_gmrku")
-turtle_stage_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLabel")
-turtle_stage_timer_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLifetimeLabel")
-set_state_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/SetStateOptionButton")
-time_to_next_state_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TimeToNextStateLabel")
-current_want_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/CurrentlyWantsLabel")
-set_current_want_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/ChangeWantsOptionButton")
-set_time_scale_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer/SetGameSpeedOptionButton")
+turtle_stage_label = NodePath("MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLabel")
+turtle_stage_timer_label = NodePath("MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLifetimeLabel")
+set_state_option_button = NodePath("MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/SetStateOptionButton")
+time_to_next_state_label = NodePath("MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TimeToNextStateLabel")
+current_want_label = NodePath("MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/CurrentlyWantsLabel")
+set_current_want_option_button = NodePath("MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/ChangeWantsOptionButton")
+set_time_scale_option_button = NodePath("MarginContainer/DebugContainer/VBoxContainer/GridContainer/SetGameSpeedOptionButton")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="DebugContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="DebugContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/DebugContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/DebugContainer"]
 layout_mode = 2
 text = "Debug Panel"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/DebugContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/DebugContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/DebugContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/DebugContainer"]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="MarginContainer/DebugContainer/VBoxContainer"]
 layout_mode = 2
 text = "Game Debug"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/DebugContainer/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer"]
+[node name="Label" type="Label" parent="MarginContainer/DebugContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Game Speed: "
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="SetGameSpeedOptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer"]
+[node name="SetGameSpeedOptionButton" type="OptionButton" parent="MarginContainer/DebugContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_7q7ho")
 theme_override_fonts/font = ExtResource("2_i6ckk")
 theme_override_font_sizes/font_size = 64
 
-[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/DebugContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/DebugContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="TurtleStatsContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/DebugContainer"]
+[node name="TurtleStatsContainer" type="VBoxContainer" parent="MarginContainer/DebugContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer"]
+[node name="Label" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer"]
 layout_mode = 2
 text = "Turtle Debug"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/DebugContainer/TurtleStatsContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 32
 columns = 2
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 text = "Turtle State:"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="TurtleStateLabel" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="TurtleStateLabel" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="Label3" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 text = "Time In Current State:"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="TurtleStateLifetimeLabel" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="TurtleStateLifetimeLabel" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="Label4" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 text = "Set State To:"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="SetStateOptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="SetStateOptionButton" type="OptionButton" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 theme = SubResource("Theme_7q7ho")
 theme_override_fonts/font = ExtResource("2_i6ckk")
 theme_override_font_sizes/font_size = 64
 
-[node name="Label5" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="Label5" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 text = "Time to Next State:"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="TimeToNextStateLabel" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="TimeToNextStateLabel" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 label_settings = SubResource("LabelSettings_xvake")
 autowrap_mode = 3
 
-[node name="Label6" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="Label6" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 text = "Currently Wants:"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="CurrentlyWantsLabel" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="CurrentlyWantsLabel" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 label_settings = SubResource("LabelSettings_xvake")
 autowrap_mode = 3
 
-[node name="Label7" type="Label" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="Label7" type="Label" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 text = "Change Wants To:"
 label_settings = SubResource("LabelSettings_xvake")
 
-[node name="ChangeWantsOptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
+[node name="ChangeWantsOptionButton" type="OptionButton" parent="MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
 theme = SubResource("Theme_7q7ho")
 theme_override_fonts/font = ExtResource("2_i6ckk")
