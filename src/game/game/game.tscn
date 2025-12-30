@@ -64,22 +64,32 @@ offset_bottom = 1234.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Grabber" parent="UI" instance=ExtResource("6_wmtbk")]
+texture_filter = 4
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+expand_mode = 1
+stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
 [node name="Resizer" parent="UI" instance=ExtResource("8_wmtbk")]
+texture_filter = 4
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -256.0
+offset_left = -64.0
+offset_top = -64.0
 offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 0
+expand_mode = 1
+stretch_mode = 4
 
 [node name="TurtleControls" parent="UI" instance=ExtResource("3_m7sxm")]
 layout_mode = 1
