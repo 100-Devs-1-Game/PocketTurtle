@@ -268,13 +268,23 @@ func _on_grabber_control_moved(p_delta: Vector2i) -> void:
 	var safe_area := DisplayServer.get_display_safe_area()
 	var end_point := safe_area.end - window_size
 	window_position.x = clamp(window_position.x, safe_area.position.x, end_point.x)
-	window_position.y =  clamp(window_position.y, safe_area.position.y, end_point.y)
+	window_position.y = clamp(window_position.y, safe_area.position.y, end_point.y)
 	get_window().position = window_position
 
 
 func _on_resizer_control_moved(p_delta: Vector2i) -> void:
-	p_delta.x= min(p_delta.x, p_delta.y)
-	p_delta.y= p_delta.x
+	p_delta.x = min(p_delta.x, p_delta.y)
+	p_delta.y = p_delta.x
+	var pos := get_window().position
+	var size := get_window().size + p_delta
+	if size.x < 0 or size.y < 0:
+		return
 	
-	get_window().size += p_delta
+	# Don't allow resizing into the safe area.
+	var window_size := DisplayServer.window_get_size()
+	var safe_area := DisplayServer.get_display_safe_area()
+	if not safe_area.encloses(Rect2i(pos, size)):
+		return
+
+	get_window().size = size
 	clamp_window_size()

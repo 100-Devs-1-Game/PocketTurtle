@@ -1,5 +1,5 @@
 class_name TurtleControls
-extends CanvasLayer
+extends Control
 
 signal feed_pressed()
 signal pet_pressed()

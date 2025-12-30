@@ -18,6 +18,7 @@ func _ready() -> void:
 
 func make_window_transparent(window: Window) -> void:
 	ProjectSettings.set("display/window/per_pixel_transparency/allowed", true)
+	window.always_on_top = true
 	window.unresizable = true
 	window.transparent = true
 	window.transparent_bg = true

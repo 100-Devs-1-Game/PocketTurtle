@@ -14,66 +14,61 @@
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("turtle_controls", "debug_controls", "visual", "turtle_texture_button", "settings_menu", "grabber_control", "resizer_control")]
 script = ExtResource("1_gcjq5")
-turtle_controls = NodePath("TurtleControls")
-debug_controls = NodePath("DebugControls")
-visual = NodePath("SubViewportContainer/SubViewport/World/Visual")
-turtle_texture_button = NodePath("TurtleClickRegionCanvasLayer/TurtleClickRegionTextureButton")
-settings_menu = NodePath("SettingsMenuCanvasLayer/SettingsMenu")
-grabber_control = NodePath("GrabberControlCanvasLayer/Grabber")
-resizer_control = NodePath("ResizerControlCanvasLayer/Resizer")
+turtle_controls = NodePath("UI/TurtleControls")
+debug_controls = NodePath("UI/DebugControls")
+visual = NodePath("UI/SubViewportContainer/SubViewport/World/Visual")
+turtle_texture_button = NodePath("UI/TurtleClickRegionTextureButton")
+settings_menu = NodePath("UI/SettingsMenu")
+grabber_control = NodePath("UI/Grabber")
+resizer_control = NodePath("UI/Resizer")
 turtle_variants = Array[ExtResource("2_16swb")]([ExtResource("3_c3e8q"), ExtResource("4_fneed"), ExtResource("5_b2gfv")])
 
-[node name="DebugControls" parent="." instance=ExtResource("5_suqcb")]
-layer = 2
-visible = false
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1080.0
+offset_bottom = 1920.0
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 15.0
-offset_top = 505.0
-offset_right = 1039.0
-offset_bottom = 1529.0
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 stretch_shrink = 2
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
-[node name="World" type="Node2D" parent="SubViewportContainer/SubViewport"]
+[node name="World" type="Node2D" parent="UI/SubViewportContainer/SubViewport"]
 position = Vector2(256, 256)
 
-[node name="Visual" parent="SubViewportContainer/SubViewport/World" instance=ExtResource("6_efj5v")]
+[node name="Visual" parent="UI/SubViewportContainer/SubViewport/World" instance=ExtResource("6_efj5v")]
 
-[node name="TurtleClickRegionCanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TurtleClickRegionTextureButton" type="TextureButton" parent="TurtleClickRegionCanvasLayer"]
+[node name="TurtleClickRegionTextureButton" type="TextureButton" parent="UI"]
+layout_mode = 0
 offset_left = 202.0
 offset_top = 680.0
 offset_right = 830.0
 offset_bottom = 1234.0
+metadata/_edit_use_anchors_ = true
 
-[node name="TurtleControls" parent="." instance=ExtResource("3_m7sxm")]
+[node name="Grabber" parent="UI" instance=ExtResource("6_wmtbk")]
+layout_mode = 0
+metadata/_edit_use_anchors_ = true
 
-[node name="SettingsMenuCanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="SettingsMenu" parent="SettingsMenuCanvasLayer" instance=ExtResource("6_gsnfh")]
-visible = false
-
-[node name="GrabberControlCanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Grabber" parent="GrabberControlCanvasLayer" instance=ExtResource("6_wmtbk")]
-
-[node name="ResizerControlCanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Resizer" parent="ResizerControlCanvasLayer" instance=ExtResource("8_wmtbk")]
+[node name="Resizer" parent="UI" instance=ExtResource("8_wmtbk")]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -85,3 +80,24 @@ offset_right = 0.0
 offset_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="TurtleControls" parent="UI" instance=ExtResource("3_m7sxm")]
+layout_mode = 1
+
+[node name="SettingsMenu" parent="UI" instance=ExtResource("6_gsnfh")]
+visible = false
+layout_mode = 1
+
+[node name="DebugControls" parent="UI" instance=ExtResource("5_suqcb")]
+visible = false
+layout_mode = 0
+offset_right = 643.0
+offset_bottom = 926.0
+
+[node name="TurtleClickRegionCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SettingsMenuCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GrabberControlCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ResizerControlCanvasLayer" type="CanvasLayer" parent="."]
