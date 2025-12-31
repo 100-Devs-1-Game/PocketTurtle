@@ -16,47 +16,30 @@
 script = ExtResource("1_gcjq5")
 turtle_controls = NodePath("UI/TurtleControls")
 debug_controls = NodePath("UI/DebugControls")
-visual = NodePath("UI/SubViewportContainer/SubViewport/World/Visual")
+visual = NodePath("World/Visual")
 turtle_texture_button = NodePath("UI/TurtleClickRegionTextureButton")
 settings_menu = NodePath("UI/SettingsMenu")
 grabber_control = NodePath("UI/Grabber")
 resizer_control = NodePath("UI/Resizer")
 turtle_variants = Array[ExtResource("2_16swb")]([ExtResource("3_c3e8q"), ExtResource("4_fneed"), ExtResource("5_b2gfv")])
 
+[node name="World" type="Node2D" parent="."]
+position = Vector2(520, 444)
+
+[node name="Visual" parent="World" instance=ExtResource("6_efj5v")]
+
 [node name="UI" type="Control" parent="."]
+z_index = 10
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1080.0
-offset_bottom = 1920.0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="UI"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -512.0
-offset_top = -512.0
-offset_right = 512.0
-offset_bottom = 512.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-stretch_shrink = 2
-
-[node name="SubViewport" type="SubViewport" parent="UI/SubViewportContainer"]
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="World" type="Node2D" parent="UI/SubViewportContainer/SubViewport"]
-position = Vector2(256, 256)
-
-[node name="Visual" parent="UI/SubViewportContainer/SubViewport/World" instance=ExtResource("6_efj5v")]
+offset_bottom = 960.0
 
 [node name="TurtleClickRegionTextureButton" type="TextureButton" parent="UI"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.532292
+anchor_bottom = -0.532292
 offset_left = 202.0
 offset_top = 680.0
 offset_right = 830.0
@@ -91,26 +74,17 @@ grow_vertical = 0
 expand_mode = 1
 stretch_mode = 4
 
-[node name="TurtleControls" parent="UI" node_paths=PackedStringArray("turtle_name_edit", "button_controls", "eat_button", "pet_button", "wash_button", "naming_controls", "submit_name_button", "name_label") instance=ExtResource("3_m7sxm")]
-turtle_name_edit = NodePath("Controls/NamingControls/VBoxContainer/HBoxContainer/NameLineEdit")
-button_controls = NodePath("Controls/ButtonControls")
-eat_button = NodePath("Controls/ButtonControls/EatButton")
-pet_button = NodePath("Controls/ButtonControls/PetButton")
-wash_button = NodePath("Controls/ButtonControls/WashButton")
-naming_controls = NodePath("Controls/NamingControls")
-submit_name_button = NodePath("Controls/NamingControls/VBoxContainer/HBoxContainer/Button")
-name_label = NodePath("Controls/NameLabel")
+[node name="TurtleControls" parent="UI" instance=ExtResource("3_m7sxm")]
+layout_mode = 1
 
 [node name="SettingsMenu" parent="UI" instance=ExtResource("6_gsnfh")]
 visible = false
 layout_mode = 1
 
-[node name="DebugControls" parent="UI" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label", "current_want_label", "set_current_want_option_button", "set_time_scale_option_button") instance=ExtResource("5_suqcb")]
+[node name="DebugControls" parent="UI" instance=ExtResource("5_suqcb")]
 visible = false
-turtle_stage_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLabel")
-turtle_stage_timer_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLifetimeLabel")
-set_state_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/SetStateOptionButton")
-time_to_next_state_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TimeToNextStateLabel")
-current_want_label = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/CurrentlyWantsLabel")
-set_current_want_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/ChangeWantsOptionButton")
-set_time_scale_option_button = NodePath("PanelContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer/SetGameSpeedOptionButton")
+z_index = 3
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+grow_horizontal = 1
