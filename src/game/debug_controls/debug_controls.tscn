@@ -5,7 +5,6 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_xvake"]
 font = ExtResource("2_i6ckk")
-font_size = 64
 
 [sub_resource type="Theme" id="Theme_7q7ho"]
 PopupMenu/colors/font_accelerator_color = Color(0, 0, 0, 1)
@@ -24,7 +23,7 @@ PopupMenu/constants/outline_size = 0
 PopupMenu/constants/separator_outline_size = 0
 PopupMenu/constants/v_separation = 0
 PopupMenu/font_sizes/font_separator_size = 16
-PopupMenu/font_sizes/font_size = 64
+PopupMenu/font_sizes/font_size = 16
 PopupMenu/fonts/font = ExtResource("2_i6ckk")
 PopupMenu/fonts/font_separator = null
 PopupMenu/icons/checked = null
@@ -44,10 +43,11 @@ PopupMenu/styles/panel = null
 PopupMenu/styles/separator = null
 
 [node name="DebugCanvasLayer" type="PanelContainer" node_paths=PackedStringArray("turtle_stage_label", "turtle_stage_timer_label", "set_state_option_button", "time_to_next_state_label", "current_want_label", "set_current_want_option_button", "set_time_scale_option_button")]
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 926.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_gmrku")
 turtle_stage_label = NodePath("ScrollContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLabel")
 turtle_stage_timer_label = NodePath("ScrollContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer/TurtleStateLifetimeLabel")
@@ -58,7 +58,7 @@ set_current_want_option_button = NodePath("ScrollContainer/MarginContainer/Debug
 set_time_scale_option_button = NodePath("ScrollContainer/MarginContainer/DebugContainer/VBoxContainer/GridContainer/SetGameSpeedOptionButton")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(1080, 960)
+custom_minimum_size = Vector2(280, 280)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
@@ -103,7 +103,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = SubResource("Theme_7q7ho")
 theme_override_fonts/font = ExtResource("2_i6ckk")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 16
 
 [node name="HSeparator2" type="HSeparator" parent="ScrollContainer/MarginContainer/DebugContainer"]
 layout_mode = 2
@@ -149,7 +149,7 @@ label_settings = SubResource("LabelSettings_xvake")
 layout_mode = 2
 theme = SubResource("Theme_7q7ho")
 theme_override_fonts/font = ExtResource("2_i6ckk")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 16
 
 [node name="Label5" type="Label" parent="ScrollContainer/MarginContainer/DebugContainer/TurtleStatsContainer/GridContainer"]
 layout_mode = 2
@@ -184,4 +184,4 @@ label_settings = SubResource("LabelSettings_xvake")
 layout_mode = 2
 theme = SubResource("Theme_7q7ho")
 theme_override_fonts/font = ExtResource("2_i6ckk")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 16

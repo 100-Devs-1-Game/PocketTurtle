@@ -34,13 +34,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -388.0
-offset_top = 176.0
-offset_right = 388.0
-offset_bottom = 432.0
+offset_left = -75.0
+offset_top = 75.0
+offset_right = 757.0
+offset_bottom = 331.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.2, 0.2)
 size_flags_horizontal = 0
+theme_override_constants/separation = 32
 
 [node name="EatButton" type="TextureButton" parent="ButtonControls"]
 custom_minimum_size = Vector2(256, 256)
@@ -96,7 +98,7 @@ size_flags_vertical = 4
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 25
 text = "Enter a Name 
 to Get Started!"
 
@@ -109,7 +111,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 25
 text = "Tortle"
 alignment = 3
 
@@ -120,26 +122,23 @@ theme_override_colors/font_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_colors/font_focus_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_colors/font_pressed_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 25
 disabled = true
 text = "OKAY!"
 
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -194.0
-offset_top = -437.0
-offset_right = 151.0
-offset_bottom = -244.0
+offset_left = -55.0
+offset_top = 2.0
+offset_right = 60.0
+offset_bottom = 67.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_colors/font_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_fonts/font = ExtResource("8_d3b2u")
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 25
 text = "Tortle"
 horizontal_alignment = 1
 vertical_alignment = 1

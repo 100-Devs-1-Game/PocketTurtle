@@ -21,8 +21,8 @@ config/icon="uid://b0848eeue3n0t"
 
 [display]
 
-window/size/viewport_width=1080
-window/size/viewport_height=960
+window/size/viewport_width=280
+window/size/viewport_height=280
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true
