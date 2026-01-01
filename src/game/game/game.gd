@@ -13,7 +13,7 @@ const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 @export var grabber_control: GrabberControl
 @export var resizer_control: ResizerControl
 @export var turtle_variants: Array[TurtleVariant]
-@export var min_window_size: Vector2i = Vector2i(540, 1920/4)
+@export var min_window_size: Vector2i = Vector2i(320, 320)
 
 var turtle: TurtleState
 

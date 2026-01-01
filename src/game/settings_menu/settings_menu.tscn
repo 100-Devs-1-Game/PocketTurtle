@@ -43,18 +43,21 @@ color = Color(0.0980392, 0.0980392, 0.0980392, 0.431373)
 
 [node name="SettingsBackground" type="TextureRect" parent="."]
 layout_mode = 1
-scale = Vector2(2.11523, 2.07227)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_h77k3")
 expand_mode = 1
-stretch_mode = 2
 
 [node name="TextureButton" type="TextureButton" parent="SettingsBackground"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 377.264
-offset_right = 513.264
+offset_left = -136.0
+offset_right = -3.05176e-05
 offset_bottom = 107.0
 grow_horizontal = 0
 
@@ -65,12 +68,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -258.0
-offset_top = -89.0
-offset_right = 258.0
-offset_bottom = 89.0
+offset_left = -136.0
+offset_top = -44.0
+offset_right = 380.0
+offset_bottom = 134.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -94,6 +98,7 @@ theme_override_font_sizes/font_size = 64
 text = "CREDITS"
 
 [node name="CreditsContainer" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -133,8 +138,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/default_color = Color(0.85098, 0.764706, 0.67451, 1)
 theme_override_fonts/normal_font = ExtResource("3_8m0rt")
-theme_override_font_sizes/normal_font_size = 64
-theme_override_font_sizes/bold_font_size = 64
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
 bbcode_enabled = true
 text = "[center]CREDITS[/center]
 [b]Lead/Art[/b]
@@ -153,6 +158,6 @@ layout_mode = 2
 [node name="CreditsCloseButton" type="Button" parent="CreditsContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_8m0rt")
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxFlat_pnu0s")
 text = "CLOSE"

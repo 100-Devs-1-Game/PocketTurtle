@@ -189,6 +189,5 @@ func _on_fidget_timer_timeout() -> void:
 						print("Idle timer called on a stage that doesn't have a blink animation")
 						return
 
-	print(animation_name)
 	animation_player.play(animation_name)
 	fidget_timer.start()

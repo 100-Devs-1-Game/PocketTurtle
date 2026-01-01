@@ -24,53 +24,64 @@ resizer_control = NodePath("UI/Resizer")
 turtle_variants = Array[ExtResource("2_16swb")]([ExtResource("3_c3e8q"), ExtResource("4_fneed"), ExtResource("5_b2gfv")])
 
 [node name="World" type="Node2D" parent="."]
-position = Vector2(520, 444)
 
 [node name="Visual" parent="World" instance=ExtResource("6_efj5v")]
+position = Vector2(140, 140)
+scale = Vector2(0.5, 0.5)
 
 [node name="UI" type="Control" parent="."]
 z_index = 10
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1080.0
-offset_bottom = 960.0
+offset_right = 280.0
+offset_bottom = 280.0
 
 [node name="TurtleClickRegionTextureButton" type="TextureButton" parent="UI"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 1
 anchors_preset = -1
-anchor_top = -0.532292
-anchor_bottom = -0.532292
-offset_left = 202.0
-offset_top = 680.0
-offset_right = 830.0
-offset_bottom = 1234.0
+anchor_left = -0.09375
+anchor_top = -1.54375
+anchor_right = 0.439583
+anchor_bottom = -0.74375
+offset_left = 219.0
+offset_top = 583.0
+offset_right = 91.0
+offset_bottom = 455.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Grabber" parent="UI" instance=ExtResource("6_wmtbk")]
 texture_filter = 4
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 0
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_top = 0.0239583
+anchor_right = 0.134259
+anchor_bottom = 0.090625
 offset_right = 64.0
 offset_bottom = 64.0
+scale = Vector2(0.4, 0.4)
 expand_mode = 1
 stretch_mode = 4
 metadata/_edit_use_anchors_ = true
 
 [node name="Resizer" parent="UI" instance=ExtResource("8_wmtbk")]
 texture_filter = 4
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 0.0
-offset_bottom = 0.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
 grow_horizontal = 0
 grow_vertical = 0
+scale = Vector2(0.4, 0.4)
 expand_mode = 1
 stretch_mode = 4
 
@@ -87,4 +98,6 @@ z_index = 3
 layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
+anchor_bottom = 0.0
 grow_horizontal = 1
+grow_vertical = 1
