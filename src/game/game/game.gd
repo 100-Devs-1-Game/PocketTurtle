@@ -2,6 +2,7 @@ extends Node2D
 
 const TIME_BETWEEN_SAVES_SECONDS = 1.0
 const SAVE_PATH = "user://save.json"
+const CONFIG_PATH = "user://config.ini"
 # How often the turtle reevaluates its wants, default is 15 minutes.
 const WANTS_EVALUATION_FREQUENCY_SECONDS: float = 15 * 60
 
@@ -30,16 +31,30 @@ enum GameState {
 
 var game_state: GameState = GameState.NAMING
 var sfx_enabled: bool = true
+var cheats_enabled: bool = false
 
 func _ready() -> void:
 	turtle = TurtleState.new()
 	var save_game_data := SaveGameData.new()
+	
+	# Read in the game's config file
+	if FileAccess.file_exists(CONFIG_PATH):
+		var cfg := ConfigFile.new()
+		cfg.load(CONFIG_PATH)
+		cheats_enabled = cfg.get_value("", "cheats_enabled", false)
+	else:
+		# Create a dummy config ini so that way people can see
+		# where the config.ini lives.
+		var cfg := ConfigFile.new()
+		cfg.save(CONFIG_PATH)
+		
+	
 	# Read in the previous save file if it exists
 	if FileAccess.file_exists(SAVE_PATH):
 		var save_file_contents := FileAccess.get_file_as_string(SAVE_PATH)
 		var dict: Dictionary = JSON.parse_string(save_file_contents)
 		if save_game_data.read_dict(dict) == OK:
-			time_scale_factor = save_game_data.time_scale
+			time_scale_factor = save_game_data.time_scale if cheats_enabled else 1.0
 			save_game_data.load_turtle(turtle)
 			
 			if turtle.turtle_variant_index < 0 or turtle.turtle_variant_index > turtle_variants.size():
@@ -130,7 +145,7 @@ func save_game() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.physical_keycode == Key.KEY_QUOTELEFT and event.pressed:
+		if cheats_enabled and event.physical_keycode == Key.KEY_QUOTELEFT and event.pressed:
 			debug_controls.visible = not debug_controls.visible
 
 
